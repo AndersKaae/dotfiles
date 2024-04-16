@@ -40,7 +40,9 @@ return {
         "vimdoc",
         "html",
         "css",
-        "python"
+        "python",
+        "javascript",
+        "typescript"
       },
     },
   },
