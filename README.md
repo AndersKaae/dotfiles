@@ -5,6 +5,8 @@ https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/
 
 2) Open iTerm2 and go to iTerm2 -> Preferences -> Profiles -> Colors -> Color Presets -> Import and select the Solarized Dark theme file you just downloaded.
 
-3) Run stow . in the dotfiles directory to symlink the dotfiles to your home directory.
+3) Install Install oh-my-zsh from https://ohmyz.sh/#install
 
-4) Install Install oh-my-zsh from https://ohmyz.sh/#install
+4) Install the tmux plugin manager from https://github.com/tmux-plugins/tpm
+
+0) Run stow . in the dotfiles directory to symlink the dotfiles to your home directory.
