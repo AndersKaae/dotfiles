@@ -1,4 +1,4 @@
-Install the packages by doing the following:
+Install the packages om Mac by doing the following:
 
 1) Download solarized theme from:
 https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Dark%20-%20Patched.iTerm2-Color-Schemes
@@ -10,3 +10,6 @@ https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/
 4) Install the tmux plugin manager from https://github.com/tmux-plugins/tpm
 
 0) Run stow . in the dotfiles directory to symlink the dotfiles to your home directory.
+
+Install on Linux
+Same but use https://github.com/ohmybash/oh-my-bash instead
