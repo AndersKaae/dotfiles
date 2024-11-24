@@ -65,6 +65,23 @@ return {
     end
   },
   {
+    "akinsho/bufferline.nvim",
+    version = "*", -- Use the latest stable version
+    dependencies = "nvim-tree/nvim-web-devicons", -- Optional for file icons
+    config = function()
+      require("bufferline").setup({
+        options = {
+          numbers = "none", -- or "ordinal" | "buffer_id" | "both"
+          indicator = { style = "icon", icon = "▎" }, -- Or a custom indicator
+          modified_icon = "●", -- Icon to show unsaved changes
+          show_close_icon = true,
+          diagnostics = "nvim_lsp", -- Show LSP diagnostics
+          separator_style = "slant", -- Customize separators
+        },
+      })
+    end,
+  },
+  {
     "folke/todo-comments.nvim",
     lazy = false,
     dependencies = { "nvim-lua/plenary.nvim" },
