@@ -27,7 +27,8 @@ return {
         "pyright",
         "vue-language-server",
         "typescript-language-server",
-        "gopls"
+        "gopls",
+        "omnisharp"
       },
     },
   },
@@ -48,7 +49,8 @@ return {
         "jsonc",
         "yaml",
         "toml",
-        "go"
+        "go",
+        "c_sharp"
       },
     },
   },
