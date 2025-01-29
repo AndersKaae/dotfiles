@@ -1,0 +1,9 @@
+{
+	"font_size": 13,
+	"ignored_packages": [
+	],
+	"index_files": true,
+	"color_scheme": "Mariana.sublime-color-scheme",
+	"theme": "auto",
+	"save_on_focus_lost": true,
+}
