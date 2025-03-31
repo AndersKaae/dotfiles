@@ -235,7 +235,7 @@ require("lazy").setup({
 					auto_trigger = true, -- <- this is important!
 					debounce = 75,
 					keymap = {
-						accept = "<C-l>",
+						accept = "<C-j>",
 						next = "<M-]>",
 						prev = "<M-[>",
 						dismiss = "<C-]>",
@@ -278,6 +278,13 @@ require("lazy").setup({
 			}
 
 			alpha.setup(dashboard.opts)
+		end,
+	},
+	{
+		"nvim-colortils/colortils.nvim",
+		cmd = "Colortils",
+		config = function()
+			require("colortils").setup()
 		end,
 	},
 
