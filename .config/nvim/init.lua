@@ -75,6 +75,8 @@ vim.opt.scrolloff = 15
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+vim.opt.termguicolors = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -199,9 +201,24 @@ require("lazy").setup({
 		"nvim-tree/nvim-tree.lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("nvim-tree").setup({})
+			require("nvim-tree").setup({
+				renderer = {
+					icons = {
+						glyphs = {
+							git = {
+								unstaged = "✗",
+								staged = "✓",
+								unmerged = "",
+								renamed = "➜",
+								untracked = "★",
+								deleted = "",
+								ignored = "◌",
+							},
+						},
+					},
+				},
+			})
 
-			-- The keymap goes here to ensure nvim-tree is loaded first
 			vim.keymap.set("n", "<leader>e", function()
 				require("nvim-tree.api").tree.toggle()
 			end, { desc = "Toggle NvimTree" })
@@ -991,6 +1008,19 @@ require("lazy").setup({
 			lazy = "💤 ",
 		},
 	},
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "NvimTreeGitStaged", { fg = "#A6E3A1" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#F9E2AF" }) -- <-- correct
+		vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#89DCEB" }) -- <-- correct
+		vim.api.nvim_set_hl(0, "NvimTreeGitRenamed", { fg = "#DDB6F2" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitDeleted", { fg = "#F28FAD" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { fg = "#6C7086" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitMerge", { fg = "#F38BA8" }) -- <-- correct
+	end,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
