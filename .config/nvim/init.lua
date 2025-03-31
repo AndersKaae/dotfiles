@@ -227,12 +227,21 @@ require("lazy").setup({
 
 	{
 		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = true },
-				panel = { enabled = true },
+				suggestion = {
+					enabled = true,
+					auto_trigger = true, -- <- this is important!
+					debounce = 75,
+					keymap = {
+						accept = "<C-l>",
+						next = "<M-]>",
+						prev = "<M-[>",
+						dismiss = "<C-]>",
+					},
+				},
+				panel = { enabled = false }, -- you can enable it later
 			})
 		end,
 	},
