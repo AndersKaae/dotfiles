@@ -634,8 +634,8 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
+				gopls = {},
+				pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -942,6 +942,8 @@ require("lazy").setup({
 				"query",
 				"vim",
 				"vimdoc",
+				"go",
+				"python",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
@@ -1008,19 +1010,6 @@ require("lazy").setup({
 			lazy = "💤 ",
 		},
 	},
-})
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "NvimTreeGitStaged", { fg = "#A6E3A1" })
-		vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#F9E2AF" }) -- <-- correct
-		vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#89DCEB" }) -- <-- correct
-		vim.api.nvim_set_hl(0, "NvimTreeGitRenamed", { fg = "#DDB6F2" })
-		vim.api.nvim_set_hl(0, "NvimTreeGitDeleted", { fg = "#F28FAD" })
-		vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { fg = "#6C7086" })
-		vim.api.nvim_set_hl(0, "NvimTreeGitMerge", { fg = "#F38BA8" }) -- <-- correct
-	end,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
