@@ -289,6 +289,20 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		config = function()
+			require("rose-pine").setup({
+				-- Optional settings
+				variant = "auto", -- "auto", "main", "moon", "dawn"
+				dark_variant = "main", -- "main", "moon"
+				disable_background = true, -- if you want transparency
+			})
+			--vim.cmd("colorscheme rose-pine") -- uncomment to activate colorscheme
+		end,
+	},
+
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
 	-- This is often very useful to both group configuration, as well as handle
@@ -458,6 +472,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+			vim.keymap.set("n", "<leader>st", function()
+				require("telescope.builtin").colorscheme({ enable_preview = true })
+			end, { desc = "[S]elect [T]heme" })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
