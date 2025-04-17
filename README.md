@@ -11,6 +11,8 @@ https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/
 
 4) Install the tmux plugin manager from https://github.com/tmux-plugins/tpm
 
+5) Install the plugin in tmux by pressing <leader>+I
+
 0) Run stow . in the dotfiles directory to symlink the dotfiles to your home directory.
 
 Install on Linux
