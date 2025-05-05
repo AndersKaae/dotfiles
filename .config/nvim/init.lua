@@ -148,6 +148,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Add filetype override for .cshtml
+vim.filetype.add({
+	extension = {
+		cshtml = "razor",
+	},
+})
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -162,6 +169,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	"jlcrochet/vim-razor",
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following

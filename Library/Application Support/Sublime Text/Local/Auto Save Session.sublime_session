@@ -6,9 +6,9 @@
 	[
 	],
 	"last_version": 4192,
-	"last_window_id": 2,
+	"last_window_id": 3,
 	"log_indexing": false,
-	"next_update_check": 1744883397,
+	"next_update_check": 1746513566,
 	"settings":
 	{
 		"new_window_full_screen": false,
@@ -161,282 +161,378 @@
 			"buffers":
 			[
 				{
-					"contents": "gammel satus må ikke være sat til Done\ngammel = lang tid siden sidst opdateret\n",
+					"contents": "50k mindre revenue\n\n\n- Overvej om alle CH produkter skal have en \"klar til registrering\" så vi har et sted at sætte dem tilbage til, hvis de ikke ser ud til at gøre de nødvendige steps. Det kan f.eks. være hvis en ægtefælle ikke underskriver en ægtepagt.\n\n\n\n25.04.2025: Ikke underskrevet. Bedt kunden henvende sig, hvis de vil starte igen.\n\n25.04.2025: Kan ikke finde bekræftelse. Opslag på tinglysning.dk viser, at den blev tinglyst.\n\n25.04.2025: Lukket i forbindelse med oprydning: Ser ud til at være stiftet.\n\n",
 					"settings":
 					{
-						"buffer_size": 79,
+						"buffer_size": 513,
 						"line_ending": "Unix",
-						"name": "gammel satus må ikke være sat til Done"
+						"name": "50k mindre revenue"
 					},
 					"undo_stack":
 					[
+						[
+							1,
+							1,
+							"insert",
+							{
+								"characters": "50"
+							},
+							"AgAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvw"
+						],
 						[
 							2,
 							1,
 							"insert",
 							{
-								"characters": "gammel"
+								"characters": " "
 							},
-							"BgAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAAFAAAAAAAAAAYAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAAIAAAAAAAAAAwAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAADwvw"
 						],
 						[
 							3,
 							1,
-							"insert",
-							{
-								"characters": " sattus"
-							},
-							"BwAAAAYAAAAAAAAABwAAAAAAAAAAAAAABwAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAkAAAAAAAAAAAAAAAkAAAAAAAAACgAAAAAAAAAAAAAACgAAAAAAAAALAAAAAAAAAAAAAAALAAAAAAAAAAwAAAAAAAAAAAAAAAwAAAAAAAAADQAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAABgAAAAAAAAAGAAAAAAAAAAAAAAAAAPC/"
+							"left_delete",
+							null,
+							"AQAAAAIAAAAAAAAAAgAAAAAAAAABAAAAIA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAMAAAAAAAAAAwAAAAAAAAAAAAAAAADwvw"
 						],
 						[
 							4,
 							1,
 							"insert",
 							{
-								"characters": " "
+								"characters": "k"
 							},
-							"AQAAAA0AAAAAAAAADgAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAADQAAAAAAAAANAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAAIAAAAAAAAAAwAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAADwvw"
 						],
 						[
 							5,
-							4,
-							"left_delete",
-							null,
-							"BAAAAA0AAAAAAAAADQAAAAAAAAABAAAAIAwAAAAAAAAADAAAAAAAAAABAAAAcwsAAAAAAAAACwAAAAAAAAABAAAAdQoAAAAAAAAACgAAAAAAAAABAAAAdA",
-							"AQAAAAAAAAABAAAADgAAAAAAAAAOAAAAAAAAAAAAAAAAAPC/"
+							1,
+							"insert",
+							{
+								"characters": " mindre"
+							},
+							"BwAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAAFAAAAAAAAAAYAAAAAAAAAAAAAAAYAAAAAAAAABwAAAAAAAAAAAAAABwAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAkAAAAAAAAAAAAAAAkAAAAAAAAACgAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAMAAAAAAAAAAwAAAAAAAAAAAAAAAADwvw"
 						],
 						[
 							6,
 							1,
 							"insert",
 							{
-								"characters": "us"
+								"characters": " revenue"
 							},
-							"AgAAAAoAAAAAAAAACwAAAAAAAAAAAAAACwAAAAAAAAAMAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAACgAAAAAAAAAKAAAAAAAAAAAAAAAAAPC/"
+							"CAAAAAoAAAAAAAAACwAAAAAAAAAAAAAACwAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAAA0AAAAAAAAAAAAAAA0AAAAAAAAADgAAAAAAAAAAAAAADgAAAAAAAAAPAAAAAAAAAAAAAAAPAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEQAAAAAAAAAAAAAAEQAAAAAAAAASAAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAoAAAAAAAAACgAAAAAAAAAAAAAAAADwvw"
 						],
 						[
 							7,
 							1,
 							"insert",
 							{
-								"characters": " må"
+								"characters": "\n"
 							},
-							"AwAAAAwAAAAAAAAADQAAAAAAAAAAAAAADQAAAAAAAAAOAAAAAAAAAAAAAAAOAAAAAAAAAA8AAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAADAAAAAAAAAAMAAAAAAAAAAAAAAAAAPC/"
+							"AQAAABIAAAAAAAAAEwAAAAAAAAAAAAAA",
+							"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAABIAAAAAAAAAEgAAAAAAAAAAAAAAAADwvw"
+						],
+						[
+							1,
+							1,
+							"insert",
+							{
+								"characters": "\n\n-"
+							},
+							"AwAAABMAAAAAAAAAFAAAAAAAAAAAAAAAFAAAAAAAAAAVAAAAAAAAAAAAAAAVAAAAAAAAABYAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAEwAAAAAAAAATAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							2,
+							1,
+							"insert",
+							{
+								"characters": " Overvej"
+							},
+							"CAAAABYAAAAAAAAAFwAAAAAAAAAAAAAAFwAAAAAAAAAYAAAAAAAAAAAAAAAYAAAAAAAAABkAAAAAAAAAAAAAABkAAAAAAAAAGgAAAAAAAAAAAAAAGgAAAAAAAAAbAAAAAAAAAAAAAAAbAAAAAAAAABwAAAAAAAAAAAAAABwAAAAAAAAAHQAAAAAAAAAAAAAAHQAAAAAAAAAeAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAFgAAAAAAAAAWAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							3,
+							1,
+							"insert",
+							{
+								"characters": " om"
+							},
+							"AwAAAB4AAAAAAAAAHwAAAAAAAAAAAAAAHwAAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAACEAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAHgAAAAAAAAAeAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							4,
+							1,
+							"insert",
+							{
+								"characters": " alle"
+							},
+							"BQAAACEAAAAAAAAAIgAAAAAAAAAAAAAAIgAAAAAAAAAjAAAAAAAAAAAAAAAjAAAAAAAAACQAAAAAAAAAAAAAACQAAAAAAAAAJQAAAAAAAAAAAAAAJQAAAAAAAAAmAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAIQAAAAAAAAAhAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							5,
+							1,
+							"insert",
+							{
+								"characters": " CH"
+							},
+							"AwAAACYAAAAAAAAAJwAAAAAAAAAAAAAAJwAAAAAAAAAoAAAAAAAAAAAAAAAoAAAAAAAAACkAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAJgAAAAAAAAAmAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							6,
+							1,
+							"insert",
+							{
+								"characters": " produkter"
+							},
+							"CgAAACkAAAAAAAAAKgAAAAAAAAAAAAAAKgAAAAAAAAArAAAAAAAAAAAAAAArAAAAAAAAACwAAAAAAAAAAAAAACwAAAAAAAAALQAAAAAAAAAAAAAALQAAAAAAAAAuAAAAAAAAAAAAAAAuAAAAAAAAAC8AAAAAAAAAAAAAAC8AAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAAAxAAAAAAAAAAAAAAAxAAAAAAAAADIAAAAAAAAAAAAAADIAAAAAAAAAMwAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAKQAAAAAAAAApAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							7,
+							1,
+							"insert",
+							{
+								"characters": " skal"
+							},
+							"BQAAADMAAAAAAAAANAAAAAAAAAAAAAAANAAAAAAAAAA1AAAAAAAAAAAAAAA1AAAAAAAAADYAAAAAAAAAAAAAADYAAAAAAAAANwAAAAAAAAAAAAAANwAAAAAAAAA4AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAMwAAAAAAAAAzAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							8,
 							1,
 							"insert",
 							{
-								"characters": " v"
+								"characters": " have"
 							},
-							"AgAAAA8AAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAARAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAADwAAAAAAAAAPAAAAAAAAAAAAAAAAAPC/"
+							"BQAAADgAAAAAAAAAOQAAAAAAAAAAAAAAOQAAAAAAAAA6AAAAAAAAAAAAAAA6AAAAAAAAADsAAAAAAAAAAAAAADsAAAAAAAAAPAAAAAAAAAAAAAAAPAAAAAAAAAA9AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAOAAAAAAAAAA4AAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							9,
 							1,
-							"left_delete",
-							null,
-							"AQAAABAAAAAAAAAAEAAAAAAAAAABAAAAdg",
-							"AQAAAAAAAAABAAAAEQAAAAAAAAARAAAAAAAAAAAAAAAAAPC/"
+							"insert",
+							{
+								"characters": " en"
+							},
+							"AwAAAD0AAAAAAAAAPgAAAAAAAAAAAAAAPgAAAAAAAAA/AAAAAAAAAAAAAAA/AAAAAAAAAEAAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAPQAAAAAAAAA9AAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							10,
 							1,
 							"insert",
 							{
-								"characters": "ikke"
+								"characters": " "
 							},
-							"BAAAABAAAAAAAAAAEQAAAAAAAAAAAAAAEQAAAAAAAAASAAAAAAAAAAAAAAASAAAAAAAAABMAAAAAAAAAAAAAABMAAAAAAAAAFAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAEAAAAAAAAAAQQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAQAAAAAAAAABAAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							11,
 							1,
-							"insert",
+							"insert_snippet",
 							{
-								"characters": " være"
+								"contents": "\"$0\""
 							},
-							"BQAAABQAAAAAAAAAFQAAAAAAAAAAAAAAFQAAAAAAAAAWAAAAAAAAAAAAAAAWAAAAAAAAABcAAAAAAAAAAAAAABcAAAAAAAAAGAAAAAAAAAAAAAAAGAAAAAAAAAAZAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAFAAAAAAAAAAUAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAEEAAAAAAAAAQwAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAQQAAAAAAAABBAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							12,
 							1,
 							"insert",
 							{
-								"characters": " sat"
+								"characters": "klar"
 							},
-							"BAAAABkAAAAAAAAAGgAAAAAAAAAAAAAAGgAAAAAAAAAbAAAAAAAAAAAAAAAbAAAAAAAAABwAAAAAAAAAAAAAABwAAAAAAAAAHQAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAGQAAAAAAAAAZAAAAAAAAAAAAAAAAAPC/"
+							"BAAAAEIAAAAAAAAAQwAAAAAAAAAAAAAAQwAAAAAAAABEAAAAAAAAAAAAAABEAAAAAAAAAEUAAAAAAAAAAAAAAEUAAAAAAAAARgAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAQgAAAAAAAABCAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							13,
 							1,
 							"insert",
 							{
-								"characters": " ti"
+								"characters": " til"
 							},
-							"AwAAAB0AAAAAAAAAHgAAAAAAAAAAAAAAHgAAAAAAAAAfAAAAAAAAAAAAAAAfAAAAAAAAACAAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAHQAAAAAAAAAdAAAAAAAAAAAAAAAAAPC/"
+							"BAAAAEYAAAAAAAAARwAAAAAAAAAAAAAARwAAAAAAAABIAAAAAAAAAAAAAABIAAAAAAAAAEkAAAAAAAAAAAAAAEkAAAAAAAAASgAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAARgAAAAAAAABGAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							14,
 							1,
 							"insert",
 							{
-								"characters": " l"
+								"characters": " registrerin"
 							},
-							"AgAAACAAAAAAAAAAIQAAAAAAAAAAAAAAIQAAAAAAAAAiAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAAAPC/"
+							"DAAAAEoAAAAAAAAASwAAAAAAAAAAAAAASwAAAAAAAABMAAAAAAAAAAAAAABMAAAAAAAAAE0AAAAAAAAAAAAAAE0AAAAAAAAATgAAAAAAAAAAAAAATgAAAAAAAABPAAAAAAAAAAAAAABPAAAAAAAAAFAAAAAAAAAAAAAAAFAAAAAAAAAAUQAAAAAAAAAAAAAAUQAAAAAAAABSAAAAAAAAAAAAAABSAAAAAAAAAFMAAAAAAAAAAAAAAFMAAAAAAAAAVAAAAAAAAAAAAAAAVAAAAAAAAABVAAAAAAAAAAAAAABVAAAAAAAAAFYAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAASgAAAAAAAABKAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							15,
-							2,
-							"left_delete",
-							null,
-							"AgAAACEAAAAAAAAAIQAAAAAAAAABAAAAbCAAAAAAAAAAIAAAAAAAAAABAAAAIA",
-							"AQAAAAAAAAABAAAAIgAAAAAAAAAiAAAAAAAAAAAAAAAAAPC/"
+							1,
+							"insert",
+							{
+								"characters": "g"
+							},
+							"AQAAAFYAAAAAAAAAVwAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAVgAAAAAAAABWAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							16,
 							1,
 							"insert",
 							{
-								"characters": "l"
+								"characters": " "
 							},
-							"AQAAACAAAAAAAAAAIQAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAFcAAAAAAAAAWAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAVwAAAAAAAABXAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							17,
 							1,
+							"left_delete",
+							null,
+							"AQAAAFcAAAAAAAAAVwAAAAAAAAABAAAAIA",
+							"AQAAAAAAAAABAAAAWAAAAAAAAABYAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							19,
+							1,
 							"insert",
 							{
-								"characters": " Done"
+								"characters": " så"
 							},
-							"BQAAACEAAAAAAAAAIgAAAAAAAAAAAAAAIgAAAAAAAAAjAAAAAAAAAAAAAAAjAAAAAAAAACQAAAAAAAAAAAAAACQAAAAAAAAAJQAAAAAAAAAAAAAAJQAAAAAAAAAmAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAIQAAAAAAAAAhAAAAAAAAAAAAAAAAAPC/"
+							"AwAAAFgAAAAAAAAAWQAAAAAAAAAAAAAAWQAAAAAAAABaAAAAAAAAAAAAAABaAAAAAAAAAFsAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWAAAAAAAAABYAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							20,
 							1,
 							"insert",
 							{
-								"characters": "\n"
+								"characters": " vi"
 							},
-							"AQAAACYAAAAAAAAAJwAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAJgAAAAAAAAAmAAAAAAAAAAAAAAAAAPC/"
+							"AwAAAFsAAAAAAAAAXAAAAAAAAAAAAAAAXAAAAAAAAABdAAAAAAAAAAAAAABdAAAAAAAAAF4AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWwAAAAAAAABbAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							21,
 							1,
 							"insert",
 							{
-								"characters": "V"
+								"characters": " har"
 							},
-							"AQAAACcAAAAAAAAAKAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAJwAAAAAAAAAnAAAAAAAAAAAAAAAAAPC/"
+							"BAAAAF4AAAAAAAAAXwAAAAAAAAAAAAAAXwAAAAAAAABgAAAAAAAAAAAAAABgAAAAAAAAAGEAAAAAAAAAAAAAAGEAAAAAAAAAYgAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAXgAAAAAAAABeAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							22,
 							1,
 							"insert",
 							{
-								"characters": " i"
+								"characters": " et"
 							},
-							"AgAAACgAAAAAAAAAKQAAAAAAAAAAAAAAKQAAAAAAAAAqAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAPC/"
+							"AwAAAGIAAAAAAAAAYwAAAAAAAAAAAAAAYwAAAAAAAABkAAAAAAAAAAAAAABkAAAAAAAAAGUAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAYgAAAAAAAABiAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							23,
-							2,
-							"left_delete",
-							null,
-							"AgAAACkAAAAAAAAAKQAAAAAAAAABAAAAaSgAAAAAAAAAKAAAAAAAAAABAAAAIA",
-							"AQAAAAAAAAABAAAAKgAAAAAAAAAqAAAAAAAAAAAAAAAAAPC/"
+							1,
+							"insert",
+							{
+								"characters": " sted"
+							},
+							"BQAAAGUAAAAAAAAAZgAAAAAAAAAAAAAAZgAAAAAAAABnAAAAAAAAAAAAAABnAAAAAAAAAGgAAAAAAAAAAAAAAGgAAAAAAAAAaQAAAAAAAAAAAAAAaQAAAAAAAABqAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAZQAAAAAAAABlAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							24,
 							1,
 							"insert",
 							{
-								"characters": "i"
+								"characters": " at"
 							},
-							"AQAAACgAAAAAAAAAKQAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAPC/"
+							"AwAAAGoAAAAAAAAAawAAAAAAAAAAAAAAawAAAAAAAABsAAAAAAAAAAAAAABsAAAAAAAAAG0AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAagAAAAAAAABqAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							25,
 							1,
 							"insert",
 							{
-								"characters": " vil"
+								"characters": " sætte"
 							},
-							"BAAAACkAAAAAAAAAKgAAAAAAAAAAAAAAKgAAAAAAAAArAAAAAAAAAAAAAAArAAAAAAAAACwAAAAAAAAAAAAAACwAAAAAAAAALQAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAKQAAAAAAAAApAAAAAAAAAAAAAAAAAPC/"
+							"BgAAAG0AAAAAAAAAbgAAAAAAAAAAAAAAbgAAAAAAAABvAAAAAAAAAAAAAABvAAAAAAAAAHAAAAAAAAAAAAAAAHAAAAAAAAAAcQAAAAAAAAAAAAAAcQAAAAAAAAByAAAAAAAAAAAAAAByAAAAAAAAAHMAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAbQAAAAAAAABtAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							26,
 							1,
 							"insert",
 							{
-								"characters": " gerne"
+								"characters": " dem"
 							},
-							"BgAAAC0AAAAAAAAALgAAAAAAAAAAAAAALgAAAAAAAAAvAAAAAAAAAAAAAAAvAAAAAAAAADAAAAAAAAAAAAAAADAAAAAAAAAAMQAAAAAAAAAAAAAAMQAAAAAAAAAyAAAAAAAAAAAAAAAyAAAAAAAAADMAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAALQAAAAAAAAAtAAAAAAAAAAAAAAAAAPC/"
+							"BAAAAHMAAAAAAAAAdAAAAAAAAAAAAAAAdAAAAAAAAAB1AAAAAAAAAAAAAAB1AAAAAAAAAHYAAAAAAAAAAAAAAHYAAAAAAAAAdwAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAcwAAAAAAAABzAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							27,
 							1,
 							"insert",
 							{
-								"characters": " "
+								"characters": " tilbage"
 							},
-							"AQAAADMAAAAAAAAANAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAMwAAAAAAAAAzAAAAAAAAAAAAAAAAAPC/"
+							"CAAAAHcAAAAAAAAAeAAAAAAAAAAAAAAAeAAAAAAAAAB5AAAAAAAAAAAAAAB5AAAAAAAAAHoAAAAAAAAAAAAAAHoAAAAAAAAAewAAAAAAAAAAAAAAewAAAAAAAAB8AAAAAAAAAAAAAAB8AAAAAAAAAH0AAAAAAAAAAAAAAH0AAAAAAAAAfgAAAAAAAAAAAAAAfgAAAAAAAAB/AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAdwAAAAAAAAB3AAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							28,
-							13,
-							"left_delete",
-							null,
-							"DQAAADMAAAAAAAAAMwAAAAAAAAABAAAAIDIAAAAAAAAAMgAAAAAAAAABAAAAZTEAAAAAAAAAMQAAAAAAAAABAAAAbjAAAAAAAAAAMAAAAAAAAAABAAAAci8AAAAAAAAALwAAAAAAAAABAAAAZS4AAAAAAAAALgAAAAAAAAABAAAAZy0AAAAAAAAALQAAAAAAAAABAAAAICwAAAAAAAAALAAAAAAAAAABAAAAbCsAAAAAAAAAKwAAAAAAAAABAAAAaSoAAAAAAAAAKgAAAAAAAAABAAAAdikAAAAAAAAAKQAAAAAAAAABAAAAICgAAAAAAAAAKAAAAAAAAAABAAAAaScAAAAAAAAAJwAAAAAAAAABAAAAVg",
-							"AQAAAAAAAAABAAAANAAAAAAAAAA0AAAAAAAAAAAAAAAAAPC/"
+							1,
+							"insert",
+							{
+								"characters": " till"
+							},
+							"BQAAAH8AAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAACBAAAAAAAAAAAAAACBAAAAAAAAAIIAAAAAAAAAAAAAAIIAAAAAAAAAgwAAAAAAAAAAAAAAgwAAAAAAAACEAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAfwAAAAAAAAB/AAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							29,
 							1,
-							"insert",
-							{
-								"characters": "d"
-							},
-							"AQAAACcAAAAAAAAAKAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAJwAAAAAAAAAnAAAAAAAAAAAAAAAAAPC/"
+							"left_delete",
+							null,
+							"AQAAAIMAAAAAAAAAgwAAAAAAAAABAAAAbA",
+							"AQAAAAAAAAABAAAAhAAAAAAAAACEAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							30,
 							1,
-							"left_delete",
-							null,
-							"AQAAACcAAAAAAAAAJwAAAAAAAAABAAAAZA",
-							"AQAAAAAAAAABAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAPC/"
+							"insert",
+							{
+								"characters": ","
+							},
+							"AQAAAIMAAAAAAAAAhAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAgwAAAAAAAACDAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							31,
 							1,
 							"insert",
 							{
-								"characters": "gammel"
+								"characters": " hbis"
 							},
-							"BgAAACcAAAAAAAAAKAAAAAAAAAAAAAAAKAAAAAAAAAApAAAAAAAAAAAAAAApAAAAAAAAACoAAAAAAAAAAAAAACoAAAAAAAAAKwAAAAAAAAAAAAAAKwAAAAAAAAAsAAAAAAAAAAAAAAAsAAAAAAAAAC0AAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAJwAAAAAAAAAnAAAAAAAAAAAAAAAAAPC/"
+							"BQAAAIQAAAAAAAAAhQAAAAAAAAAAAAAAhQAAAAAAAACGAAAAAAAAAAAAAACGAAAAAAAAAIcAAAAAAAAAAAAAAIcAAAAAAAAAiAAAAAAAAAAAAAAAiAAAAAAAAACJAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAhAAAAAAAAACEAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							32,
@@ -445,170 +541,940 @@
 							{
 								"characters": " "
 							},
-							"AQAAAC0AAAAAAAAALgAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAALQAAAAAAAAAtAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAIkAAAAAAAAAigAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAiQAAAAAAAACJAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							33,
-							1,
-							"insert",
-							{
-								"characters": ")"
-							},
-							"AQAAAC4AAAAAAAAALwAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAALgAAAAAAAAAuAAAAAAAAAAAAAAAAAPC/"
+							4,
+							"left_delete",
+							null,
+							"BAAAAIkAAAAAAAAAiQAAAAAAAAABAAAAIIgAAAAAAAAAiAAAAAAAAAABAAAAc4cAAAAAAAAAhwAAAAAAAAABAAAAaYYAAAAAAAAAhgAAAAAAAAABAAAAYg",
+							"AQAAAAAAAAABAAAAigAAAAAAAACKAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							34,
 							1,
-							"left_delete",
-							null,
-							"AQAAAC4AAAAAAAAALgAAAAAAAAABAAAAKQ",
-							"AQAAAAAAAAABAAAALwAAAAAAAAAvAAAAAAAAAAAAAAAAAPC/"
+							"insert",
+							{
+								"characters": "ivs"
+							},
+							"AwAAAIYAAAAAAAAAhwAAAAAAAAAAAAAAhwAAAAAAAACIAAAAAAAAAAAAAACIAAAAAAAAAIkAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAhgAAAAAAAACGAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							35,
 							1,
 							"insert",
 							{
-								"characters": "="
+								"characters": " "
 							},
-							"AQAAAC4AAAAAAAAALwAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAALgAAAAAAAAAuAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAIkAAAAAAAAAigAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAiQAAAAAAAACJAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							36,
-							1,
-							"insert",
-							{
-								"characters": " lang"
-							},
-							"BQAAAC8AAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAAAxAAAAAAAAAAAAAAAxAAAAAAAAADIAAAAAAAAAAAAAADIAAAAAAAAAMwAAAAAAAAAAAAAAMwAAAAAAAAA0AAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAALwAAAAAAAAAvAAAAAAAAAAAAAAAAAPC/"
+							3,
+							"left_delete",
+							null,
+							"AwAAAIkAAAAAAAAAiQAAAAAAAAABAAAAIIgAAAAAAAAAiAAAAAAAAAABAAAAc4cAAAAAAAAAhwAAAAAAAAABAAAAdg",
+							"AQAAAAAAAAABAAAAigAAAAAAAACKAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							37,
 							1,
 							"insert",
 							{
-								"characters": " tid"
+								"characters": "v"
 							},
-							"BAAAADQAAAAAAAAANQAAAAAAAAAAAAAANQAAAAAAAAA2AAAAAAAAAAAAAAA2AAAAAAAAADcAAAAAAAAAAAAAADcAAAAAAAAAOAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAANAAAAAAAAAA0AAAAAAAAAAAAAAAAAPC/"
+							"AQAAAIcAAAAAAAAAiAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAhwAAAAAAAACHAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							38,
-							1,
-							"insert",
-							{
-								"characters": " sidcen"
-							},
-							"BwAAADgAAAAAAAAAOQAAAAAAAAAAAAAAOQAAAAAAAAA6AAAAAAAAAAAAAAA6AAAAAAAAADsAAAAAAAAAAAAAADsAAAAAAAAAPAAAAAAAAAAAAAAAPAAAAAAAAAA9AAAAAAAAAAAAAAA9AAAAAAAAAD4AAAAAAAAAAAAAAD4AAAAAAAAAPwAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAOAAAAAAAAAA4AAAAAAAAAAAAAAAAAPC/"
-						],
-						[
-							39,
 							2,
 							"left_delete",
 							null,
-							"AgAAAD4AAAAAAAAAPgAAAAAAAAABAAAAbj0AAAAAAAAAPQAAAAAAAAABAAAAZQ",
-							"AQAAAAAAAAABAAAAPwAAAAAAAAA/AAAAAAAAAAAAAAAAAPC/"
+							"AgAAAIcAAAAAAAAAhwAAAAAAAAABAAAAdoYAAAAAAAAAhgAAAAAAAAABAAAAaQ",
+							"AQAAAAAAAAABAAAAiAAAAAAAAACIAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							39,
+							1,
+							"insert",
+							{
+								"characters": "vis"
+							},
+							"AwAAAIYAAAAAAAAAhwAAAAAAAAAAAAAAhwAAAAAAAACIAAAAAAAAAAAAAACIAAAAAAAAAIkAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAhgAAAAAAAACGAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							40,
 							1,
 							"insert",
 							{
-								"characters": "e"
+								"characters": " de"
 							},
-							"AQAAAD0AAAAAAAAAPgAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAPQAAAAAAAAA9AAAAAAAAAAAAAAAAAPC/"
+							"AwAAAIkAAAAAAAAAigAAAAAAAAAAAAAAigAAAAAAAACLAAAAAAAAAAAAAACLAAAAAAAAAIwAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAiQAAAAAAAACJAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							41,
-							2,
-							"left_delete",
-							null,
-							"AgAAAD0AAAAAAAAAPQAAAAAAAAABAAAAZTwAAAAAAAAAPAAAAAAAAAABAAAAYw",
-							"AQAAAAAAAAABAAAAPgAAAAAAAAA+AAAAAAAAAAAAAAAAAPC/"
+							1,
+							"insert",
+							{
+								"characters": " ikke"
+							},
+							"BQAAAIwAAAAAAAAAjQAAAAAAAAAAAAAAjQAAAAAAAACOAAAAAAAAAAAAAACOAAAAAAAAAI8AAAAAAAAAAAAAAI8AAAAAAAAAkAAAAAAAAAAAAAAAkAAAAAAAAACRAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAjAAAAAAAAACMAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							42,
 							1,
 							"insert",
 							{
-								"characters": "en"
+								"characters": " ser"
 							},
-							"AgAAADwAAAAAAAAAPQAAAAAAAAAAAAAAPQAAAAAAAAA+AAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAPAAAAAAAAAA8AAAAAAAAAAAAAAAAAPC/"
+							"BAAAAJEAAAAAAAAAkgAAAAAAAAAAAAAAkgAAAAAAAACTAAAAAAAAAAAAAACTAAAAAAAAAJQAAAAAAAAAAAAAAJQAAAAAAAAAlQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAkQAAAAAAAACRAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							43,
 							1,
 							"insert",
 							{
-								"characters": " sidst"
+								"characters": " ud"
 							},
-							"BgAAAD4AAAAAAAAAPwAAAAAAAAAAAAAAPwAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEEAAAAAAAAAAAAAAEEAAAAAAAAAQgAAAAAAAAAAAAAAQgAAAAAAAABDAAAAAAAAAAAAAABDAAAAAAAAAEQAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAPgAAAAAAAAA+AAAAAAAAAAAAAAAAAPC/"
+							"AwAAAJUAAAAAAAAAlgAAAAAAAAAAAAAAlgAAAAAAAACXAAAAAAAAAAAAAACXAAAAAAAAAJgAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAlQAAAAAAAACVAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							44,
 							1,
 							"insert",
 							{
-								"characters": " opdatert"
+								"characters": " til"
 							},
-							"CQAAAEQAAAAAAAAARQAAAAAAAAAAAAAARQAAAAAAAABGAAAAAAAAAAAAAABGAAAAAAAAAEcAAAAAAAAAAAAAAEcAAAAAAAAASAAAAAAAAAAAAAAASAAAAAAAAABJAAAAAAAAAAAAAABJAAAAAAAAAEoAAAAAAAAAAAAAAEoAAAAAAAAASwAAAAAAAAAAAAAASwAAAAAAAABMAAAAAAAAAAAAAABMAAAAAAAAAE0AAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAARAAAAAAAAABEAAAAAAAAAAAAAAAAAPC/"
+							"BAAAAJgAAAAAAAAAmQAAAAAAAAAAAAAAmQAAAAAAAACaAAAAAAAAAAAAAACaAAAAAAAAAJsAAAAAAAAAAAAAAJsAAAAAAAAAnAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAmAAAAAAAAACYAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							45,
 							1,
-							"left_delete",
-							null,
-							"AQAAAEwAAAAAAAAATAAAAAAAAAABAAAAdA",
-							"AQAAAAAAAAABAAAATQAAAAAAAABNAAAAAAAAAAAAAAAAAPC/"
+							"insert",
+							{
+								"characters": " at"
+							},
+							"AwAAAJwAAAAAAAAAnQAAAAAAAAAAAAAAnQAAAAAAAACeAAAAAAAAAAAAAACeAAAAAAAAAJ8AAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAnAAAAAAAAACcAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							46,
 							1,
 							"insert",
 							{
-								"characters": "et"
+								"characters": " gøre"
 							},
-							"AgAAAEwAAAAAAAAATQAAAAAAAAAAAAAATQAAAAAAAABOAAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAATAAAAAAAAABMAAAAAAAAAAAAAAAAAPC/"
+							"BQAAAJ8AAAAAAAAAoAAAAAAAAAAAAAAAoAAAAAAAAAChAAAAAAAAAAAAAAChAAAAAAAAAKIAAAAAAAAAAAAAAKIAAAAAAAAAowAAAAAAAAAAAAAAowAAAAAAAACkAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAnwAAAAAAAACfAAAAAAAAAAAAAAAAAPC/"
 						],
 						[
 							47,
 							1,
 							"insert",
 							{
+								"characters": " de"
+							},
+							"AwAAAKQAAAAAAAAApQAAAAAAAAAAAAAApQAAAAAAAACmAAAAAAAAAAAAAACmAAAAAAAAAKcAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAApAAAAAAAAACkAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							48,
+							1,
+							"insert",
+							{
+								"characters": " nødvendige"
+							},
+							"CwAAAKcAAAAAAAAAqAAAAAAAAAAAAAAAqAAAAAAAAACpAAAAAAAAAAAAAACpAAAAAAAAAKoAAAAAAAAAAAAAAKoAAAAAAAAAqwAAAAAAAAAAAAAAqwAAAAAAAACsAAAAAAAAAAAAAACsAAAAAAAAAK0AAAAAAAAAAAAAAK0AAAAAAAAArgAAAAAAAAAAAAAArgAAAAAAAACvAAAAAAAAAAAAAACvAAAAAAAAALAAAAAAAAAAAAAAALAAAAAAAAAAsQAAAAAAAAAAAAAAsQAAAAAAAACyAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAApwAAAAAAAACnAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							49,
+							1,
+							"insert",
+							{
+								"characters": " steps."
+							},
+							"BwAAALIAAAAAAAAAswAAAAAAAAAAAAAAswAAAAAAAAC0AAAAAAAAAAAAAAC0AAAAAAAAALUAAAAAAAAAAAAAALUAAAAAAAAAtgAAAAAAAAAAAAAAtgAAAAAAAAC3AAAAAAAAAAAAAAC3AAAAAAAAALgAAAAAAAAAAAAAALgAAAAAAAAAuQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAsgAAAAAAAACyAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							50,
+							1,
+							"insert",
+							{
+								"characters": " Det"
+							},
+							"BAAAALkAAAAAAAAAugAAAAAAAAAAAAAAugAAAAAAAAC7AAAAAAAAAAAAAAC7AAAAAAAAALwAAAAAAAAAAAAAALwAAAAAAAAAvQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAuQAAAAAAAAC5AAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							51,
+							1,
+							"insert",
+							{
+								"characters": " kan"
+							},
+							"BAAAAL0AAAAAAAAAvgAAAAAAAAAAAAAAvgAAAAAAAAC/AAAAAAAAAAAAAAC/AAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAAAwQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAvQAAAAAAAAC9AAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							52,
+							1,
+							"insert",
+							{
+								"characters": " fe."
+							},
+							"BAAAAMEAAAAAAAAAwgAAAAAAAAAAAAAAwgAAAAAAAADDAAAAAAAAAAAAAADDAAAAAAAAAMQAAAAAAAAAAAAAAMQAAAAAAAAAxQAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAwQAAAAAAAADBAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							53,
+							2,
+							"left_delete",
+							null,
+							"AgAAAMQAAAAAAAAAxAAAAAAAAAABAAAALsMAAAAAAAAAwwAAAAAAAAABAAAAZQ",
+							"AQAAAAAAAAABAAAAxQAAAAAAAADFAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							54,
+							1,
+							"insert",
+							{
+								"characters": ".eks."
+							},
+							"BQAAAMMAAAAAAAAAxAAAAAAAAAAAAAAAxAAAAAAAAADFAAAAAAAAAAAAAADFAAAAAAAAAMYAAAAAAAAAAAAAAMYAAAAAAAAAxwAAAAAAAAAAAAAAxwAAAAAAAADIAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAwwAAAAAAAADDAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							55,
+							1,
+							"insert",
+							{
+								"characters": " være"
+							},
+							"BQAAAMgAAAAAAAAAyQAAAAAAAAAAAAAAyQAAAAAAAADKAAAAAAAAAAAAAADKAAAAAAAAAMsAAAAAAAAAAAAAAMsAAAAAAAAAzAAAAAAAAAAAAAAAzAAAAAAAAADNAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAyAAAAAAAAADIAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							56,
+							1,
+							"insert",
+							{
+								"characters": " hvis"
+							},
+							"BQAAAM0AAAAAAAAAzgAAAAAAAAAAAAAAzgAAAAAAAADPAAAAAAAAAAAAAADPAAAAAAAAANAAAAAAAAAAAAAAANAAAAAAAAAA0QAAAAAAAAAAAAAA0QAAAAAAAADSAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAzQAAAAAAAADNAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							57,
+							1,
+							"insert",
+							{
+								"characters": " en"
+							},
+							"AwAAANIAAAAAAAAA0wAAAAAAAAAAAAAA0wAAAAAAAADUAAAAAAAAAAAAAADUAAAAAAAAANUAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA0gAAAAAAAADSAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							58,
+							1,
+							"insert",
+							{
+								"characters": " ægted"
+							},
+							"BgAAANUAAAAAAAAA1gAAAAAAAAAAAAAA1gAAAAAAAADXAAAAAAAAAAAAAADXAAAAAAAAANgAAAAAAAAAAAAAANgAAAAAAAAA2QAAAAAAAAAAAAAA2QAAAAAAAADaAAAAAAAAAAAAAADaAAAAAAAAANsAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA1QAAAAAAAADVAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							59,
+							1,
+							"left_delete",
+							null,
+							"AQAAANoAAAAAAAAA2gAAAAAAAAABAAAAZA",
+							"AQAAAAAAAAABAAAA2wAAAAAAAADbAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							60,
+							1,
+							"insert",
+							{
+								"characters": "fælle"
+							},
+							"BQAAANoAAAAAAAAA2wAAAAAAAAAAAAAA2wAAAAAAAADcAAAAAAAAAAAAAADcAAAAAAAAAN0AAAAAAAAAAAAAAN0AAAAAAAAA3gAAAAAAAAAAAAAA3gAAAAAAAADfAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA2gAAAAAAAADaAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							61,
+							1,
+							"insert",
+							{
+								"characters": " ikke"
+							},
+							"BQAAAN8AAAAAAAAA4AAAAAAAAAAAAAAA4AAAAAAAAADhAAAAAAAAAAAAAADhAAAAAAAAAOIAAAAAAAAAAAAAAOIAAAAAAAAA4wAAAAAAAAAAAAAA4wAAAAAAAADkAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA3wAAAAAAAADfAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							62,
+							1,
+							"insert",
+							{
+								"characters": " underksrive"
+							},
+							"DAAAAOQAAAAAAAAA5QAAAAAAAAAAAAAA5QAAAAAAAADmAAAAAAAAAAAAAADmAAAAAAAAAOcAAAAAAAAAAAAAAOcAAAAAAAAA6AAAAAAAAAAAAAAA6AAAAAAAAADpAAAAAAAAAAAAAADpAAAAAAAAAOoAAAAAAAAAAAAAAOoAAAAAAAAA6wAAAAAAAAAAAAAA6wAAAAAAAADsAAAAAAAAAAAAAADsAAAAAAAAAO0AAAAAAAAAAAAAAO0AAAAAAAAA7gAAAAAAAAAAAAAA7gAAAAAAAADvAAAAAAAAAAAAAADvAAAAAAAAAPAAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA5AAAAAAAAADkAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							63,
+							5,
+							"left_delete",
+							null,
+							"BQAAAO8AAAAAAAAA7wAAAAAAAAABAAAAZe4AAAAAAAAA7gAAAAAAAAABAAAAdu0AAAAAAAAA7QAAAAAAAAABAAAAaewAAAAAAAAA7AAAAAAAAAABAAAAcusAAAAAAAAA6wAAAAAAAAABAAAAcw",
+							"AQAAAAAAAAABAAAA8AAAAAAAAADwAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							64,
+							1,
+							"insert",
+							{
+								"characters": "sk"
+							},
+							"AgAAAOsAAAAAAAAA7AAAAAAAAAAAAAAA7AAAAAAAAADtAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA6wAAAAAAAADrAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							65,
+							3,
+							"left_delete",
+							null,
+							"AwAAAOwAAAAAAAAA7AAAAAAAAAABAAAAa+sAAAAAAAAA6wAAAAAAAAABAAAAc+oAAAAAAAAA6gAAAAAAAAABAAAAaw",
+							"AQAAAAAAAAABAAAA7QAAAAAAAADtAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							66,
+							1,
+							"insert",
+							{
+								"characters": "skriver"
+							},
+							"BwAAAOoAAAAAAAAA6wAAAAAAAAAAAAAA6wAAAAAAAADsAAAAAAAAAAAAAADsAAAAAAAAAO0AAAAAAAAAAAAAAO0AAAAAAAAA7gAAAAAAAAAAAAAA7gAAAAAAAADvAAAAAAAAAAAAAADvAAAAAAAAAPAAAAAAAAAAAAAAAPAAAAAAAAAA8QAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA6gAAAAAAAADqAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							67,
+							1,
+							"insert",
+							{
+								"characters": " en"
+							},
+							"AwAAAPEAAAAAAAAA8gAAAAAAAAAAAAAA8gAAAAAAAADzAAAAAAAAAAAAAADzAAAAAAAAAPQAAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA8QAAAAAAAADxAAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							68,
+							1,
+							"insert",
+							{
+								"characters": " ægtepagt."
+							},
+							"CgAAAPQAAAAAAAAA9QAAAAAAAAAAAAAA9QAAAAAAAAD2AAAAAAAAAAAAAAD2AAAAAAAAAPcAAAAAAAAAAAAAAPcAAAAAAAAA+AAAAAAAAAAAAAAA+AAAAAAAAAD5AAAAAAAAAAAAAAD5AAAAAAAAAPoAAAAAAAAAAAAAAPoAAAAAAAAA+wAAAAAAAAAAAAAA+wAAAAAAAAD8AAAAAAAAAAAAAAD8AAAAAAAAAP0AAAAAAAAAAAAAAP0AAAAAAAAA/gAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA9AAAAAAAAAD0AAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							69,
+							1,
+							"insert",
+							{
 								"characters": "\n"
 							},
-							"AQAAAE4AAAAAAAAATwAAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAATgAAAAAAAABOAAAAAAAAAAAAAAAAAPC/"
-						]
-					]
-				},
-				{
-					"contents": "<body class=\"etl-custom-style\">\n    <app-tmv _nghost-ng-c126488095=\"\" ng-version=\"16.2.12\"><div _ngcontent-ng-c126488095=\"\" role=\"banner\"><a _ngcontent-ng-c126488095=\"\" href=\"#main-content\" id=\"skip-link\">Spring til hovedindhold</a></div><div _ngcontent-ng-c126488095=\"\" class=\"container tingContainer\"><div _ngcontent-ng-c126488095=\"\" class=\"etl-vert-nav\"></div><div _ngcontent-ng-c126488095=\"\" class=\"tingContent\"><app-spinner _ngcontent-ng-c126488095=\"\" _nghost-ng-c1293213425=\"\"><!----></app-spinner><app-etl-confirm _ngcontent-ng-c126488095=\"\"><!----></app-etl-confirm><app-etl-header _ngcontent-ng-c126488095=\"\" _nghost-ng-c984726913=\"\"><header _ngcontent-ng-c984726913=\"\"><div _ngcontent-ng-c984726913=\"\" class=\"pagehead visible-desktop visible-tablet\"><div _ngcontent-ng-c984726913=\"\" class=\"row tingHeader\"><div _ngcontent-ng-c984726913=\"\" class=\"col-lg-2\"><div _ngcontent-ng-c984726913=\"\" class=\"searchWidgetButtons tingLogo\"><a _ngcontent-ng-c984726913=\"\" ng-href=\"#/soeg\"><img _ngcontent-ng-c984726913=\"\" src=\"assets/images/Tinglysningsretten.png\" width=\"100\" height=\"75\" alt=\"Tinglysningsrettens logo\" class=\"tingLogo\"></a></div></div><div _ngcontent-ng-c984726913=\"\" class=\"col-lg-8 tingMainTitleContainer\"><div _ngcontent-ng-c984726913=\"\" class=\"tingTopMenu\"><div _ngcontent-ng-c984726913=\"\" hidden=\"\"><div _ngcontent-ng-c984726913=\"\" style=\"font-size: 12px;\">undefined undefined 20250320.1 undefined</div></div><ul _ngcontent-ng-c984726913=\"\" class=\"stablist\"><li _ngcontent-ng-c984726913=\"\" class=\"first\"><a _ngcontent-ng-c984726913=\"\" target=\"_blank\" href=\"https://domstol.dk/tinglysningsretten/om-tinglysningsretten/aktuel-sagsbehandlingstid/\">Sagsbehandlingstid</a></li><li _ngcontent-ng-c984726913=\"\" class=\"tingTopSpace\">|</li><li _ngcontent-ng-c984726913=\"\"><a _ngcontent-ng-c984726913=\"\" target=\"_blank\" href=\"https://domstol.dk/tinglysningsretten/kontakt/\">Kontakt</a></li><li _ngcontent-ng-c984726913=\"\" class=\"tingTopSpace\">|</li><li _ngcontent-ng-c984726913=\"\"><a _ngcontent-ng-c984726913=\"\" target=\"_blank\" href=\"https://domstol.dk/tinglysningsretten/hjaelp-og-vejledninger/\">Vejledninger</a></li><li _ngcontent-ng-c984726913=\"\" class=\"tingTopSpace\">|</li><li _ngcontent-ng-c984726913=\"\"><a _ngcontent-ng-c984726913=\"\" target=\"_blank\" href=\"https://www.adgangforalle.dk/default.efact?pid=3848\">Få teksten læst op</a></li><li _ngcontent-ng-c984726913=\"\" class=\"tingTopSpace\">|</li><li _ngcontent-ng-c984726913=\"\"><a _ngcontent-ng-c984726913=\"\" target=\"_blank\" href=\"https://domstol.dk/tinglysningsretten/\">Driftsstatus</a></li><li _ngcontent-ng-c984726913=\"\" class=\"tingTopSpace\">|</li><li _ngcontent-ng-c984726913=\"\"><button _ngcontent-ng-c984726913=\"\" type=\"button\" data-cy=\"gaa_til_forsiden\" class=\"btn-href\"> Gå til forsiden </button></li><!----><!----></ul></div></div><div _ngcontent-ng-c984726913=\"\" class=\"col-lg-2\"><div _ngcontent-ng-c984726913=\"\" class=\"float-end searchWidgetButtons tingLogout\"><button _ngcontent-ng-c984726913=\"\" id=\"logout\" type=\"button\" title=\"Log ud\" data-cy=\"logout\" class=\"tingBtnDefault\"> Log ud </button></div></div></div></div></header></app-etl-header><!----><main _ngcontent-ng-c126488095=\"\" id=\"main-content\" tabindex=\"-1\" class=\"well tingWell\"><router-outlet _ngcontent-ng-c126488095=\"\"></router-outlet><app-e227-fremtidsfuldmagt><div><h3>Fremtidsfuldmagt</h3></div><!----><!----><div><!----><app-navigator _nghost-ng-c982513363=\"\"><aside _ngcontent-ng-c982513363=\"\"><div _ngcontent-ng-c982513363=\"\" data-cy=\"sidebar-container\" class=\"floating-menu\"><ul _ngcontent-ng-c982513363=\"\"><li _ngcontent-ng-c982513363=\"\"><a _ngcontent-ng-c982513363=\"\">Trin 2/3</a></li></ul><ul _ngcontent-ng-c982513363=\"\" hidden=\"\"><li _ngcontent-ng-c982513363=\"\" class=\"ng-star-inserted\"><a _ngcontent-ng-c982513363=\"\" id=\"sidebar-link-anmelder\" data-cy=\"sidebar-link-anmelder\" style=\"font-weight: normal;\"> Anmelder</a></li><li _ngcontent-ng-c982513363=\"\" class=\"ng-star-inserted\"><a _ngcontent-ng-c982513363=\"\" id=\"sidebar-link-fremtidsfuldmagt\" data-cy=\"sidebar-link-fremtidsfuldmagt\" style=\"color: grey; font-weight: bold;\"> Fremtidsfuldmagt</a></li><li _ngcontent-ng-c982513363=\"\" class=\"ng-star-inserted\"><a _ngcontent-ng-c982513363=\"\" id=\"sidebar-link-underskriftsmetode\" data-cy=\"sidebar-link-underskriftsmetode\" style=\"color: grey;\"> Underskriftsmetode</a></li><!----></ul></div></aside></app-navigator><div class=\"ting tingwell\"><app-anmeld-top><div class=\"row\"><div class=\"col-lg-12\"><div class=\"searchWidgetButtons\"><app-gem-kladde-slave><button id=\"gemKladdeSlaveId\" type=\"button\" title=\"Alt+G\" data-cy=\"openGemKladdeSlave\" class=\"tingBtnDefault\"> Gem kladde\n</button><!----></app-gem-kladde-slave><!----><app-anmeld-next-previous-slave><!----><button title=\"Alt+N\" accesskey=\"n\" id=\"naesteklodsSlave\" type=\"button\" data-cy=\"naesteKlods_top\" class=\"tingBtnDefault\"> Næste\n</button><!----></app-anmeld-next-previous-slave><app-anmeld-knap-slave><!----></app-anmeld-knap-slave><!----></div><app-messages><div class=\"mt-3\"><!----></div></app-messages></div></div><!----></app-anmeld-top><app-messages><div class=\"mt-3\"><!----></div></app-messages><app-fremtidsfuldmagt-trin><app-trin-header><app-trin-header-presentational><div class=\"row\"><div class=\"col-lg-12\"><!----><h4></h4><!----></div></div><div class=\"row\"><div class=\"col-lg-12\"><div class=\"card-body\"></div></div></div><!----><!----></app-trin-header-presentational></app-trin-header><!----><div><p>Nærværende fremtidsfuldmagt skal vedstås for notar, der ved sin underskrift bekræfter fuldmagtsgiverens identitet, samt at denne er i stand til fornuftsmæssigt at oprette en fremtidsfuldmagt. Personer, der er fritaget for kravet om at modtage digital post fra det offentlige, kan få oprettet en fremtidsfuldmagt hos Familieretshuset.</p></div><!----><div><form><div class=\"row\"><div class=\"col-md-4\"><div id=\"retkredsId2\" class=\"etl-border\"><label for=\"retskredsId\" class=\"form-label\">Retskreds:</label><app-auto-complete id=\"retskredsId\" data-cy=\"retskredse\" class=\"ngrx-forms-untouched ngrx-forms-unsubmitted ngrx-forms-valid ngrx-forms-dirty\"><div class=\"input-group mb-4\"><input autocomplete=\"off\" type=\"text\" typeaheadoptionfield=\"value\" appetlfocus=\"\" class=\"form-control mb-0 ng-valid ng-dirty ng-touched\" id=\"parentIdIkkeSat_autoc_input\" data-cy=\"parentIdIkkeSat_autoc_input\" maxlength=\"1000\" aria-expanded=\"false\" aria-autocomplete=\"list\"><!----><!----><!----><button type=\"button\" aria-label=\"Åben dropdown\" class=\"btn btn-addon\" data-cy=\"parentIdIkkeSatButton\"><span class=\"fa-solid fa-caret-down\"></span></button><!----></div></app-auto-complete><br><br></div></div></div><!----><div><app-aktoer-liste-klods _nghost-ng-c569491700=\"\"><div _ngcontent-ng-c569491700=\"\" class=\"etl-border ng-star-inserted\"><div _ngcontent-ng-c569491700=\"\" class=\"row\"><div _ngcontent-ng-c569491700=\"\" class=\"col-lg-2 horizontal-label\"><h5 _ngcontent-ng-c569491700=\"\">Tilføjede roller</h5></div></div><ngx-datatable _ngcontent-ng-c569491700=\"\" data-cy=\"added-roles\" class=\"ngx-datatable fixed-header virtualized ng-star-inserted\"><div role=\"table\" visibilityobserver=\"\" class=\"visible\"><datatable-header role=\"rowgroup\" class=\"datatable-header ng-star-inserted\" style=\"height: 30px; width: 100%;\"><div role=\"row\" orderable=\"\" class=\"datatable-header-inner\" style=\"width: 1237px;\"><div class=\"datatable-row-left ng-star-inserted\" style=\"width: 0px;\"><!----></div><div class=\"datatable-row-center ng-star-inserted\" style=\"transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; width: 1238px;\"><datatable-header-cell role=\"columnheader\" resizeable=\"\" long-press=\"\" draggable=\"\" class=\"datatable-header-cell resizeable ng-star-inserted\" style=\"width: 328.673px;\"><div class=\"datatable-header-cell-template-wrap\"><!----><!----><!----> Rolle <!----><!----><span></span></div><span class=\"resize-handle\"></span></datatable-header-cell><datatable-header-cell role=\"columnheader\" resizeable=\"\" long-press=\"\" draggable=\"\" class=\"datatable-header-cell resizeable ng-star-inserted\" style=\"width: 251.982px;\"><div class=\"datatable-header-cell-template-wrap\"><!----><!----><!----> Cpr-nr. <!----><!----><span></span></div><span class=\"resize-handle\"></span></datatable-header-cell><datatable-header-cell role=\"columnheader\" resizeable=\"\" long-press=\"\" draggable=\"\" class=\"datatable-header-cell resizeable ng-star-inserted\" style=\"width: 547.788px;\"><div class=\"datatable-header-cell-template-wrap\"><!----><!----><!----> Navn <!----><!----><span></span></div><span class=\"resize-handle\"></span></datatable-header-cell><datatable-header-cell role=\"columnheader\" resizeable=\"\" long-press=\"\" draggable=\"\" class=\"datatable-header-cell resizeable ng-star-inserted\" title=\"Slet\" style=\"width: 109.558px;\"><div class=\"datatable-header-cell-template-wrap\"><!----><!----><span class=\"datatable-header-cell-wrapper ng-star-inserted\"><span class=\"datatable-header-cell-label draggable\">Slet</span></span><!----><!----><span></span></div><span class=\"resize-handle\"></span></datatable-header-cell><!----></div><div class=\"datatable-row-right ng-star-inserted\" style=\"transform: translate3d(1px, 0px, 0px); backface-visibility: hidden; width: 0px;\"><!----></div><!----></div></datatable-header><!----><datatable-body role=\"rowgroup\" class=\"datatable-body\" style=\"width: 100%; height: auto;\"><!----><datatable-selection><datatable-scroller class=\"datatable-scroll ng-star-inserted\" style=\"width: 1237px;\"><!----><datatable-row-wrapper class=\"datatable-row-wrapper ng-star-inserted\"><!----><datatable-body-row role=\"row\" tabindex=\"-1\" class=\"datatable-body-row datatable-row-even ng-star-inserted\" style=\"width: 1237px;\"><div class=\"datatable-row-group datatable-row-left ng-star-inserted\" style=\"width: 0px; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden;\"><!----></div><div class=\"datatable-row-center datatable-row-group ng-star-inserted\" style=\"width: 1238px;\"><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 328.673px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">Fuldmagtshaver</span><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 251.982px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">210573-****</span><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 547.788px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" data-cy=\"fuldmagtshaver\" class=\"ng-star-inserted\">Gitte Dannemann Huus</span><!----><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 109.558px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" title=\"Slet\" tabindex=\"0\" class=\"pb-icon icon-garbage ng-star-inserted\" data-cy=\"sletAktoer-0\"></span><!----><!----><!----></div></datatable-body-cell><!----></div><div class=\"datatable-row-group datatable-row-right ng-star-inserted\" style=\"width: 0px; transform: translate3d(-14px, 0px, 0px); backface-visibility: hidden;\"><!----></div><!----></datatable-body-row><!----><!----><!----><!----></datatable-row-wrapper><datatable-row-wrapper class=\"datatable-row-wrapper ng-star-inserted\"><!----><datatable-body-row role=\"row\" tabindex=\"-1\" class=\"datatable-body-row datatable-row-odd ng-star-inserted\" style=\"width: 1237px;\"><div class=\"datatable-row-group datatable-row-left ng-star-inserted\" style=\"width: 0px; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden;\"><!----></div><div class=\"datatable-row-center datatable-row-group ng-star-inserted\" style=\"width: 1238px;\"><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 328.673px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">Fuldmagtshaver</span><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 251.982px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">050470-****</span><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 547.788px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" data-cy=\"fuldmagtshaver\" class=\"ng-star-inserted\">Lene Wimmelmann</span><!----><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 109.558px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" title=\"Slet\" tabindex=\"0\" class=\"pb-icon icon-garbage ng-star-inserted\" data-cy=\"sletAktoer-1\"></span><!----><!----><!----></div></datatable-body-cell><!----></div><div class=\"datatable-row-group datatable-row-right ng-star-inserted\" style=\"width: 0px; transform: translate3d(-14px, 0px, 0px); backface-visibility: hidden;\"><!----></div><!----></datatable-body-row><!----><!----><!----><!----></datatable-row-wrapper><datatable-row-wrapper class=\"datatable-row-wrapper ng-star-inserted\"><!----><datatable-body-row role=\"row\" tabindex=\"-1\" class=\"datatable-body-row datatable-row-even ng-star-inserted\" style=\"width: 1237px;\"><div class=\"datatable-row-group datatable-row-left ng-star-inserted\" style=\"width: 0px; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden;\"><!----></div><div class=\"datatable-row-center datatable-row-group ng-star-inserted\" style=\"width: 1238px;\"><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 328.673px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">Fuldmagtsgiver</span><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 251.982px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" class=\"ng-star-inserted\">250545-****</span><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 547.788px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" data-cy=\"fuldmagtsgiver\" class=\"ng-star-inserted\">Svend Knudsen</span><!----><!----><!----><!----></div></datatable-body-cell><datatable-body-cell role=\"cell\" tabindex=\"-1\" class=\"datatable-body-cell sort-active ng-star-inserted\" style=\"width: 109.558px; height: auto;\"><div class=\"datatable-body-cell-label\" style=\"margin-left: 0px;\"><!----><!----><!----><span _ngcontent-ng-c569491700=\"\" title=\"Slet\" tabindex=\"0\" class=\"pb-icon icon-garbage ng-star-inserted\" data-cy=\"sletAktoer-2\"></span><!----><!----><!----></div></datatable-body-cell><!----></div><div class=\"datatable-row-group datatable-row-right ng-star-inserted\" style=\"width: 0px; transform: translate3d(-14px, 0px, 0px); backface-visibility: hidden;\"><!----></div><!----></datatable-body-row><!----><!----><!----><!----></datatable-row-wrapper><!----><!----></datatable-scroller><!----><!----></datatable-selection></datatable-body><datatable-footer class=\"datatable-footer ng-star-inserted\"><div class=\"datatable-footer-inner\"><!----><div class=\"page-count ng-star-inserted\"><!----> 3  </div><!----><datatable-pager class=\"datatable-pager ng-star-inserted\" hidden=\"\"><ul class=\"pager\"><li class=\"disabled\"><a role=\"button\" aria-label=\"go to first page\" href=\"javascript:void(0)\"><i class=\"datatable-icon-prev\"></i></a></li><li class=\"disabled\"><a role=\"button\" aria-label=\"go to previous page\" href=\"javascript:void(0)\"><i class=\"datatable-icon-left\"></i></a></li><li role=\"button\" class=\"pages active ng-star-inserted\" aria-label=\"page 1\"><a href=\"javascript:void(0)\"> 1 </a></li><!----><li class=\"disabled\"><a role=\"button\" aria-label=\"go to next page\" href=\"javascript:void(0)\"><i class=\"datatable-icon-right\"></i></a></li><li class=\"disabled\"><a role=\"button\" aria-label=\"go to last page\" href=\"javascript:void(0)\"><i class=\"datatable-icon-skip\"></i></a></li></ul></datatable-pager><!----></div></datatable-footer><!----></div></ngx-datatable><!----><p _ngcontent-ng-c569491700=\"\"></p><div _ngcontent-ng-c569491700=\"\"><a _ngcontent-ng-c569491700=\"\" title=\"Fjerner alle roller på én gang, der har ikon for ”Slet” i listen.\" data-cy=\"fjernAlleRoller-fuldmagtshaverfuldmagtshaver\" role=\"button\" tabindex=\"0\" class=\"ng-star-inserted\">Fjern alle roller </a><!----></div><!----><!----><app-etl-modal-view _ngcontent-ng-c569491700=\"\" _nghost-ng-c1398167979=\"\"><div _ngcontent-ng-c1398167979=\"\" bsmodal=\"\" role=\"dialog\" aria-hidden=\"true\" class=\"modal fade\" id=\"popupRedigerPart\" aria-labelledby=\"popupRedigerPart\"><div _ngcontent-ng-c1398167979=\"\" class=\"modal-dialog modal-xl ng-star-inserted\" id=\"modal_popupRedigerPart\"><!----></div><!----></div><!----><!----><!----></app-etl-modal-view></div><!----></app-aktoer-liste-klods></div><div><app-aktoer-klods><div class=\"etl-border\"><app-aktoer id=\"aktoerId\" data-cy=\"app-aktoer-id\"><form novalidate=\"\" class=\"ng-untouched ng-pristine ng-valid ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\"><div class=\"row\"><div class=\"col-lg-2 horizontal-label\"><h5>Fuldmagtsgiver</h5></div></div><!----><!----><div class=\"row\"><div class=\"col-lg-2 horizontal-label\"><app-label _nghost-ng-c3452472919=\"\"><!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"labelandhelp\"><!----><!----><span _ngcontent-ng-c3452472919=\"\"><label _ngcontent-ng-c3452472919=\"\" class=\"form-label help\" for=\"undefined\" data-cy=\"aktoer.cpr\">Cpr-nr.:<!----><!----><!----></label></span><!----></div><!----></app-label></div><div class=\"col-lg-4\"><input maxlength=\"11\" autocomplete=\"off\" appetlfocus=\"\" class=\"form-control ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\" id=\"Fuldmagtsgivercprnr\" data-cy=\"fuldmagtsgivercprnr\" readonly=\"\"><app-field-error-ngrx-forms><span><!----></span></app-field-error-ngrx-forms></div><!----><!----><div class=\"col-lg-2 horizontal-label\"><app-label _nghost-ng-c3452472919=\"\"><!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"labelandhelp\"><!----><!----><span _ngcontent-ng-c3452472919=\"\"><label _ngcontent-ng-c3452472919=\"\" class=\"form-label help\" for=\"undefined\" data-cy=\"aktoer.navn\">Navn:<!----><!----><!----></label></span><!----></div><!----></app-label></div><div class=\"col-lg-4\"><input appetlfocus=\"\" class=\"form-control ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\" id=\"Fuldmagtsgivernavn\" data-cy=\"fuldmagtsgivernavn\" readonly=\"\"></div><!----><!----></div><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></form><!----></app-aktoer><div class=\"row\"><div class=\"col-lg-4 searchWidgetButtons\"><button type=\"button\" title=\"Enter\" class=\"tingBtnDefault w-25\" id=\"tilfoejfuldmagtsgiver\" data-cy=\"tilfoejfuldmagtsgiver\" disabled=\"\"> Tilføj </button><button id=\"rydA\" type=\"button\" title=\"Alt+R\" appclearbutton=\"\" data-cy=\"ryd-aktoer-form\" class=\"tingBtnDefault w-25\" disabled=\"\"> Ryd </button></div></div><!----></div></app-aktoer-klods></div><div><app-aktoer-klods><div class=\"etl-border\"><app-aktoer id=\"aktoerId\" data-cy=\"app-aktoer-id\"><form novalidate=\"\" class=\"ng-untouched ng-pristine ng-valid ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\"><div class=\"row\"><div class=\"col-lg-2 horizontal-label\"><h5>Fuldmagtshaver</h5></div></div><!----><!----><div class=\"row\"><div class=\"col-lg-2 horizontal-label\"><app-label _nghost-ng-c3452472919=\"\"><!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"labelandhelp\"><!----><!----><span _ngcontent-ng-c3452472919=\"\"><label _ngcontent-ng-c3452472919=\"\" class=\"form-label help\" for=\"undefined\" data-cy=\"aktoer.cpr\">Cpr-nr.:<!----><!----><!----></label></span><!----></div><!----></app-label></div><div class=\"col-lg-4\"><input maxlength=\"11\" autocomplete=\"off\" appetlfocus=\"\" class=\"form-control ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\" id=\"Fuldmagtshavercprnr\" data-cy=\"fuldmagtshavercprnr\"><app-field-error-ngrx-forms><span><!----></span></app-field-error-ngrx-forms></div><!----><!----><div class=\"col-lg-2 horizontal-label\"><app-label _nghost-ng-c3452472919=\"\"><!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"labelandhelp\"><!----><!----><span _ngcontent-ng-c3452472919=\"\"><label _ngcontent-ng-c3452472919=\"\" class=\"form-label help\" for=\"undefined\" data-cy=\"aktoer.navn\">Navn:<!----><!----><!----></label></span><!----></div><!----></app-label></div><div class=\"col-lg-4\"><input appetlfocus=\"\" class=\"form-control ngrx-forms-valid ngrx-forms-unsubmitted ngrx-forms-pristine ngrx-forms-untouched\" id=\"Fuldmagtshavernavn\" data-cy=\"fuldmagtshavernavn\"></div><!----><!----></div><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></form><!----></app-aktoer><div class=\"row\"><div class=\"col-lg-4 searchWidgetButtons\"><button type=\"button\" title=\"Enter\" class=\"tingBtnDefault w-25\" id=\"tilfoejfuldmagtshaver\" data-cy=\"tilfoejfuldmagtshaver\"> Tilføj </button><button id=\"rydA\" type=\"button\" title=\"Alt+R\" appclearbutton=\"\" data-cy=\"ryd-aktoer-form\" class=\"tingBtnDefault w-25\"> Ryd </button></div></div><!----></div></app-aktoer-klods></div><app-fraser2-popups _nghost-ng-c3708837222=\"\"><app-etl-modal-view _ngcontent-ng-c3708837222=\"\" data-cy=\"popupFraser2SoegOpret\" _nghost-ng-c1398167979=\"\"><div _ngcontent-ng-c1398167979=\"\" bsmodal=\"\" role=\"dialog\" aria-hidden=\"true\" class=\"modal fade\" id=\"popupFraser2SoegOpret\" aria-labelledby=\"popupFraser2SoegOpret\"><div _ngcontent-ng-c1398167979=\"\" class=\"modal-dialog modal-xl\" id=\"modal_popupFraser2SoegOpret\"><!----></div><!----></div><!----><!----><!----></app-etl-modal-view></app-fraser2-popups><div class=\"row\"><div class=\"col-md-12\"><div class=\"etl-border\"><app-label _nghost-ng-c3452472919=\"\"><!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"labelandhelp\"><!----><!----><span _ngcontent-ng-c3452472919=\"\"><label _ngcontent-ng-c3452472919=\"\" class=\"form-label help\" for=\"undefined\" data-cy=\"fremtidsfuldmagt.indhold\">Fuldmagtens indhold:<!----><!----><div _ngcontent-ng-c3452472919=\"\" class=\"d-inline-block position-relative with-label\"><span _ngcontent-ng-c3452472919=\"\" class=\"circle\">?</span><div _ngcontent-ng-c3452472919=\"\" class=\"helptext\"><div _ngcontent-ng-c3452472919=\"\" class=\"helpheader\"> Fuldmagtens indhold </div><!----><div _ngcontent-ng-c3452472919=\"\" class=\"helpbody\">Her skal det angives, hvilke forhold fuldmagtsgiver ønsker at give fuldmagt til. Det kan være fuldmagt til økonomiske og/eller personlige forhold. Evt. begrænsninger i fremtidsfuldmagten skal også anføres under indhold, fx hvis fremtidsfuldmagten er begrænset til at angå enkelte forhold eller er afgrænset til en del af fuldmagtsgivers forhold. Der må ikke anføres personnumre i tekstfeltet, alene fulde navn og fødselsdato.</div></div></div><!----></label></span><!----></div><!----></app-label><app-fraser2><div><div class=\"row\"><div class=\"col-md-6 mb-3\"><textarea appetlfocus=\"\" class=\"form-control ngrx-forms-valid ngrx-forms-pristine ngrx-forms-untouched ngrx-forms-unsubmitted\" rows=\"10\" id=\"frasetekst\" data-cy=\"fremtidsfuldmagtIndholdFrase\" style=\"text-decoration: none;\"></textarea></div><div class=\"col-md-1 mb-3\"><div title=\"Slet\" data-cy=\"rydFrase\" class=\"pb-icon icon-garbage hand\"></div></div></div><div class=\"row\"><div class=\"col-md-2 mb-3\"><button type=\"button\" data-cy=\"frase2-button\" class=\"tingBtnDefault\" title=\"Alt-H\" accesskey=\"h\"> Hent/opret frase </button></div></div><!----></div><!----></app-fraser2></div></div></div></form></div><!----></app-fremtidsfuldmagt-trin><!----><!----><app-anmeld-bund><div class=\"row\"><div class=\"col-lg-12\"><div class=\"searchWidgetButtons\"><app-gem-kladde id=\"gemKladdeId\"><button data-cy=\"openGemKladde\" type=\"button\" title=\"Alt+G\" accesskey=\"g\" class=\"tingBtnDefault\"> Gem kladde\n</button><!----><app-etl-modal-view _nghost-ng-c1398167979=\"\"><div _ngcontent-ng-c1398167979=\"\" bsmodal=\"\" role=\"dialog\" aria-hidden=\"true\" class=\"modal fade\" id=\"d7bc4676-e079-423b-a895-3791b4ffcd7f\" aria-labelledby=\"d7bc4676-e079-423b-a895-3791b4ffcd7f\"><div _ngcontent-ng-c1398167979=\"\" class=\"modal-dialog modal-xl\" id=\"modal_d7bc4676-e079-423b-a895-3791b4ffcd7f\"><!----></div><!----></div><!----><!----><!----></app-etl-modal-view></app-gem-kladde><!----><app-anmeld-next-previous id=\"next-button-id\"><!----><button title=\"Alt+N\" data-cy=\"naesteKlods_bottom\" type=\"button\" onclick=\"/*window.scroll(0,0)*/;\" class=\"tingBtnDefault\"> Næste\n</button><!----></app-anmeld-next-previous><app-anmeld-knap id=\"anmeldKnapId\"><!----></app-anmeld-knap><!----></div></div></div><!----></app-anmeld-bund></div><app-popup-anminfo-findobjekt><div tabindex=\"1\" class=\"row\"><!----><!----><!----><!----><!----><app-etl-modal-view _nghost-ng-c1398167979=\"\"><div _ngcontent-ng-c1398167979=\"\" bsmodal=\"\" role=\"dialog\" aria-hidden=\"true\" class=\"modal fade\" id=\"popupAnmelderinformation\" aria-labelledby=\"popupAnmelderinformation\"><div _ngcontent-ng-c1398167979=\"\" class=\"modal-dialog modal-xl\" id=\"modal_popupAnmelderinformation\"><!----></div><!----></div><!----><!----><!----></app-etl-modal-view></div></app-popup-anminfo-findobjekt></div><!----></app-e227-fremtidsfuldmagt><!----></main><app-etl-footer _ngcontent-ng-c126488095=\"\" _nghost-ng-c649628582=\"\"><footer _ngcontent-ng-c649628582=\"\"><div _ngcontent-ng-c649628582=\"\" class=\"tingFooterNavbar\"><div _ngcontent-ng-c649628582=\"\" class=\"row\"><div _ngcontent-ng-c649628582=\"\" class=\"col-9 col-lg-10\"><ul _ngcontent-ng-c649628582=\"\" class=\"tingFooterNavbarUL\"><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">Tinglysningsretten</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">Majsmarken 5</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">9500 Hobro</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">Telefon: 99685800</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\"><a _ngcontent-ng-c649628582=\"\" href=\"https://domstol.dk/tinglysningsretten/kontakt/\" target=\"_blank\">Kontaktformular</a></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\"><a _ngcontent-ng-c649628582=\"\" href=\"https://www.was.digst.dk/tinglysning-dk\" target=\"_blank\">Tilgængelighedserklæring</a></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNav\">|</li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNavCard\"><img _ngcontent-ng-c649628582=\"\" title=\"Du kan betale med Dankort her.\" alt=\"Du kan betale med Dankort her.\" src=\"assets/images/dankort.gif\" class=\"tingFooterBetalingIkon\"></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNavCard\"><img _ngcontent-ng-c649628582=\"\" title=\"Du kan betale med Visa her.\" alt=\"Du kan betale med Visa her.\" src=\"assets/images/card_Visa_53x33.png\" class=\"tingFooterBetalingIkon\"></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNavCard\"><img _ngcontent-ng-c649628582=\"\" title=\"Du kan betale med Mastercard her.\" alt=\"Du kan betale med Mastercard her.\" src=\"assets/images/card_Mastercard_53x33.png\" class=\"tingFooterBetalingIkon\"></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNavCard\"><img _ngcontent-ng-c649628582=\"\" title=\"Du kan betale med MobilePay her.\" alt=\"Du kan betale med MobilePay her.\" src=\"assets/images/MobilePay_55x33.gif\" class=\"tingFooterBetalingIkon\"></li><li _ngcontent-ng-c649628582=\"\" class=\"nav tingFooterNavCard\"><img _ngcontent-ng-c649628582=\"\" title=\"Du kan betale med Apple Pay her.\" alt=\"Du kan betale med Apple Pay her.\" src=\"assets/images/Apple_Pay_53x33.png\" class=\"tingFooterBetalingIkon\"></li></ul></div><div _ngcontent-ng-c649628582=\"\" class=\"col-3 col-lg-2 text-end\"><button _ngcontent-ng-c649628582=\"\" type=\"button\" data-cy=\"tilForsiden\" class=\"btn-href tilForsidenLink\"> Gå til forsiden </button><!----></div></div></div></footer></app-etl-footer></div></div></app-tmv><!---->\n  <script src=\"runtime.828940eb30490823.js\" type=\"module\"></script><script src=\"polyfills.8ff53fd7842eac68.js\" type=\"module\"></script><script src=\"scripts.d8fd13b4dc25067b.js\" defer=\"\"></script><script src=\"main.a5dd15e71ca59c8a.js\" type=\"module\"></script>\n\n\n</body>",
-					"settings":
-					{
-						"buffer_size": 29610,
-						"line_ending": "Unix",
-						"name": "<body class=\"etl-custom-style\">"
-					},
-					"undo_stack":
-					[
+							"AQAAAP4AAAAAAAAA/wAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA/gAAAAAAAAD+AAAAAAAAAAAAAAAAAPC/"
+						],
 						[
+							74,
 							1,
+							"insert",
+							{
+								"characters": "\n\n\n"
+							},
+							"AwAAAP8AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAABAQAAAAAAAAAAAAABAQAAAAAAAAIBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA/wAAAAAAAAD/AAAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							75,
 							1,
 							"paste",
 							null,
-							"AQAAAAAAAAAAAAAAqnMAAAAAAAAAAAAA",
-							"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+							"AQAAAAIBAAAAAAAAUwEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAAgEAAAAAAAACAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							87,
+							1,
+							"insert",
+							{
+								"characters": "\n\n"
+							},
+							"AgAAAFMBAAAAAAAAVAEAAAAAAAAAAAAAVAEAAAAAAABVAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAUwEAAAAAAABTAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							88,
+							1,
+							"insert",
+							{
+								"characters": "25"
+							},
+							"AgAAAFUBAAAAAAAAVgEAAAAAAAAAAAAAVgEAAAAAAABXAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAVQEAAAAAAABVAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							89,
+							1,
+							"left_delete",
+							null,
+							"AQAAAFYBAAAAAAAAVgEAAAAAAAABAAAANQ",
+							"AQAAAAAAAAABAAAAVwEAAAAAAABXAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							90,
+							1,
+							"insert",
+							{
+								"characters": "5.9"
+							},
+							"AwAAAFYBAAAAAAAAVwEAAAAAAAAAAAAAVwEAAAAAAABYAQAAAAAAAAAAAABYAQAAAAAAAFkBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAVgEAAAAAAABWAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							91,
+							1,
+							"insert",
+							{
+								"characters": "0"
+							},
+							"AQAAAFkBAAAAAAAAWgEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWQEAAAAAAABZAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							92,
+							2,
+							"left_delete",
+							null,
+							"AgAAAFkBAAAAAAAAWQEAAAAAAAABAAAAMFgBAAAAAAAAWAEAAAAAAAABAAAAOQ",
+							"AQAAAAAAAAABAAAAWgEAAAAAAABaAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							93,
+							1,
+							"insert",
+							{
+								"characters": "03"
+							},
+							"AgAAAFgBAAAAAAAAWQEAAAAAAAAAAAAAWQEAAAAAAABaAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWAEAAAAAAABYAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							94,
+							1,
+							"left_delete",
+							null,
+							"AQAAAFkBAAAAAAAAWQEAAAAAAAABAAAAMw",
+							"AQAAAAAAAAABAAAAWgEAAAAAAABaAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							95,
+							1,
+							"insert",
+							{
+								"characters": "4"
+							},
+							"AQAAAFkBAAAAAAAAWgEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWQEAAAAAAABZAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							96,
+							1,
+							"insert",
+							{
+								"characters": ".202"
+							},
+							"BAAAAFoBAAAAAAAAWwEAAAAAAAAAAAAAWwEAAAAAAABcAQAAAAAAAAAAAABcAQAAAAAAAF0BAAAAAAAAAAAAAF0BAAAAAAAAXgEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAWgEAAAAAAABaAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							97,
+							1,
+							"insert",
+							{
+								"characters": "6"
+							},
+							"AQAAAF4BAAAAAAAAXwEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAXgEAAAAAAABeAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							98,
+							1,
+							"left_delete",
+							null,
+							"AQAAAF4BAAAAAAAAXgEAAAAAAAABAAAANg",
+							"AQAAAAAAAAABAAAAXwEAAAAAAABfAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							99,
+							1,
+							"insert",
+							{
+								"characters": "5:"
+							},
+							"AgAAAF4BAAAAAAAAXwEAAAAAAAAAAAAAXwEAAAAAAABgAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAXgEAAAAAAABeAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							100,
+							1,
+							"insert",
+							{
+								"characters": " Kan"
+							},
+							"BAAAAGABAAAAAAAAYQEAAAAAAAAAAAAAYQEAAAAAAABiAQAAAAAAAAAAAABiAQAAAAAAAGMBAAAAAAAAAAAAAGMBAAAAAAAAZAEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAYAEAAAAAAABgAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							101,
+							1,
+							"insert",
+							{
+								"characters": " ikke"
+							},
+							"BQAAAGQBAAAAAAAAZQEAAAAAAAAAAAAAZQEAAAAAAABmAQAAAAAAAAAAAABmAQAAAAAAAGcBAAAAAAAAAAAAAGcBAAAAAAAAaAEAAAAAAAAAAAAAaAEAAAAAAABpAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAZAEAAAAAAABkAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							102,
+							1,
+							"insert",
+							{
+								"characters": " finde"
+							},
+							"BgAAAGkBAAAAAAAAagEAAAAAAAAAAAAAagEAAAAAAABrAQAAAAAAAAAAAABrAQAAAAAAAGwBAAAAAAAAAAAAAGwBAAAAAAAAbQEAAAAAAAAAAAAAbQEAAAAAAABuAQAAAAAAAAAAAABuAQAAAAAAAG8BAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAaQEAAAAAAABpAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							103,
+							1,
+							"insert",
+							{
+								"characters": " bekræftelse"
+							},
+							"DAAAAG8BAAAAAAAAcAEAAAAAAAAAAAAAcAEAAAAAAABxAQAAAAAAAAAAAABxAQAAAAAAAHIBAAAAAAAAAAAAAHIBAAAAAAAAcwEAAAAAAAAAAAAAcwEAAAAAAAB0AQAAAAAAAAAAAAB0AQAAAAAAAHUBAAAAAAAAAAAAAHUBAAAAAAAAdgEAAAAAAAAAAAAAdgEAAAAAAAB3AQAAAAAAAAAAAAB3AQAAAAAAAHgBAAAAAAAAAAAAAHgBAAAAAAAAeQEAAAAAAAAAAAAAeQEAAAAAAAB6AQAAAAAAAAAAAAB6AQAAAAAAAHsBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAbwEAAAAAAABvAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							104,
+							1,
+							"insert",
+							{
+								"characters": "."
+							},
+							"AQAAAHsBAAAAAAAAfAEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAewEAAAAAAAB7AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							105,
+							1,
+							"insert",
+							{
+								"characters": " Opslag"
+							},
+							"BwAAAHwBAAAAAAAAfQEAAAAAAAAAAAAAfQEAAAAAAAB+AQAAAAAAAAAAAAB+AQAAAAAAAH8BAAAAAAAAAAAAAH8BAAAAAAAAgAEAAAAAAAAAAAAAgAEAAAAAAACBAQAAAAAAAAAAAACBAQAAAAAAAIIBAAAAAAAAAAAAAIIBAAAAAAAAgwEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAfAEAAAAAAAB8AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							106,
+							1,
+							"insert",
+							{
+								"characters": " på"
+							},
+							"AwAAAIMBAAAAAAAAhAEAAAAAAAAAAAAAhAEAAAAAAACFAQAAAAAAAAAAAACFAQAAAAAAAIYBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAgwEAAAAAAACDAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							107,
+							1,
+							"insert",
+							{
+								"characters": " tingly"
+							},
+							"BwAAAIYBAAAAAAAAhwEAAAAAAAAAAAAAhwEAAAAAAACIAQAAAAAAAAAAAACIAQAAAAAAAIkBAAAAAAAAAAAAAIkBAAAAAAAAigEAAAAAAAAAAAAAigEAAAAAAACLAQAAAAAAAAAAAACLAQAAAAAAAIwBAAAAAAAAAAAAAIwBAAAAAAAAjQEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAhgEAAAAAAACGAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							108,
+							1,
+							"insert",
+							{
+								"characters": "snign"
+							},
+							"BQAAAI0BAAAAAAAAjgEAAAAAAAAAAAAAjgEAAAAAAACPAQAAAAAAAAAAAACPAQAAAAAAAJABAAAAAAAAAAAAAJABAAAAAAAAkQEAAAAAAAAAAAAAkQEAAAAAAACSAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAjQEAAAAAAACNAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							109,
+							1,
+							"insert",
+							{
+								"characters": " "
+							},
+							"AQAAAJIBAAAAAAAAkwEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAkgEAAAAAAACSAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							110,
+							3,
+							"left_delete",
+							null,
+							"AwAAAJIBAAAAAAAAkgEAAAAAAAABAAAAIJEBAAAAAAAAkQEAAAAAAAABAAAAbpABAAAAAAAAkAEAAAAAAAABAAAAZw",
+							"AQAAAAAAAAABAAAAkwEAAAAAAACTAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							111,
+							1,
+							"insert",
+							{
+								"characters": "ng"
+							},
+							"AgAAAJABAAAAAAAAkQEAAAAAAAAAAAAAkQEAAAAAAACSAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAkAEAAAAAAACQAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							112,
+							1,
+							"insert",
+							{
+								"characters": " viser"
+							},
+							"BgAAAJIBAAAAAAAAkwEAAAAAAAAAAAAAkwEAAAAAAACUAQAAAAAAAAAAAACUAQAAAAAAAJUBAAAAAAAAAAAAAJUBAAAAAAAAlgEAAAAAAAAAAAAAlgEAAAAAAACXAQAAAAAAAAAAAACXAQAAAAAAAJgBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAkgEAAAAAAACSAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							113,
+							1,
+							"insert",
+							{
+								"characters": " "
+							},
+							"AQAAAJgBAAAAAAAAmQEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAmAEAAAAAAACYAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							114,
+							1,
+							"left_delete",
+							null,
+							"AQAAAJgBAAAAAAAAmAEAAAAAAAABAAAAIA",
+							"AQAAAAAAAAABAAAAmQEAAAAAAACZAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							115,
+							1,
+							"insert",
+							{
+								"characters": ","
+							},
+							"AQAAAJgBAAAAAAAAmQEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAmAEAAAAAAACYAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							116,
+							1,
+							"insert",
+							{
+								"characters": " at"
+							},
+							"AwAAAJkBAAAAAAAAmgEAAAAAAAAAAAAAmgEAAAAAAACbAQAAAAAAAAAAAACbAQAAAAAAAJwBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAmQEAAAAAAACZAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							117,
+							1,
+							"insert",
+							{
+								"characters": " den"
+							},
+							"BAAAAJwBAAAAAAAAnQEAAAAAAAAAAAAAnQEAAAAAAACeAQAAAAAAAAAAAACeAQAAAAAAAJ8BAAAAAAAAAAAAAJ8BAAAAAAAAoAEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAnAEAAAAAAACcAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							118,
+							1,
+							"insert",
+							{
+								"characters": " blev"
+							},
+							"BQAAAKABAAAAAAAAoQEAAAAAAAAAAAAAoQEAAAAAAACiAQAAAAAAAAAAAACiAQAAAAAAAKMBAAAAAAAAAAAAAKMBAAAAAAAApAEAAAAAAAAAAAAApAEAAAAAAAClAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAoAEAAAAAAACgAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							119,
+							1,
+							"insert",
+							{
+								"characters": " "
+							},
+							"AQAAAKUBAAAAAAAApgEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAApQEAAAAAAAClAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							120,
+							1,
+							"insert",
+							{
+								"characters": "tinglyst."
+							},
+							"CQAAAKYBAAAAAAAApwEAAAAAAAAAAAAApwEAAAAAAACoAQAAAAAAAAAAAACoAQAAAAAAAKkBAAAAAAAAAAAAAKkBAAAAAAAAqgEAAAAAAAAAAAAAqgEAAAAAAACrAQAAAAAAAAAAAACrAQAAAAAAAKwBAAAAAAAAAAAAAKwBAAAAAAAArQEAAAAAAAAAAAAArQEAAAAAAACuAQAAAAAAAAAAAACuAQAAAAAAAK8BAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAApgEAAAAAAACmAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							123,
+							1,
+							"insert",
+							{
+								"characters": ".dk"
+							},
+							"AwAAAJIBAAAAAAAAkwEAAAAAAAAAAAAAkwEAAAAAAACUAQAAAAAAAAAAAACUAQAAAAAAAJUBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAkgEAAAAAAACSAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							155,
+							1,
+							"insert",
+							{
+								"characters": "\n\n2"
+							},
+							"AwAAALIBAAAAAAAAswEAAAAAAAAAAAAAswEAAAAAAAC0AQAAAAAAAAAAAAC0AQAAAAAAALUBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAsgEAAAAAAACyAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							156,
+							1,
+							"insert",
+							{
+								"characters": "5.03"
+							},
+							"BAAAALUBAAAAAAAAtgEAAAAAAAAAAAAAtgEAAAAAAAC3AQAAAAAAAAAAAAC3AQAAAAAAALgBAAAAAAAAAAAAALgBAAAAAAAAuQEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAtQEAAAAAAAC1AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							157,
+							1,
+							"left_delete",
+							null,
+							"AQAAALgBAAAAAAAAuAEAAAAAAAABAAAAMw",
+							"AQAAAAAAAAABAAAAuQEAAAAAAAC5AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							158,
+							1,
+							"insert",
+							{
+								"characters": "42"
+							},
+							"AgAAALgBAAAAAAAAuQEAAAAAAAAAAAAAuQEAAAAAAAC6AQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAuAEAAAAAAAC4AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							159,
+							1,
+							"left_delete",
+							null,
+							"AQAAALkBAAAAAAAAuQEAAAAAAAABAAAAMg",
+							"AQAAAAAAAAABAAAAugEAAAAAAAC6AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							160,
+							1,
+							"insert",
+							{
+								"characters": ".2026"
+							},
+							"BQAAALkBAAAAAAAAugEAAAAAAAAAAAAAugEAAAAAAAC7AQAAAAAAAAAAAAC7AQAAAAAAALwBAAAAAAAAAAAAALwBAAAAAAAAvQEAAAAAAAAAAAAAvQEAAAAAAAC+AQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAuQEAAAAAAAC5AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							161,
+							1,
+							"left_delete",
+							null,
+							"AQAAAL0BAAAAAAAAvQEAAAAAAAABAAAANg",
+							"AQAAAAAAAAABAAAAvgEAAAAAAAC+AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							162,
+							1,
+							"insert",
+							{
+								"characters": "5:"
+							},
+							"AgAAAL0BAAAAAAAAvgEAAAAAAAAAAAAAvgEAAAAAAAC/AQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAvQEAAAAAAAC9AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							163,
+							1,
+							"insert",
+							{
+								"characters": " Lukket"
+							},
+							"BwAAAL8BAAAAAAAAwAEAAAAAAAAAAAAAwAEAAAAAAADBAQAAAAAAAAAAAADBAQAAAAAAAMIBAAAAAAAAAAAAAMIBAAAAAAAAwwEAAAAAAAAAAAAAwwEAAAAAAADEAQAAAAAAAAAAAADEAQAAAAAAAMUBAAAAAAAAAAAAAMUBAAAAAAAAxgEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAvwEAAAAAAAC/AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							164,
+							1,
+							"insert",
+							{
+								"characters": " i"
+							},
+							"AgAAAMYBAAAAAAAAxwEAAAAAAAAAAAAAxwEAAAAAAADIAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAxgEAAAAAAADGAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							165,
+							1,
+							"insert",
+							{
+								"characters": " forbindelse"
+							},
+							"DAAAAMgBAAAAAAAAyQEAAAAAAAAAAAAAyQEAAAAAAADKAQAAAAAAAAAAAADKAQAAAAAAAMsBAAAAAAAAAAAAAMsBAAAAAAAAzAEAAAAAAAAAAAAAzAEAAAAAAADNAQAAAAAAAAAAAADNAQAAAAAAAM4BAAAAAAAAAAAAAM4BAAAAAAAAzwEAAAAAAAAAAAAAzwEAAAAAAADQAQAAAAAAAAAAAADQAQAAAAAAANEBAAAAAAAAAAAAANEBAAAAAAAA0gEAAAAAAAAAAAAA0gEAAAAAAADTAQAAAAAAAAAAAADTAQAAAAAAANQBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAyAEAAAAAAADIAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							166,
+							1,
+							"insert",
+							{
+								"characters": " med"
+							},
+							"BAAAANQBAAAAAAAA1QEAAAAAAAAAAAAA1QEAAAAAAADWAQAAAAAAAAAAAADWAQAAAAAAANcBAAAAAAAAAAAAANcBAAAAAAAA2AEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA1AEAAAAAAADUAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							167,
+							1,
+							"insert",
+							{
+								"characters": " oprydni"
+							},
+							"CAAAANgBAAAAAAAA2QEAAAAAAAAAAAAA2QEAAAAAAADaAQAAAAAAAAAAAADaAQAAAAAAANsBAAAAAAAAAAAAANsBAAAAAAAA3AEAAAAAAAAAAAAA3AEAAAAAAADdAQAAAAAAAAAAAADdAQAAAAAAAN4BAAAAAAAAAAAAAN4BAAAAAAAA3wEAAAAAAAAAAAAA3wEAAAAAAADgAQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA2AEAAAAAAADYAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							168,
+							1,
+							"insert",
+							{
+								"characters": "ng:"
+							},
+							"AwAAAOABAAAAAAAA4QEAAAAAAAAAAAAA4QEAAAAAAADiAQAAAAAAAAAAAADiAQAAAAAAAOMBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA4AEAAAAAAADgAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							169,
+							1,
+							"insert",
+							{
+								"characters": " Ser"
+							},
+							"BAAAAOMBAAAAAAAA5AEAAAAAAAAAAAAA5AEAAAAAAADlAQAAAAAAAAAAAADlAQAAAAAAAOYBAAAAAAAAAAAAAOYBAAAAAAAA5wEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA4wEAAAAAAADjAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							170,
+							1,
+							"insert",
+							{
+								"characters": " ud"
+							},
+							"AwAAAOcBAAAAAAAA6AEAAAAAAAAAAAAA6AEAAAAAAADpAQAAAAAAAAAAAADpAQAAAAAAAOoBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA5wEAAAAAAADnAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							171,
+							1,
+							"insert",
+							{
+								"characters": " til"
+							},
+							"BAAAAOoBAAAAAAAA6wEAAAAAAAAAAAAA6wEAAAAAAADsAQAAAAAAAAAAAADsAQAAAAAAAO0BAAAAAAAAAAAAAO0BAAAAAAAA7gEAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA6gEAAAAAAADqAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							172,
+							1,
+							"insert",
+							{
+								"characters": " at"
+							},
+							"AwAAAO4BAAAAAAAA7wEAAAAAAAAAAAAA7wEAAAAAAADwAQAAAAAAAAAAAADwAQAAAAAAAPEBAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA7gEAAAAAAADuAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							173,
+							1,
+							"insert",
+							{
+								"characters": " være"
+							},
+							"BQAAAPEBAAAAAAAA8gEAAAAAAAAAAAAA8gEAAAAAAADzAQAAAAAAAAAAAADzAQAAAAAAAPQBAAAAAAAAAAAAAPQBAAAAAAAA9QEAAAAAAAAAAAAA9QEAAAAAAAD2AQAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA8QEAAAAAAADxAQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							174,
+							1,
+							"insert",
+							{
+								"characters": " stiftet."
+							},
+							"CQAAAPYBAAAAAAAA9wEAAAAAAAAAAAAA9wEAAAAAAAD4AQAAAAAAAAAAAAD4AQAAAAAAAPkBAAAAAAAAAAAAAPkBAAAAAAAA+gEAAAAAAAAAAAAA+gEAAAAAAAD7AQAAAAAAAAAAAAD7AQAAAAAAAPwBAAAAAAAAAAAAAPwBAAAAAAAA/QEAAAAAAAAAAAAA/QEAAAAAAAD+AQAAAAAAAAAAAAD+AQAAAAAAAP8BAAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA9gEAAAAAAAD2AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							183,
+							1,
+							"insert",
+							{
+								"characters": "\n\n"
+							},
+							"AgAAAP8BAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAABAgAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAA/wEAAAAAAAD/AQAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							184,
+							1,
+							"paste_and_indent",
+							null,
+							"AQAAAAECAAAAAAAAEgIAAAAAAAAAAAAA",
+							"AQAAAAAAAAABAAAAAQIAAAAAAAABAgAAAAAAAAAAAAAAAPC/"
+						],
+						[
+							187,
+							1,
+							"left_delete",
+							null,
+							"AQAAAAECAAAAAAAAAQIAAAAAAAARAAAAYWt0aEBsdW5kYmVjay5jb20",
+							"AQAAAAAAAAABAAAAEgIAAAAAAAABAgAAAAAAAAAAAAAAAPC/"
 						]
 					]
 				}
@@ -648,7 +1514,7 @@
 			],
 			"find":
 			{
-				"height": 38.0
+				"height": 0.0
 			},
 			"find_in_files":
 			{
@@ -685,59 +1551,28 @@
 					[
 						{
 							"buffer": 0,
-							"semi_transient": false,
-							"settings":
-							{
-								"buffer_size": 79,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										79,
-										79
-									]
-								],
-								"settings":
-								{
-									"auto_name": "gammel satus må ikke være sat til Done",
-									"syntax": "Packages/Text/Plain text.tmLanguage"
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"stack_index": 1,
-							"stack_multiselect": false,
-							"type": "text"
-						},
-						{
-							"buffer": 1,
 							"selected": true,
 							"semi_transient": false,
 							"settings":
 							{
-								"buffer_size": 29610,
+								"buffer_size": 513,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										0,
-										29610
+										513,
+										513
 									]
 								],
 								"settings":
 								{
-									"auto_name": "<body class=\"etl-custom-style\">",
-									"syntax": "Packages/Text/Plain text.tmLanguage",
-									"tab_size": 4,
-									"translate_tabs_to_spaces": true
+									"auto_name": "50k mindre revenue",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
 								},
 								"translation.x": 0.0,
-								"translation.y": 2628.0,
+								"translation.y": 0.0,
 								"zoom_level": 1.0
 							},
 							"stack_index": 0,
@@ -749,7 +1584,7 @@
 			],
 			"incremental_find":
 			{
-				"height": 26.0
+				"height": 0.0
 			},
 			"input":
 			{
@@ -783,11 +1618,11 @@
 				"height": 0.0
 			},
 			"pinned_build_system": "",
-			"position": "YnBsaXN0MDDUAQIDBAUGBylYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlct8QEQgJCgsMDQ4PEBESExQVFhcYGRobHB0eHiAgIiMkJSYmJyBeTlNXaW5kb3dOdW1iZXJdTlNXaW5kb3dGcmFtZVdOU1RpdGxlXxAeX05TV2luZG93TGFzdFVzZXJXaW5kb3dMYXlvdXRzXxAcTlNQYWNrYWdlc1dpbmRvd1Byb3BlcnR5TGlzdFdOU0lzS2V5WE5TSXNNYWluXxAQTlNGaXJzdFJlc3BvbmRlcl8QF05TVW5tYW5hZ2VkV2luZG93RnJhbWUyW05TQ2xhc3NOYW1lW05TU3R5bGVNYXNrXxAmTlNXaW5kb3dNYW5hZ2VtZW50UGVyc2lzdGVudElkZW50aWZpZXJfEBBfTlNXaW5kb3dMYXlvdXRzXxAXX05TV2luZG93TW92ZUdlbmVyYXRpb25fEBlfTlNXaW5kb3dSZXNpemVHZW5lcmF0aW9uXxATTlNXaW5kb3dXb3Jrc3BhY2VJRF8QHU5TV2luZG93TWFuYWdlbWVudFRpbGluZ1N0YXRlERUegAKAA4AWgB0JCYAAgACABBAPgAGABhAAgAWAAK8QICorLC0uLzA7QUJDSU1OT1dYWV1hYmNnb3N0dXl6e4GCVSRudWxsXxAkNTVGNkVFOTItQTBBMi00MUU2LUE1QTAtNTc4MUI1NkI0QTA4XxAeODgwIDM3MCA4MDAgNjI5IDAgMCAyNTYwIDE0MTUgXxAfPGJvZHkgY2xhc3M9ImV0bC1jdXN0b20tc3R5bGUiPlhQWFdpbmRvd1DTMTIzNDc6V05TLmtleXNaTlMub2JqZWN0c1YkY2xhc3OiNTaAB4ALojg5gA6AEoAV0zw9Mz4/QF8QGE5TU2NyZWVuTGF5b3V0VVVJRFN0cmluZ18QEk5TU2NyZWVuTGF5b3V0U2l6ZYAIgAmACl8QJEJGMUREQUE5LUYyMEUtMEZCRS1BMUM4LUQzODdDNjA4RUU0QVt7MTUzNiwgOTYwfdJERUZHWiRjbGFzc25hbWVYJGNsYXNzZXNeTlNTY3JlZW5MYXlvdXSiRkhYTlNPYmplY3TTPD0zSktAgAyADYAKXxAkN0QwQzQ0REItQ0UwRC05NEE3LUY2NDctQ0RBNDhBNzVFNEI3XHsyNTYwLCAxNDQwfdVQUVIzU1QmJlVWXxAfTlNXaW5kb3dMYXlvdXRTY3JlZW5MYXlvdXRGcmFtZV8QHk5TV2luZG93TGF5b3V0UmVzaXplR2VuZXJhdGlvbl8QHE5TV2luZG93TGF5b3V0TW92ZUdlbmVyYXRpb25fEBlOU1dpbmRvd0xheW91dFdpbmRvd0ZyYW1lgBCAEYAPXxAWe3swLCAzMDZ9LCB7ODAwLCA2Mjl9fV8QFXt7MCwgMH0sIHsxNTM2LCA5MzV9fdJERVpbXk5TV2luZG93TGF5b3V0olpcWE5TT2JqZWN01VBRUjNTXiYmVWCAFIARgBNfEBh7ezg4MCwgMzcwfSwgezgwMCwgNjI5fX1fEBZ7ezAsIDB9LCB7MjU2MCwgMTQxNX190kRFZGVcTlNEaWN0aW9uYXJ5omRmWE5TT2JqZWN00zEyM2hrOqI+SoAIgAyibG2AF4AagBXVUFFSM1NwJiZVcoAZgBGAGF8QFnt7MCwgMzA2fSwgezgwMCwgNjI5fX1fEBV7ezAsIDB9LCB7MTUzNiwgOTM1fX3VUFFSM1N2JiZVeIAcgBGAG18QGHt7ODgwLCAzNzB9LCB7ODAwLCA2Mjl9fV8QFnt7MCwgMH0sIHsyNTYwLCAxNDE1fX3TMTIzfH46oX2AHqF/gB+AFV8QIUNvbGxhcHNlZE1hbmFnZWREaXNwbGF5SWRlbnRpZmllcl8QJDdEMEM0NERCLUNFMEQtOTRBNy1GNjQ3LUNEQTQ4QTc1RTRCNwAIABEAGgAkACkAMgA3AEkAbgB9AIsAkwC0ANMA2wDkAPcBEQEdASkBUgFlAX8BmwGxAdEB1AHWAdgB2gHcAd0B3gHgAeIB5AHmAegB6gHsAe4B8AITAhkCQAJhAoMCjAKNApQCnAKnAq4CsQKzArUCuAK6ArwCvgLFAuAC9QL3AvkC+wMiAy4DMwM+A0cDVgNZA2IDaQNrA20DbwOWA6MDrgPQA/EEEAQsBC4EMAQyBEsEYwRoBHcEegSDBI4EkASSBJQErwTIBM0E2gTdBOYE7QTwBPIE9AT3BPkE+wT9BQgFCgUMBQ4FJwU/BUoFTAVOBVAFawWEBYsFjQWPBZEFkwWVBbkAAAAAAAACAQAAAAAAAACDAAAAAAAAAAAAAAAAAAAF4A",
+			"position": "YnBsaXN0MDDUAQIDBAUGBylYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlct8QEQgJCgsMDQ4PEBESExQVFhcYGRobHB0eHiAgIiMkJSYmJyBeTlNXaW5kb3dOdW1iZXJdTlNXaW5kb3dGcmFtZVdOU1RpdGxlXxAeX05TV2luZG93TGFzdFVzZXJXaW5kb3dMYXlvdXRzXxAcTlNQYWNrYWdlc1dpbmRvd1Byb3BlcnR5TGlzdFdOU0lzS2V5WE5TSXNNYWluXxAQTlNGaXJzdFJlc3BvbmRlcl8QF05TVW5tYW5hZ2VkV2luZG93RnJhbWUyW05TQ2xhc3NOYW1lW05TU3R5bGVNYXNrXxAmTlNXaW5kb3dNYW5hZ2VtZW50UGVyc2lzdGVudElkZW50aWZpZXJfEBBfTlNXaW5kb3dMYXlvdXRzXxAXX05TV2luZG93TW92ZUdlbmVyYXRpb25fEBlfTlNXaW5kb3dSZXNpemVHZW5lcmF0aW9uXxATTlNXaW5kb3dXb3Jrc3BhY2VJRF8QHU5TV2luZG93TWFuYWdlbWVudFRpbGluZ1N0YXRlERDugAKAA4AigC8JCYAAgACABBAPgAGABhAAgAWAAK8QMiorLC0uLzA/RUZHTVFSU1dYWV1eX2doaWxwcXJ2d3h8fX6BjZGSk5eYmZ2en6OkpausVSRudWxsXxAkMjU0MzhFQUUtNzE0Mi00M0M4LTlGOTAtMzZFRDc0NEIwRERFXxAeODgwIDM3MCA4MDAgNjI5IDAgMCAyNTYwIDE0MTUgXxASNTBrIG1pbmRyZSByZXZlbnVlWFBYV2luZG93UNMxMjM0OT5XTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6Q1Njc4gAeAC4AOgBGkOjs8PYAUgBiAG4AegCHTQEEzQkNEXxAYTlNTY3JlZW5MYXlvdXRVVUlEU3RyaW5nXxASTlNTY3JlZW5MYXlvdXRTaXplgAiACYAKXxAkNUJBQkFCNTctN0I4My00RUQ0LTgxMjUtMTI2RTIzRDlDNkFEXHsxOTIwLCAxMDgwfdJISUpLWiRjbGFzc25hbWVYJGNsYXNzZXNeTlNTY3JlZW5MYXlvdXSiSkxYTlNPYmplY3TTQEEzTk9EgAyADYAKXxAkOUVBMTlDN0EtMUI4Ny00RDhELTg0OTItNEE4MTE4RkI3MjFFXHsxOTIwLCAxMDgwfdNAQTNUVUSAD4AQgApfECRERkY3RTk5NC05NUU4LTRDRkUtODg2Qy1FRDNGMzM2NDMzNzRcezI1NjAsIDE0NDB900BBM1pbRIASgBOACl8QJDM3RDg4MzJBLTJENjYtMDJDQS1COUY3LThGMzBBMzAxQjIzMFt7MTQ3MCwgOTU2fdVgYWIzY2QmJmVmXxAfTlNXaW5kb3dMYXlvdXRTY3JlZW5MYXlvdXRGcmFtZV8QHk5TV2luZG93TGF5b3V0UmVzaXplR2VuZXJhdGlvbl8QHE5TV2luZG93TGF5b3V0TW92ZUdlbmVyYXRpb25fEBlOU1dpbmRvd0xheW91dFdpbmRvd0ZyYW1lgBaAF4AVXxAYe3s4ODAsIDM3MH0sIHs4MDAsIDYyOX19XxAWe3swLCAwfSwgezE5MjAsIDEwNTV9fdJISWprXk5TV2luZG93TGF5b3V0ompM1WBhYjNjbSYmZW+AGoAXgBlfEBh7ezg4MCwgMzcwfSwgezgwMCwgNjI5fX1fEBZ7ezAsIDB9LCB7MTkyMCwgMTA1NX191WBhYjNjcyYmZXWAHYAXgBxfEBh7ezg4MCwgMzcwfSwgezgwMCwgNjI5fX1fEBZ7ezAsIDB9LCB7MjU2MCwgMTQxNX191WBhYjNjeSYmZXuAIIAXgB9fEBZ7ezAsIDI4OX0sIHs4MDAsIDYyOX19XxAVe3swLCAwfSwgezE0NzAsIDkxOH190khJf4BcTlNEaWN0aW9uYXJ5on9M0zEyM4KHPqRCTlRagAiADIAPgBKkiImKi4AjgCaAKYAsgCHVYGFiM2OOJiZlkIAlgBeAJF8QGHt7ODgwLCAzNzB9LCB7ODAwLCA2Mjl9fV8QFnt7MCwgMH0sIHsxOTIwLCAxMDU1fX3VYGFiM2OUJiZlloAogBeAJ18QGHt7ODgwLCAzNzB9LCB7ODAwLCA2Mjl9fV8QFnt7MCwgMH0sIHsxOTIwLCAxMDU1fX3VYGFiM2OaJiZlnIArgBeAKl8QGHt7ODgwLCAzNzB9LCB7ODAwLCA2Mjl9fV8QFnt7MCwgMH0sIHsyNTYwLCAxNDE1fX3VYGFiM2OgJiZlooAugBeALV8QFnt7MCwgMjg5fSwgezgwMCwgNjI5fX1fEBV7ezAsIDB9LCB7MTQ3MCwgOTE4fX3TMTIzpqg+oaeAMKGpgDGAIV8QIUNvbGxhcHNlZE1hbmFnZWREaXNwbGF5SWRlbnRpZmllcl8QJERGRjdFOTk0LTk1RTgtNENGRS04ODZDLUVEM0YzMzY0MzM3NAAIABEAGgAkACkAMgA3AEkAbgB9AIsAkwC0ANMA2wDkAPcBEQEdASkBUgFlAX8BmwGxAdEB1AHWAdgB2gHcAd0B3gHgAeIB5AHmAegB6gHsAe4B8AIlAisCUgJzAogCkQKSApkCoQKsArMCuAK6ArwCvgLAAsUCxwLJAssCzQLPAtYC8QMGAwgDCgMMAzMDQANFA1ADWQNoA2sDdAN7A30DfwOBA6gDtQO8A74DwAPCA+kD9gP9A/8EAQQDBCoENgRBBGMEhASjBL8EwQTDBMUE4AT5BP4FDQUQBRsFHQUfBSEFPAVVBWAFYgVkBWYFgQWaBaUFpwWpBasFxAXcBeEF7gXxBfgF/QX/BgEGAwYFBgoGDAYOBhAGEgYUBh8GIQYjBiUGQAZZBmQGZgZoBmoGhQaeBqkGqwatBq8GygbjBu4G8AbyBvQHDQclBywHLgcwBzIHNAc2B1oAAAAAAAACAQAAAAAAAACtAAAAAAAAAAAAAAAAAAAHgQ",
 			"project": "",
 			"replace":
 			{
-				"height": 48.0
+				"height": 0.0
 			},
 			"save_all_on_build": true,
 			"select_file":
@@ -830,7 +1665,7 @@
 			"template_settings":
 			{
 			},
-			"window_id": 2,
+			"window_id": 3,
 			"workspace_name": ""
 		}
 	],
