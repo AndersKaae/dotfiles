@@ -741,10 +741,6 @@ require("lazy").setup({
 				-- rust_analyzer = {},
 				-- tsserver = {}, -- optional, for JS/TS files outside Vue
 
-				["vue-language-server"] = {
-					filetypes = { "vue", "javascript", "typescript" }, -- Add JS/TS if needed
-				},
-
 				lua_ls = {
 					settings = {
 						Lua = {
