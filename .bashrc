@@ -146,3 +146,7 @@ source "$OSH"/oh-my-bash.sh
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 export PATH="$PATH:/opt/mssql-tools18/bin"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

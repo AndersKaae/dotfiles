@@ -211,6 +211,9 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("nvim-tree").setup({
+				filters = {
+					git_ignored = false, -- <--- This line disables hiding .gitignored files
+				},
 				renderer = {
 					icons = {
 						glyphs = {
