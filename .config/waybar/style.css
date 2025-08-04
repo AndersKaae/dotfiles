@@ -57,6 +57,7 @@ window#waybar.hidden {
 #backlight,
 #wireplumber,
 #network,
+#bluetooth,
 #clock,
 #tray {
   border-radius: 4px;
@@ -114,6 +115,10 @@ window#waybar.hidden {
 #network {
   background-color: #94e2d5;
   padding-right: 17px;
+}
+
+#bluetooth {
+  background-color: #89b4fa;
 }
 
 #clock {
