@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="0444bce6-b9a2-45e2-8cf2-a0ae6e94a252" name="Legaldsk Azure Mapping">
+      <data-sources db="7ac12f98-b1a0-4a00-ba2b-8a81aec99129" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>
