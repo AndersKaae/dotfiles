@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="Legaldsk Azure" uuid="7ac12f98-b1a0-4a00-ba2b-8a81aec99129">
-      <driver-ref>azure.ms</driver-ref>
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://legaldesk-stage.database.windows.net:1433;database=legaldeskv8-production</jdbc-url>
