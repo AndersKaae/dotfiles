@@ -65,7 +65,7 @@
         "tooltip": true
     },
     "memory": {
-        "format": " {used}%",
+        "format": " {used} GB",
         "interval": 5,
         "tooltip": true
     },
