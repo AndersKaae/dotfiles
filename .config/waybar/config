@@ -60,7 +60,12 @@
         }
     },
     "cpu": {
-        "format": " {usage}%",
+        "format": " {usage}%",
+        "interval": 5,
+        "tooltip": true
+    },
+    "memory": {
+        "format": " {used}%",
         "interval": 5,
         "tooltip": true
     },
@@ -87,7 +92,7 @@
 	"nospacing": 1,
     },
     "wireplumber": {
-        "format": "{icon}",
+        "format": "{icon} {volume}%",
         "format-bluetooth": "󰂰",
         "nospacing": 1,
         "tooltip-format": "Volume : {volume}%",
