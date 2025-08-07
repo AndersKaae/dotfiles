@@ -16,4 +16,13 @@ https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/
 0) Run stow . in the dotfiles directory to symlink the dotfiles to your home directory.
 
 Install on Linux
-Same but use https://github.com/ohmybash/oh-my-bash instead
+# Fancy Bash with Oh My Bash
+Install Oh My Bash: https://github.com/ohmybash/oh-my-bash instead
+
+# Handle closing of the lid and move screens out of the closed lid 
+We use the script in .local/bin/lid-handler.sh
+The service to make it run as a daemon is in .config/systemd/lid-handler.service
+Install this: sudo pacman -S jq
+We run it with:
+systemctl --user daemon-reload
+systemctl --user enable --now lid-handler.service

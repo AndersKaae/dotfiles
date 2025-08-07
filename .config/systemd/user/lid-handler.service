@@ -1,0 +1,12 @@
+[Unit]
+Description=Hyprland Lid Handler
+After=hyprland-ready.target
+Requires=hyprland-ready.target
+
+[Service]
+ExecStart=%h/.local/bin/lid-handler.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
