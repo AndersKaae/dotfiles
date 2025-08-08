@@ -1,2 +1,5 @@
 .DS_Store
 .config/github-copilot/
+.config/systemd/user/default.target.wants/
+.config/systemd/user/hyprland-ready.target
+.config/systemd/user/hyprland-ready.target.wants/
