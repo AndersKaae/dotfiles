@@ -1,4 +1,4 @@
-Install the packages om Mac by doing the following:
+# Install on Mac
 
 1) Download solarized theme from:
 https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Dark%20-%20Patched.iTerm2-Color-Schemes
