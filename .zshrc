@@ -104,3 +104,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/share/dotnet:$PATH"
+eval "$(zoxide init zsh)"
