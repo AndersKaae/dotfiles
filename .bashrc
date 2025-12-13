@@ -149,6 +149,8 @@ export PATH="$PATH:/opt/mssql-tools18/bin"
 
 export PATH="$HOME/.dotnet:$PATH"
 
+export TERM=xterm-256color
+
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
