@@ -6,6 +6,19 @@
   font-size: 13px;
 }
 
+#custom-vpn {
+    border-radius: 4px;
+    margin: 6px 3px;
+    padding: 6px 12px;
+    background-color: #cba6f7; /* Purple - matches your clock */
+    color: #181825;
+}
+
+#custom-vpn.connected {
+    background-color: #a6e3a1; /* Green - matches charging battery */
+    color: #181825;
+}
+
 window#waybar {
   background-color: rgba(24, 24, 37, 0.9);
   transition-property: background-color;

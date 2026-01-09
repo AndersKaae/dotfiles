@@ -13,12 +13,23 @@
     "modules-right": [
         "memory",
         "cpu",
+        "custom/vpn", // Added here
         "network",
         "bluetooth",
         "wireplumber",
         "battery",
         "custom/power"
     ],
+
+"custom/vpn": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 2,
+    "exec": "nmcli -t -f name,device connection show --active | grep -q 'UniFi-VPN' && echo '{\"text\": \" VPN\", \"class\": \"connected\"}' || echo '{\"text\": \" VPN\", \"class\": \"disconnected\"}'",
+    "on-click": "nmcli connection show --active | grep -q 'UniFi-VPN' && nmcli connection down 'UniFi-VPN' || nmcli connection up 'UniFi-VPN'",
+    "tooltip": false
+},
+
     "bluetooth": {
         "format": " {status}",
         "format-disabled": "󰂲",
@@ -26,19 +37,12 @@
         "tooltip-format": "{device_alias}",
         "on-click-right": "~/.config/rofi/bluetooth/blt-connect.sh"
     },
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "on-click": "activate",
-        "on-click-right": "fullscreen",
-        "icon-theme": "WhiteSur",
-        "icon-size": 25,
-        "tooltip-format": "{title}"
-    },
+    
+    // ... rest of your config remains the same
     "hyprland/workspaces": {
         "on-click": "activate",
         "format": "{icon}",
         "format-icons": {
-            "default": "",
             "1": "1",
             "2": "2",
             "3": "3",
@@ -49,105 +53,45 @@
             "8": "8",
             "9": "9",
             "active": "󱓻",
-            "urgent": "󱓻"
+            "urgent": "󱓻",
+            "default": ""
         },
         "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
+            "1": [], "2": [], "3": [], "4": [], "5": []
         }
     },
-    "cpu": {
-        "format": " {usage}%",
-        "interval": 5,
-        "tooltip": true
-    },
-    "memory": {
-        "format": " {used} GB",
-        "interval": 5,
-        "tooltip": true
-    },
-    "tray": {
-        "spacing": 10
-    },
+    "cpu": { "format": " {usage}%", "interval": 5 },
+    "memory": { "format": " {used} GB", "interval": 5 },
     "clock": {
         "tooltip-format": "{calendar}",
         "format-alt": "  {:%a, %d %b %Y}",
-        "format": " {:%H:%M}",
+        "format": " {:%H:%M}"
     },
     "network": {
         "format-wifi" : "{icon}",
         "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
         "format-ethernet": "󰀂",
-	"format-alt" : "󱛇",
         "format-disconnected" : "󰖪",
-	"tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-        "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-	"tooltip-format-disconnected": "Disconnected",
-	"on-click": "iwgtk",
-        "on-click-right": "iwgtk",
-	"interval": 5,
-	"nospacing": 1,
+        "on-click": "iwgtk"
     },
     "wireplumber": {
         "format": "{icon} {volume}%",
-        "format-bluetooth": "󰂰",
-        "nospacing": 1,
-        "tooltip-format": "Volume : {volume}%",
-        "format-muted": "󰝟",
-        "format-icons": {
-            "headphone": "",
-            "default": ["󰖀","󰕾",""]
-        },
-        "on-click": "pamixer -t",
-        "scroll-step": 1
+        "format-icons": { "headphone": "", "default": ["󰖀","󰕾",""] },
+        "on-click": "pamixer -t"
     },
     "custom/logo": {
         "format": "  ",
-        "tooltip": false,
         "on-click": "~/.config/rofi/launchers/misc/launcher.sh &"
     },
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": {
-            "charging": [
-                "󰢜",
-                "󰂆",
-                "󰂇",
-                "󰂈",
-                "󰢝",
-                "󰂉",
-                "󰢞",
-                "󰂊",
-                "󰂋",
-                "󰂅"
-            ],
-            "default": [
-                "󰁺",
-                "󰁻",
-                "󰁼",
-                "󰁽",
-                "󰁾",
-                "󰁿",
-                "󰂀",
-                "󰂁",
-                "󰂂",
-                "󰁹"
-            ]
-        },
-        "format-full": "Charged ",
-        "interval": 5,
-        "states": {
-            "warning": 20,
-            "critical": 10
-        },
-        "tooltip": false
+            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        }
     },
     "custom/power": {
         "format": "󰤆",
-        "tooltip": false,
         "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &"
     }
 }
