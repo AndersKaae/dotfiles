@@ -744,6 +744,7 @@ require("lazy").setup({
 				-- clangd = {},
 				gopls = {},
 				pyright = {},
+				jsonls = {}, -- Add jsonls for JSON language server support
 				-- rust_analyzer = {},
 				-- tsserver = {}, -- optional, for JS/TS files outside Vue
 
@@ -776,6 +777,7 @@ require("lazy").setup({
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"csharp_ls",
+				"prettier",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -828,6 +830,7 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				json = { "prettier" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
