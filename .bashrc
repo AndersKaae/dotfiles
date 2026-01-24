@@ -155,3 +155,4 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(zoxide init bash)"
+export TERM=xterm-256color
