@@ -105,3 +105,4 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/share/dotnet:$PATH"
 eval "$(zoxide init zsh)"
+export PATH="$HOME/.npm-global/bin:$PATH"

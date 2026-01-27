@@ -156,3 +156,4 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(zoxide init bash)"
 export TERM=xterm-256color
+export PATH="$HOME/.npm-global/bin:$PATH"
