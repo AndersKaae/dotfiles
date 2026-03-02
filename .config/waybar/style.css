@@ -65,6 +65,7 @@ window#waybar.hidden {
 
 #memory,
 #cpu,
+#idle_inhibitor,
 #custom-power,
 #battery,
 #backlight,
@@ -95,6 +96,10 @@ window#waybar.hidden {
 
 #memory {
   background-color: #fab387;
+}
+
+#idle_inhibitor {
+  background-color: #f9e2af;
 }
 
 #cpu {
