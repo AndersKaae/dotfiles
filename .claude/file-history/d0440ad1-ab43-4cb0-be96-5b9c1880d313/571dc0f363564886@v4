@@ -1,5 +1,0 @@
-# Memory Index
-
-- [feedback_optimal_solutions.md](feedback_optimal_solutions.md) — Always prefer proper fixes over workarounds; ask user to help in Webflow Designer when MCP has limitations
-- [feedback_no_hardcoded_cdn.md](feedback_no_hardcoded_cdn.md) — Never hardcode CDN URLs; always use Webflow Image elements with asset IDs
-- [feedback_svg_workflow.md](feedback_svg_workflow.md) — Extract SVGs from Figma, save locally, user uploads to Webflow assets
