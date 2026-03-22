@@ -1,0 +1,371 @@
+Section              | ['nav-wrapper']                               | text= | id=e2d283c6-64b2-4982-6
+Block                | ['nav-top-bar']                               | text= | id=d4f8f63a-3de2-8ea5-2
+Paragraph            | ['nav-top-text']                              | text= | id=6fda0917-2ce0-9bfa-b
+String               | []                                            | text=Support har åbent Mandag til Fredag kl.  | id=6d5123f3-f136-10aa-8
+Block                | ['nav-top-center']                            | text= | id=d542ea1c-0c7c-19c0-6
+Paragraph            | ['nav-top-text']                              | text= | id=1d3e75fa-9a19-10ea-f
+String               | []                                            | text=kontakt@legaldesk.dk | id=09b6fa6d-bb03-374d-8
+Paragraph            | ['nav-top-text']                              | text= | id=de0e0239-0088-3f53-d
+String               | []                                            | text=+45 93 87 78 89 | id=6541b680-684d-6532-1
+Paragraph            | ['nav-top-text']                              | text= | id=971735b0-4ddb-4c7b-9
+String               | []                                            | text=✓ Mere end 275.000 kunder | id=c02b6301-e139-dfb2-c
+Paragraph            | ['nav-top-text']                              | text= | id=749bec71-ba15-b719-7
+String               | []                                            | text=✓ Gratis juridisk support | id=451a9e38-4c58-6145-4
+Block                | ['nav-usp-item']                              | text= | id=5e606953-4e2c-661a-e
+Paragraph            | ['footer-hidden']                             | text= | id=3efe706c-f5aa-7b06-1
+String               | []                                            | text=Fremragende ★★★★★ | id=a3937e6d-448f-2e71-d
+Block                | ['trustpilot-nav']                            | text= | id=07281b35-928f-b08e-9
+Link                 | []                                            | text= | id=fab516f8-3c1c-37b5-6
+String               | []                                            | text=Trustpilot | id=db481663-054e-086a-1
+Block                | ['nav-main-bar']                              | text= | id=5fcc897a-b891-2ad7-3
+Image                | ['nav-logo']                                  | text= | id=bd211d7a-8f8f-afbd-2
+Block                | ['nav-links']                                 | text= | id=05e401b5-9eee-6f3f-3
+Link                 | ['nav-link', 'nav-link-active']               | text= | id=cd16b61f-1e1e-aa25-f
+String               | []                                            | text=Erhverv | id=5aaa0d2d-aa85-51b1-f
+Link                 | ['nav-link']                                  | text= | id=9740c68c-4497-6fee-7
+String               | []                                            | text=Privat | id=a8572807-89d4-dd99-6
+Link                 | ['nav-link']                                  | text= | id=9375d2e1-3043-d73c-7
+String               | []                                            | text=Priser | id=47d749f7-43c7-3440-d
+Block                | ['nav-right']                                 | text= | id=99b78847-b0d7-8434-f
+Link                 | ['nav-login']                                 | text= | id=374acdd1-3366-074a-2
+String               | []                                            | text=Log ind | id=4464cfaf-abac-65fb-6
+Link                 | ['nav-cta']                                   | text= | id=d2c49949-c093-2526-5
+String               | []                                            | text=Opret en gratis konto | id=698ff80a-6e39-8f47-8
+Block                | ['mega-menu']                                 | text= | id=2bd92317-30a8-39f4-4
+Block                | ['mega-menu-row']                             | text= | id=2a9520b6-f0a1-b787-0
+Block                | ['mega-col']                                  | text= | id=20ad8bbe-46fe-aa69-0
+Block                | ['mega-category']                             | text= | id=77ae1d4c-bf06-b19c-7
+Paragraph            | ['mega-cat-heading']                          | text= | id=2c859af2-0f9c-9d79-d
+String               | []                                            | text=Populære | id=b9abc1a0-5c53-6a93-0
+Block                | ['mega-links']                                | text= | id=76248c68-92a8-7c40-a
+Link                 | ['mega-link-item']                            | text= | id=0f9d64ed-ffa8-6a8d-5
+Paragraph            | ['mega-link-label']                           | text= | id=92c8e8ae-2a38-152b-f
+String               | []                                            | text=Fremtidsfuldmagt | id=ad910cb2-afbb-da96-7
+Paragraph            | ['mega-link-desc']                            | text= | id=0ec722c7-8733-2a35-e
+String               | []                                            | text=Vi laver +2.500 fremtidsfuldmagter pr. å | id=c91af84e-f45b-29e3-e
+Link                 | ['mega-link-item']                            | text= | id=30788f3e-7d1b-405e-2
+Paragraph            | ['mega-link-label']                           | text= | id=7d0ae92c-4ad1-9f08-f
+String               | []                                            | text=Ægtepagt om kombinationssæreje | id=149b5eff-8740-febc-b
+Paragraph            | ['mega-link-desc']                            | text= | id=4c426ff4-4783-e779-0
+String               | []                                            | text=Beskytter både dig selv og din ægtefælle | id=3162cf44-ee95-9279-5
+Link                 | ['mega-link-item']                            | text= | id=a26dd349-b5a9-bfac-2
+Paragraph            | ['mega-link-label']                           | text= | id=0cd502ac-dedd-52b8-5
+String               | []                                            | text=Testamente | id=678a6ede-6124-9c69-5
+Paragraph            | ['mega-link-desc']                            | text= | id=1a146c49-fac4-bf26-4
+String               | []                                            | text=Tag kontrol over din arv | id=58a400cc-37b2-f548-3
+Link                 | ['mega-link-item']                            | text= | id=32a03870-7863-aa66-6
+Paragraph            | ['mega-link-label']                           | text= | id=da2cddfb-ebb8-0346-f
+String               | []                                            | text=Familielån | id=b8d36d2b-afac-0d88-f
+Paragraph            | ['mega-link-desc']                            | text= | id=cb1b642f-9031-303a-9
+String               | []                                            | text=Giv og modtag lån med fordelagtige vilkå | id=6d0ba023-9b92-2e28-5
+Link                 | ['mega-link-item']                            | text= | id=5b7d8119-0c15-6fbb-d
+Paragraph            | ['mega-link-label']                           | text= | id=50bf7c01-c0d2-7b7b-2
+String               | []                                            | text=Lejekontrakt | id=554274cf-6ca9-7d1b-8
+Paragraph            | ['mega-link-desc']                            | text= | id=bab9dcc4-d666-0184-5
+String               | []                                            | text=Sikrer både lejer og udlejer | id=ac151ea1-8383-c144-2
+Block                | ['mega-col']                                  | text= | id=520b3897-89c2-b2d5-c
+Block                | ['mega-category']                             | text= | id=7e97034e-8de1-58d5-a
+Paragraph            | ['mega-cat-heading']                          | text= | id=6f96a1e4-3167-97cb-8
+String               | []                                            | text=Arv | id=306e0313-138f-0e26-1
+Block                | ['mega-links']                                | text= | id=b87cbab9-abce-4f34-2
+Link                 | ['mega-link-item']                            | text= | id=e07133cf-3418-fcbb-f
+Paragraph            | ['mega-link-label']                           | text= | id=c0758839-029c-4907-c
+String               | []                                            | text=Arveforskud | id=9715586f-2ee1-8032-f
+Paragraph            | ['mega-link-desc']                            | text= | id=40264cd6-3deb-657d-9
+String               | []                                            | text=Minimér arveafgiften med et arveforskud | id=5c7b8f0f-f4be-70f7-d
+Link                 | ['mega-link-item']                            | text= | id=890a1364-3762-9192-9
+Paragraph            | ['mega-link-label']                           | text= | id=0def5047-6dbb-8e4d-d
+String               | []                                            | text=Arveafkald | id=7d24edad-2517-9d17-4
+Paragraph            | ['mega-link-desc']                            | text= | id=98700e62-e540-ce93-a
+String               | []                                            | text=Undgå, at arven ender hos kreditorer | id=8ad9ca96-8a1f-8a99-5
+Link                 | ['mega-link-item']                            | text= | id=884a08bc-5b3c-9853-8
+Paragraph            | ['mega-link-label']                           | text= | id=b1dab4a2-90a7-b63f-f
+String               | []                                            | text=Samtykke til uskiftet bo | id=c63b6591-eb88-f2e5-2
+Paragraph            | ['mega-link-desc']                            | text= | id=419af715-f079-fdda-a
+String               | []                                            | text=Sikrer den længstlevende ægtefælle | id=b34cf3b3-5ea4-1992-3
+Link                 | ['mega-link-item']                            | text= | id=452c9f54-3ee5-6882-3
+Paragraph            | ['mega-link-label']                           | text= | id=ba227f47-733d-e737-e
+String               | []                                            | text=Testamente | id=13eacbb6-2b79-edcf-e
+Paragraph            | ['mega-link-desc']                            | text= | id=eea84028-9021-6cf3-4
+String               | []                                            | text=Tag kontrol over din arv | id=645c4df3-8a8c-febb-f
+Link                 | ['mega-link-item']                            | text= | id=099698c7-d4db-6256-4
+Paragraph            | ['mega-link-label']                           | text= | id=41debb76-b172-d200-b
+String               | []                                            | text=Testamente over indbo | id=6d2cab5f-2147-508c-e
+Paragraph            | ['mega-link-desc']                            | text= | id=7ee465c8-3f23-4768-d
+String               | []                                            | text=Sikrer dine ønsker for fordeling af indb | id=a49596a3-1432-61b4-a
+Block                | ['mega-category']                             | text= | id=0fd598fa-d082-1111-6
+Paragraph            | ['mega-cat-heading']                          | text= | id=84287e86-c12d-9d67-8
+String               | []                                            | text=Fuldmagter | id=69471d4d-6787-6d2a-e
+Block                | ['mega-links']                                | text= | id=82efbe0e-b513-e28b-6
+Link                 | ['mega-link-item']                            | text= | id=9d92ab6b-6a6d-1306-9
+Paragraph            | ['mega-link-label']                           | text= | id=70cc3fc9-44ea-2c62-6
+String               | []                                            | text=Fuldmagt | id=cdd8b9a0-c1a9-ba7f-d
+Paragraph            | ['mega-link-desc']                            | text= | id=75375d90-1877-c9bd-c
+String               | []                                            | text=Få styr på papirarbejdet på 10 min. | id=fb2eccdb-7c73-a65b-6
+Link                 | ['mega-link-item']                            | text= | id=ead2faef-b0d6-a390-5
+Paragraph            | ['mega-link-label']                           | text= | id=c7867ff2-be1a-2328-f
+String               | []                                            | text=Fuldmagt (engelsk) | id=5a1515e6-71b6-7795-9
+Paragraph            | ['mega-link-desc']                            | text= | id=c3b24c23-8e05-b0ac-c
+String               | []                                            | text=Få styr på papirarbejdet på 10 min. | id=02d17c29-71b7-ca0b-3
+Link                 | ['mega-link-item']                            | text= | id=f31732d6-1575-37d5-7
+Paragraph            | ['mega-link-label']                           | text= | id=c7ba4f05-24ed-ca98-0
+String               | []                                            | text=Fremtidsfuldmagt | id=cc2be622-64a7-a4d5-5
+Paragraph            | ['mega-link-desc']                            | text= | id=0f5147fc-958e-751d-c
+String               | []                                            | text=Vi laver +2.500 fremtidsfuldmagter pr. å | id=f5118f46-fd3e-7b66-4
+Link                 | ['mega-link-item']                            | text= | id=6e70bbef-fdf1-7d4e-d
+Paragraph            | ['mega-link-label']                           | text= | id=a8e556f7-34c8-5e69-7
+String               | []                                            | text=Samtykkeerklæring til rejse med børn | id=22cd3713-46ba-8fcd-6
+Paragraph            | ['mega-link-desc']                            | text= | id=4c487823-f61d-769c-0
+String               | []                                            | text=Opfylder kravene for rejse med børn | id=5e251cf8-4b58-b28f-c
+Block                | ['mega-col']                                  | text= | id=193eefa1-420a-6f9b-2
+Block                | ['mega-category']                             | text= | id=e65682ef-3717-8a66-2
+Paragraph            | ['mega-cat-heading']                          | text= | id=4eff038b-ab9e-3717-8
+String               | []                                            | text=Samliv & Børn | id=f0c85bca-3ab8-b795-2
+Block                | ['mega-links']                                | text= | id=41f222e7-0874-72d4-3
+Link                 | ['mega-link-item']                            | text= | id=bffa230f-a971-88a7-3
+Paragraph            | ['mega-link-label']                           | text= | id=52f7af30-4e9e-bdec-1
+String               | []                                            | text=Børnetestamente | id=22717137-a1b1-024d-3
+Paragraph            | ['mega-link-desc']                            | text= | id=12186481-1b41-dd32-0
+String               | []                                            | text=Giv din mening til kende | id=e3b4cbf8-7732-e654-8
+Link                 | ['mega-link-item']                            | text= | id=6af05443-b87b-6aa6-d
+Paragraph            | ['mega-link-label']                           | text= | id=85f07ac2-3891-1383-c
+String               | []                                            | text=Samværsaftale | id=562b2a42-e85f-e773-c
+Paragraph            | ['mega-link-desc']                            | text= | id=83d917e1-2d82-7fc0-7
+String               | []                                            | text=Få styr på papirarbejdet på 10 minutter | id=d1b0488c-9e27-92e1-1
+Link                 | ['mega-link-item']                            | text= | id=d06bb45e-d8d1-a354-1
+Paragraph            | ['mega-link-label']                           | text= | id=be14417c-c80c-ed90-e
+String               | []                                            | text=Ægtepagt om fuldstændigt særeje | id=2064b116-1b6f-ab09-9
+Paragraph            | ['mega-link-desc']                            | text= | id=25ccfb0a-4cb6-dcfb-4
+String               | []                                            | text=Beskytter både dig selv og din ægtefælle | id=83243ed6-a100-fc09-3
+Link                 | ['mega-link-item']                            | text= | id=fe54a41d-ce96-7df8-1
+Paragraph            | ['mega-link-label']                           | text= | id=bfb62d48-fa43-bd05-1
+String               | []                                            | text=Ægtepagt om kombinationssæreje | id=1eb2294b-55ce-7456-8
+Paragraph            | ['mega-link-desc']                            | text= | id=bbd5bf79-419c-043d-3
+String               | []                                            | text=Beskytter både dig selv og din ægtefælle | id=079092e3-fbf2-c7cf-5
+Link                 | ['mega-link-item']                            | text= | id=3b483577-480b-9531-1
+Paragraph            | ['mega-link-label']                           | text= | id=33b2ecf6-243b-625f-7
+String               | []                                            | text=Ægtepagt om deling af pension | id=e7ae6d75-3b73-eb2d-1
+Paragraph            | ['mega-link-desc']                            | text= | id=6915c131-8f6b-4f92-a
+String               | []                                            | text=Beskytter dig selv og din ægtefælle | id=27c220ae-4895-53b8-1
+Link                 | ['mega-link-item']                            | text= | id=62a23c4d-e165-4262-a
+Paragraph            | ['mega-link-label']                           | text= | id=7d221f8a-96c6-af10-2
+String               | []                                            | text=Ophævelse af ægtepagt om særeje | id=bc6585e6-f5f8-933a-6
+Paragraph            | ['mega-link-desc']                            | text= | id=b82402e6-5224-71c3-0
+String               | []                                            | text=Sikrer den længstlevende ægtefælle | id=e03fc488-6ec8-abaf-6
+Block                | ['mega-col']                                  | text= | id=cea7c0ba-5f7e-563b-f
+Block                | ['mega-category']                             | text= | id=4c2fb525-6a31-03ad-c
+Paragraph            | ['mega-cat-heading']                          | text= | id=9866bc76-0b38-2673-5
+String               | []                                            | text=Bolig | id=deae65bd-72f1-efa4-7
+Block                | ['mega-links']                                | text= | id=9677105f-28b8-f892-2
+Link                 | ['mega-link-item']                            | text= | id=9d366f5b-7183-b92d-d
+Paragraph            | ['mega-link-label']                           | text= | id=271598b1-c8bd-001e-d
+String               | []                                            | text=Lejekontrakt | id=35c3d941-bc24-1254-a
+Paragraph            | ['mega-link-desc']                            | text= | id=8b0575da-b505-d875-2
+String               | []                                            | text=Sikrer både lejer og udlejer | id=cff33d7c-157f-c0c9-d
+Link                 | ['mega-link-item']                            | text= | id=b2e12d6e-ed28-c7ef-6
+Paragraph            | ['mega-link-label']                           | text= | id=06a8b64a-36b6-c151-0
+String               | []                                            | text=Fremlejekontrakt | id=3c5be632-7032-d5a1-0
+Paragraph            | ['mega-link-desc']                            | text= | id=be71f04a-22a8-c94c-8
+String               | []                                            | text=Sikrer både lejer og udlejer | id=c0014e71-9e48-852b-e
+Link                 | ['mega-link-item']                            | text= | id=557fe554-cec9-26a7-b
+Paragraph            | ['mega-link-label']                           | text= | id=b4ff8d36-d91c-63f7-3
+String               | []                                            | text=Samejeoverenskomst | id=cc3ffdc2-5080-1bee-2
+Paragraph            | ['mega-link-desc']                            | text= | id=9af81e80-5617-c6d9-d
+String               | []                                            | text=Sikrer jeres forventninger til det fælle | id=adf0916c-c963-5584-a
+Block                | ['mega-category']                             | text= | id=fa85215b-0014-ad39-b
+Paragraph            | ['mega-cat-heading']                          | text= | id=082e6cde-bd23-8c7a-9
+String               | []                                            | text=Lån & Gaver | id=0f773d2c-6847-60fd-c
+Block                | ['mega-links']                                | text= | id=1081b5b6-c119-5706-b
+Link                 | ['mega-link-item']                            | text= | id=a0452193-2a60-9bc7-9
+Paragraph            | ['mega-link-label']                           | text= | id=d65713a8-6fd1-dc3f-6
+String               | []                                            | text=Familielån | id=4c20697d-be27-ee47-3
+Paragraph            | ['mega-link-desc']                            | text= | id=2a161188-32e5-a246-b
+String               | []                                            | text=Giv og modtag lån med fordelagtige vilkå | id=23a02388-a567-f4a5-3
+Link                 | ['mega-link-item']                            | text= | id=61bf6163-cbbf-ee27-f
+Paragraph            | ['mega-link-label']                           | text= | id=5d5619a1-65ad-330a-7
+String               | []                                            | text=Gavebrev | id=eaa04477-38f8-c9d6-0
+Paragraph            | ['mega-link-desc']                            | text= | id=c5806677-9455-a7cb-0
+String               | []                                            | text=Få styr på papirarbejdet på 10 minutter | id=39fe297f-2ef4-ebf2-1
+Block                | ['mega-col']                                  | text= | id=69307a6b-515f-3bc0-e
+Block                | ['mega-category']                             | text= | id=852add58-4a1b-b15f-9
+Paragraph            | ['mega-cat-heading']                          | text= | id=399cd9c0-bef0-efe9-d
+String               | []                                            | text=Køb & Salg | id=5390f752-8625-8b15-4
+Block                | ['mega-links']                                | text= | id=f710b35b-3486-5022-1
+Link                 | ['mega-link-item']                            | text= | id=12279d22-e156-14e9-8
+Paragraph            | ['mega-link-label']                           | text= | id=3a5ad971-35d0-861d-8
+String               | []                                            | text=Salg af brugt bil | id=553688d5-dc3c-67bc-9
+Paragraph            | ['mega-link-desc']                            | text= | id=fc1bb6ab-df45-7ed3-9
+String               | []                                            | text=Få styr på papirarbejdet på 10 min. | id=a0bb843d-94bd-e780-3
+Block                | ['mega-category']                             | text= | id=4910f82c-4c2a-9e8e-2
+Paragraph            | ['mega-cat-heading']                          | text= | id=2ec9bda8-a1d5-a068-5
+String               | []                                            | text=Job | id=eb5c48ac-c501-c748-9
+Block                | ['mega-links']                                | text= | id=4c52e6ba-5ea3-6c8c-d
+Link                 | ['mega-link-item']                            | text= | id=c1caaa14-a298-85e7-b
+Paragraph            | ['mega-link-label']                           | text= | id=04252e38-70b0-89f0-1
+String               | []                                            | text=Skriftlig opsigelse | id=f3f7c697-0b87-7d7a-a
+Paragraph            | ['mega-link-desc']                            | text= | id=6b0874e0-a86b-4531-b
+String               | []                                            | text=Lav og modtag på 5 min. | id=5a308a57-be88-eacc-c
+Block                | ['mega-menu-erhverv']                         | text= | id=aa1c47af-2b9e-f782-f
+Block                | ['mega-menu-row']                             | text= | id=3fc6bed1-5747-2afb-7
+Block                | ['mega-col']                                  | text= | id=66018aa4-3268-fe3e-5
+Block                | ['mega-category']                             | text= | id=e15c5c15-eda9-9ae9-c
+Paragraph            | ['mega-cat-heading']                          | text= | id=21ed8546-da07-74a5-b
+String               | []                                            | text=Populære produkter | id=fbb6accd-fd8c-d463-6
+Block                | ['mega-links']                                | text= | id=109bc114-3e53-183c-c
+Link                 | ['mega-link-item']                            | text= | id=544d469d-834d-8bc6-8
+Paragraph            | ['mega-link-label']                           | text= | id=a999ef4c-2b98-6f71-0
+String               | []                                            | text=Opret ApS (drift eller holding) | id=3d1b34ea-48a5-642d-e
+Link                 | ['mega-link-item']                            | text= | id=a68a201c-3f4e-7ea9-f
+Paragraph            | ['mega-link-label']                           | text= | id=5d2bfe8a-513f-e88f-3
+String               | []                                            | text=Opret enkeltmandsvirksomhed | id=3b5aa9fc-c480-7eec-9
+Link                 | ['mega-link-item']                            | text= | id=9d655896-ab58-fbf9-2
+Paragraph            | ['mega-link-label']                           | text= | id=96fdc7b6-c0b6-6941-7
+String               | []                                            | text=Direktørkontrakt | id=e69618d4-b48e-4444-8
+Link                 | ['mega-link-item']                            | text= | id=1c4711c6-b116-4ce8-0
+Paragraph            | ['mega-link-label']                           | text= | id=20b791d9-b45c-4513-2
+String               | []                                            | text=Ejeraftale | id=907ded46-931e-c53a-7
+Link                 | ['mega-link-item']                            | text= | id=8b62d496-e24b-29c3-0
+Paragraph            | ['mega-link-label']                           | text= | id=12610d37-fbdf-f9e4-b
+String               | []                                            | text=Ansættelseskontrakt | id=26eba91f-da1a-a522-c
+Block                | ['mega-col']                                  | text= | id=5aa447a1-b8bb-248e-d
+Block                | ['footer-hidden']                             | text= | id=c46d7fd2-71fe-0756-3
+Paragraph            | ['mega-cat-heading']                          | text= | id=835d1d9d-522d-0256-3
+String               | []                                            | text=Populære produkter | id=5c59d04c-ab28-54b4-1
+Block                | ['mega-links']                                | text= | id=b4ed7daf-982c-59e6-f
+Link                 | ['mega-link-item']                            | text= | id=faaa6ad8-b293-eda8-a
+Paragraph            | ['mega-link-label']                           | text= | id=d0227249-91c1-3a9f-b
+String               | []                                            | text=Opret ApS (drift eller holding) | id=78f82695-abfa-9dde-c
+Link                 | ['mega-link-item']                            | text= | id=edb5c120-6c81-2cee-5
+Paragraph            | ['mega-link-label']                           | text= | id=c6591f91-779f-aba0-7
+String               | []                                            | text=Opret enkeltmandsvirksomhed | id=f693d58b-600b-4fd4-1
+Link                 | ['mega-link-item']                            | text= | id=94e6bdd5-3bc4-7275-1
+Paragraph            | ['mega-link-label']                           | text= | id=25f3ad34-9597-c9ae-9
+String               | []                                            | text=Direktørkontrakt | id=61b32f84-d4be-15fe-9
+Link                 | ['mega-link-item']                            | text= | id=fca500d6-c81b-7537-f
+Paragraph            | ['mega-link-label']                           | text= | id=b938add2-e6e7-1b31-b
+String               | []                                            | text=Ejeraftale | id=96ddb493-0dca-5a1c-0
+Link                 | ['mega-link-item']                            | text= | id=5bdfd461-d9c4-ab35-f
+Paragraph            | ['mega-link-label']                           | text= | id=5731bd0a-f46b-4063-7
+String               | []                                            | text=Ansættelseskontrakt | id=455ccbd4-37de-a951-c
+Block                | ['mega-category']                             | text= | id=6371b5e0-bb91-212b-9
+Paragraph            | ['mega-cat-heading']                          | text= | id=59a2d9b5-1458-4e96-7
+String               | []                                            | text=Stiftelse af Selskab | id=de2ccd66-5612-6a98-8
+Block                | ['mega-links']                                | text= | id=a9ed4afb-74e3-9d8f-0
+Link                 | ['mega-link-item']                            | text= | id=640a3c51-8f03-24e3-a
+Paragraph            | ['mega-link-label']                           | text= | id=fb15e9d1-686d-17de-0
+String               | []                                            | text=Opret enkeltmandsvirksomhed | id=ea0b69c7-2214-7eac-b
+Link                 | ['mega-link-item']                            | text= | id=fe7d8a54-873f-074c-3
+Paragraph            | ['mega-link-label']                           | text= | id=cbb90e95-9841-0d50-2
+String               | []                                            | text=Opret ApS (drift eller holding) | id=0e731f20-4dc6-44ae-e
+Link                 | ['mega-link-item']                            | text= | id=ec97e1e8-d1b5-04e6-9
+Paragraph            | ['mega-link-label']                           | text= | id=b0790a0a-de2b-93bf-2
+String               | []                                            | text=Opret A/S (drift eller holding) | id=552fde3d-a2d0-a3b4-7
+Link                 | ['mega-link-item']                            | text= | id=07cf61c4-f163-2ed6-3
+Paragraph            | ['mega-link-label']                           | text= | id=efce602b-165a-29a0-2
+String               | []                                            | text=Opret holdingstruktur | id=47e82edd-e789-b024-e
+Link                 | ['mega-link-item']                            | text= | id=53d07fa6-547a-ca86-d
+Paragraph            | ['mega-link-label']                           | text= | id=abe17e57-6b5f-55dd-7
+String               | []                                            | text=Opret forening | id=401f8e86-84c5-539d-f
+Link                 | ['mega-link-item']                            | text= | id=431465ce-acf5-b4af-9
+Paragraph            | ['mega-link-label']                           | text= | id=5f7b20ed-72c7-115f-b
+String               | []                                            | text=Company formation | id=4788c894-073e-8187-7
+Block                | ['mega-col']                                  | text= | id=85cc1108-7212-a66c-0
+Block                | ['mega-category']                             | text= | id=31cc633b-9818-0457-0
+Paragraph            | ['mega-cat-heading']                          | text= | id=7ccdaa19-df43-474c-3
+String               | []                                            | text=Medarbejdere | id=cb5e9a26-ada2-f4a1-3
+Block                | ['mega-links']                                | text= | id=a60a16b6-ccea-60cd-b
+Link                 | ['mega-link-item']                            | text= | id=7b13db29-4232-3b87-8
+Paragraph            | ['mega-link-label']                           | text= | id=1f0e4031-4314-e51b-3
+String               | []                                            | text=Ansættelseskontrakt | id=62d204ec-0139-53e1-7
+Link                 | ['mega-link-item']                            | text= | id=42698ac0-e509-47f2-7
+Paragraph            | ['mega-link-label']                           | text= | id=04c57149-2344-6551-4
+String               | []                                            | text=Employment contract | id=5e8e8371-b3ed-ed2e-f
+Link                 | ['mega-link-item']                            | text= | id=78b202e5-4865-2c69-a
+Paragraph            | ['mega-link-label']                           | text= | id=c6766637-f87b-fac5-5
+String               | []                                            | text=Direktørkontrakt | id=40341f8a-6733-aa47-3
+Link                 | ['mega-link-item']                            | text= | id=5e09a603-04ce-07ad-a
+Paragraph            | ['mega-link-label']                           | text= | id=fe79e726-fda3-84bc-a
+String               | []                                            | text=Politik for tidsregistrering | id=3a4b1aaf-7938-c3b8-e
+Link                 | ['mega-link-item']                            | text= | id=d3744ebf-75a8-9eee-3
+Paragraph            | ['mega-link-label']                           | text= | id=bd4fd98f-7001-759d-7
+String               | []                                            | text=Skriftlig advarsel | id=20f75dd1-3310-1be5-b
+Link                 | ['mega-link-item']                            | text= | id=51a9763e-5c37-6dec-b
+Paragraph            | ['mega-link-label']                           | text= | id=8c8233d4-d8ea-f9f6-e
+String               | []                                            | text=Tillæg til ansættelseskontrakt | id=535f302d-2ca0-45d1-9
+Link                 | ['mega-link-item']                            | text= | id=d10753a6-bcde-7933-0
+Paragraph            | ['mega-link-label']                           | text= | id=7266b393-ab04-a91e-f
+String               | []                                            | text=Trænerkontrakt | id=de20026e-5123-03cd-f
+Block                | ['mega-col']                                  | text= | id=1812498c-43cd-24fc-f
+Block                | ['mega-category']                             | text= | id=86f9f9f9-2d6d-b841-9
+Paragraph            | ['mega-cat-heading']                          | text= | id=20165a1d-3e1a-4443-c
+String               | []                                            | text=Administration af Selskab | id=654259ac-abc6-5240-9
+Block                | ['mega-links']                                | text= | id=8674f941-80b9-7b89-7
+Link                 | ['mega-link-item']                            | text= | id=b6d8247b-bd54-d8b1-7
+Paragraph            | ['mega-link-label']                           | text= | id=99eb190b-4e97-78ab-0
+String               | []                                            | text=Ordinær generalforsamling | id=6b48c9f0-680d-ed50-a
+Link                 | ['mega-link-item']                            | text= | id=e2f91b79-2e7b-cf14-d
+Paragraph            | ['mega-link-label']                           | text= | id=4e4cda20-cd7d-2d21-e
+String               | []                                            | text=Forretningsorden for bestyrelsen | id=917fd701-1b1a-649b-6
+Link                 | ['mega-link-item']                            | text= | id=6a5d5739-ab07-2406-a
+Paragraph            | ['mega-link-label']                           | text= | id=32187956-0c54-4cc7-2
+String               | []                                            | text=Vedtægter til selskab | id=79da2548-a4f9-8019-9
+Link                 | ['mega-link-item']                            | text= | id=77041a3c-6937-b408-e
+Paragraph            | ['mega-link-label']                           | text= | id=b0bf8f96-7ac7-96e2-1
+String               | []                                            | text=Oprettelse eller opløsning af bestyrelse | id=9006cd11-aaf9-2781-b
+Link                 | ['mega-link-item']                            | text= | id=5fdf2641-22e0-b819-a
+Paragraph            | ['mega-link-label']                           | text= | id=e1c57b93-5ea5-e792-1
+String               | []                                            | text=Ændring af selskabets formål | id=a07a445c-3c9a-5bdd-c
+Link                 | ['mega-link-item']                            | text= | id=1d8ab570-4a06-41af-3
+Paragraph            | ['mega-link-label']                           | text= | id=0a7ab9dd-c99a-6ef5-8
+String               | []                                            | text=Ændring af selskabsnavn | id=fc9b4600-1719-373f-f
+Link                 | ['mega-link-item']                            | text= | id=9127d941-62a3-1e54-f
+Paragraph            | ['mega-link-label']                           | text= | id=7118e852-08ad-23d7-6
+String               | []                                            | text=Ny direktør | id=bad54d6e-e1f2-4afb-1
+Link                 | ['mega-link-item']                            | text= | id=5bcd62c0-02f9-27c2-4
+Paragraph            | ['mega-link-label']                           | text= | id=3bf01396-93c2-e740-d
+String               | []                                            | text=Til- og fravalg af revision | id=e24e2b80-14ca-bedd-0
+Link                 | ['mega-link-item']                            | text= | id=1994425b-4232-6d49-b
+Paragraph            | ['mega-link-label']                           | text= | id=0c275a4e-0752-0557-3
+String               | []                                            | text=Luk virksomhed | id=05833403-2e51-8013-7
+Block                | ['mega-col']                                  | text= | id=580b3b89-9e69-1e21-2
+Block                | ['mega-category']                             | text= | id=8d524a95-d069-996a-2
+Paragraph            | ['mega-cat-heading']                          | text= | id=baccc3a6-3cb3-fd79-6
+String               | []                                            | text=Diverse aftaler | id=9f3ec19a-ab51-9b4a-3
+Block                | ['mega-links']                                | text= | id=23472c3e-5bba-0322-3
+Link                 | ['mega-link-item']                            | text= | id=94507d1f-ef12-bd78-0
+Paragraph            | ['mega-link-label']                           | text= | id=bad13879-f006-7864-c
+String               | []                                            | text=Ejeraftale | id=af89c393-d124-2434-8
+Link                 | ['mega-link-item']                            | text= | id=b87541d1-a1bd-cb0b-7
+Paragraph            | ['mega-link-label']                           | text= | id=81c3d857-dcee-ba5e-8
+String               | []                                            | text=Erhvervslejekontrakt | id=ed65c98c-2930-8410-8
+Link                 | ['mega-link-item']                            | text= | id=ee94fda0-a894-fd36-e
+Paragraph            | ['mega-link-label']                           | text= | id=62044f50-a1fc-ac23-1
+String               | []                                            | text=Kommerciel låneaftale | id=f026f609-ee9f-4cf1-8
+Link                 | ['mega-link-item']                            | text= | id=5a7322f5-7ea3-19e9-8
+Paragraph            | ['mega-link-label']                           | text= | id=386a381b-d11b-6ae1-5
+String               | []                                            | text=Hemmeligholdelsesaftale / NDA | id=b9de08a5-1638-7d19-7
+Link                 | ['mega-link-item']                            | text= | id=576460ae-2821-b4cd-6
+Paragraph            | ['mega-link-label']                           | text= | id=cfa5af6b-d22a-9d9c-6
+String               | []                                            | text=NDA (Engelsk) | id=5877db9c-f808-8f2b-1
+Link                 | ['mega-link-item']                            | text= | id=d41269be-139f-80b4-9
+Paragraph            | ['mega-link-label']                           | text= | id=77111c41-21db-2948-e
+String               | []                                            | text=Virksomhedsoverdragelse | id=6dc76a5b-218d-361c-7
+Link                 | ['mega-link-item']                            | text= | id=cedd9615-4edc-cc10-4
+Paragraph            | ['mega-link-label']                           | text= | id=b15373c0-2762-dded-5
+String               | []                                            | text=Samarbejdsaftale for bogholdere | id=8b35c4e7-5c88-04b3-5
+Link                 | ['mega-link-item']                            | text= | id=21af7525-fabc-f582-1
+Paragraph            | ['mega-link-label']                           | text= | id=3c27363a-5dd9-d9a8-8
+String               | []                                            | text=Rengøringskontrakt | id=fe6aeebd-c8fd-2e3b-9
+Block                | ['mega-col']                                  | text= | id=afb12f08-4beb-389d-b
+Block                | ['mega-category']                             | text= | id=c2dfc2b6-d17e-03a9-d
+Paragraph            | ['mega-cat-heading']                          | text= | id=09a2f5f8-ba6a-bc85-1
+String               | []                                            | text=Serviceydelser | id=74a488fc-4c3c-0e63-f
+Block                | ['mega-links']                                | text= | id=97545361-dd22-7397-f
+Link                 | ['mega-link-item']                            | text= | id=7ee0d833-cbd9-0e89-6
+Paragraph            | ['mega-link-label']                           | text= | id=05ad6f41-9df4-7fcc-7
+String               | []                                            | text=Virtuelt kontor | id=d372abeb-ba9f-9b99-f
+Link                 | ['mega-link-item']                            | text= | id=c9813332-775e-7677-d
+Paragraph            | ['mega-link-label']                           | text= | id=249f8284-2887-1b37-7
+String               | []                                            | text=Virtual office | id=2812e38b-85d5-4f1a-3
+ComponentInstance    | []                                            | text= | id=1212dcb1-bf8f-7d1e-4
+ComponentInstance    | []                                            | text= | id=7453d0e9-fd33-5564-1

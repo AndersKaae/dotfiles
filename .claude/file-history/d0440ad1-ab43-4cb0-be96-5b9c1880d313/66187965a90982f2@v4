@@ -1,0 +1,27 @@
+---
+name: Legal Desk project status
+description: Current status of the Legal Desk Webflow build including modal, nav, footer, and localization as of 2026-03-21
+type: project
+---
+
+## Completed
+- Modal: All 4 steps, right column with swirl, proper Webflow elements + assets, responsive
+- Navigation: Component with hamburger menu, two-level accordion, sticky, localized SE/NO
+- Footer: Component with correct text, logos, social icons, localized SE/NO
+- Localization: Text overrides for SE (sv-SE) and NO (no-NO) on nav + footer via Data API
+- Hamburger menu reads all content dynamically from DOM — works across locales
+- Nav-main-bar breakpoint styles set directly in Webflow (mobile 16px, tablet 24px, desktop 80px)
+- 8 scripts: trustpilot_bootstrap, mega_menu_hover, modal_styles_inject, nav_responsive_css, modal_open_close, modal_step_navigation, modal_email_prefill, nav_hamburger_js
+
+## Remaining
+- Footer/Nav logo: swap to Jurio for SE and NO (locale visibility conditions in designer)
+- Footer payment icons: need SE and NO SVGs, then locale visibility
+- Floating label inputs (skipped — using placeholder)
+- Phase 3: Umbraco API integration (blocked — endpoints not built)
+- CVR lookup, password reset link, social login OAuth (blocked on backend)
+- Password eye toggle JS (icons placed, toggle behavior removed during cleanup)
+- "Navbar old" component cleanup (2 legacy instances to delete)
+- Empty Kontakt item in footer (delete in designer)
+
+**Why:** Tracks progress across sessions for this multi-day Webflow build project.
+**How to apply:** Reference when resuming work on Legal Desk or preparing backend handoff.

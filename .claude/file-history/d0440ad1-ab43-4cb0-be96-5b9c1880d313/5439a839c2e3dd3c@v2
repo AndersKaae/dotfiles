@@ -1,0 +1,90 @@
+# Legal Desk — Modal Build Handoff
+**Date:** 2026-03-21
+**Site:** legal-desk.webflow.io (Site ID: 69467eee47ce04c7972d3fea)
+**Figma modal:** https://www.figma.com/design/wcVXBsxlBnd7HySv9oHnhl/Sign-up-login?node-id=411-10769&m=dev
+**Figma footer:** https://www.figma.com/design/0a4xOySEbWRHXlPtqF46ba/Footer?node-id=1-6&p=f&m=dev
+
+---
+
+## What's Done
+
+### Modal (Login Signup Modal component)
+- 4 steps: email entry, account type (Privat/Erhverv), registration, login
+- Split headings (dark + orange italic accent) on all steps
+- Step 2: centered, Privat/Erhverv cards with person/briefcase icon assets
+- Step 3: email, name, phone, password with eye icon, checkboxes
+- Step 4: welcome + name, lighter green login button (#BCF0DA)
+- Right column: subheading with dash, heading with swirl underline, USPs with check-circle assets + GRATIS badge, review card, CS team photos, Trustpilot widget
+- All icons as proper Webflow Image elements with asset IDs (no hardcoded CDN URLs)
+- Responsive: mobile hides right column, full-screen single column
+
+### Navigation (Navigation component)
+- Desktop: top utility bar, main nav with mega menus (Erhverv/Privat hover)
+- Mobile: sticky nav, hamburger menu with two-level accordion (categories → products)
+- "Log ind" opens modal, "Opret en gratis konto" as orange CTA button in mobile menu
+
+### Footer (Footer Figma component)
+- All placeholder texts replaced with Figma content
+- Logos corrected (Legal Desk white, Jurio neg)
+- Social icons: Facebook + LinkedIn white SVGs
+
+### Scripts (8 total — all functional, no visual hacks)
+1. trustpilot_bootstrap — Loads Trustpilot widget JS
+2. mega_menu_hover — Desktop mega menu hover behavior
+3. modal_styles_inject v1.6.0 — Modal CSS layout + responsive
+4. nav_responsive_css v1.8.0 — Mobile nav CSS + hamburger styling
+5. modal_open_close v1.1.0 — Modal open/close + Escape key
+6. modal_step_navigation v1.2.0 — Step switching + form validation
+7. modal_email_prefill v1.1.0 — Carries email between steps
+8. nav_hamburger_js v2.4.0 — Hamburger button + mobile accordion
+
+---
+
+## What's Remaining
+
+### Visual (minor)
+- [ ] Floating label inputs (using placeholder — cosmetic choice)
+- [ ] Delete empty Kontakt item in footer (extra element with space)
+- [ ] Delete "Navbar old" component (2 legacy instances)
+
+### Functional (blocked on backend)
+- [ ] **Umbraco API integration (Phase 3)**
+  - POST /api/auth/check-email → routes to Step 3 (new user) or Step 4 (existing)
+  - POST /api/auth/login → email + password → session cookie
+  - POST /api/auth/register → full form → creates member + session cookie
+  - OAuth endpoints for Google/Facebook social login
+- [ ] **CVR lookup autocomplete** — Step 2 Erhverv card, needs CVR API endpoint
+- [ ] **"Glemt adgangskode?" link** — needs password reset URL from Umbraco
+- [ ] **Password eye toggle JS** — eye icons are placed as Image elements but toggle behavior was removed during JS cleanup. Needs re-adding as a clean script that finds the eye images and toggles input type
+- [ ] **Session handling** — shared cookie on .legaldesk.dk domain for Webflow ↔ Umbraco handoff
+
+### Architecture notes
+- Modal lives as a component instance on the body (outside nav-wrapper)
+- Auth flow: Webflow modal → Umbraco REST API → session cookie → redirect to app.legaldesk.dk
+- All scripts are page-level (not site-level) on the Home page
+- When adding the modal to other pages, apply the same scripts via upsert_page_script
+
+---
+
+## Key Asset IDs
+| Asset | ID |
+|-------|-----|
+| icon-person.svg | 69be47cd8198eb9e8e9464ef |
+| icon-briefcase.svg | 69be47cd7bef72c03d562fae |
+| icon-google.svg | 69be5dd36acf0d8f1bd990fb |
+| icon-facebook.svg | 69be5dd31e6800d62f3efc49 |
+| icon-eye.svg | 69be5dd305aa419202c5e2f5 |
+| icon-eye-off.svg | 69be5dd386482360f70b633c |
+| icon-facebook-white.svg | 69be955c475663d65e790f03 |
+| icon-linkedin-white.svg | 69be955ce8bb9ae44a53950f |
+| check-circle.png | 694680bdca50a7b3a735bb7e |
+| swirl-underline.svg | 69bdb41d635dc4f47f4120ff |
+| logo_legaldesk_horizontal_white.svg | 69bd2e548646f55ad49fc613 |
+| logo_jurio_neg.svg | 69bd336e6ac2b1d5a1feb1d7 |
+| payment_icons_footer_dk.svg | 694680b6a1a321bf47108f6b |
+
+## Working Preferences
+- Never hardcode CDN URLs — always use Webflow Image elements with asset IDs
+- Extract SVGs from Figma, save locally, user uploads to Webflow assets
+- Always prefer proper fixes over workarounds — ask user for manual help when MCP can't do it
+- After MCP reconnection, always re-check element state before creating anything

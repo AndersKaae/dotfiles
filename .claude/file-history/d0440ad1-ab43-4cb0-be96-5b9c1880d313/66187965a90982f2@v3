@@ -1,0 +1,32 @@
+---
+name: Login/Signup Modal build status
+description: Current status of the Legal Desk login/signup modal Webflow build as of 2026-03-21
+type: project
+---
+
+The login/signup modal build in Webflow is substantially complete.
+
+**Completed:**
+- All 4 modal steps (email entry, account type, registration, login) with correct Figma styling
+- Right column: USPs with asset-based checkmarks, GRATIS badge, review card, CS photos, Trustpilot widget, swirl underline
+- All icons as proper Webflow Image elements with asset IDs (Google, Facebook, person, briefcase, eye, check-circle)
+- Navigation component with responsive hamburger menu + two-level accordion for Erhverv/Privat products
+- Footer component: placeholder texts fixed, logos corrected, social icons swapped
+- Modal as standalone component, clean page structure
+- Responsive: mobile hides right column, full-screen single column, sticky nav
+- 8 functional JS scripts (no visual hacks)
+
+**Remaining:**
+- Footer logo: swap to Jurio logo for SE and NO locales (needs locale visibility conditions in designer — add Jurio logo Image, show/hide per locale)
+- Footer payment icons: need SE and NO payment icon SVGs, then swap per locale
+- Floating label inputs (skipped — using placeholder)
+- Phase 3: Umbraco API integration (blocked — endpoints not built)
+- CVR lookup autocomplete (needs API)
+- "Glemt adgangskode?" link target (needs URL)
+- Social login OAuth (needs endpoints)
+- Password eye toggle JS behavior (icons placed, toggle removed during cleanup)
+- "Navbar old" component cleanup (2 legacy instances)
+- Empty Kontakt item in footer (delete in designer)
+
+**Why:** This tracks progress for handoff to backend team and future sessions.
+**How to apply:** Reference this when resuming modal work or preparing backend integration handoff.
