@@ -38,7 +38,29 @@
       "Bash(curl -s \"https://www.legaldesk.dk/css/rte-styles.css\")",
       "Bash(curl -s \"https://www.legaldesk.dk/css/minify.css\")",
       "Bash(curl -s \"https://www.legaldesk.dk/css/custom/sector_content.css\")",
-      "Bash(curl -s https://www.legaldesk.dk/css/custom/main_general.css)"
+      "Bash(curl -s https://www.legaldesk.dk/css/custom/main_general.css)",
+      "Bash(curl -s https://docs.developers.webflow.com/data/reference/cms/collection-fields/create-collection-field)",
+      "Bash(curl -s https://docs.developers.webflow.com/data/docs/collection-fields)",
+      "WebSearch",
+      "WebFetch(domain:developers.webflow.com)",
+      "Bash(pip install:*)",
+      "Bash(curl -s \"https://legaldesk.dk/umbraco/delivery/api/v2/content?filter=contentType:reviewItem&take=1\")",
+      "Bash(curl -sv \"https://legaldesk.dk/umbraco/delivery/api/v2/content?filter=contentType:reviewItem&take=1\")",
+      "Bash(echo $?)",
+      "Bash(source .env)",
+      "Bash(curl -s -H \"Api-Key: $UMBRACO_API_KEY\" \"$UMBRACO_BASE_URL/content?filter=contentType:reviewItem&take=1\")",
+      "Bash(.venv/bin/pip install:*)",
+      "Bash(.venv/bin/migrate --dry-run --umbraco-type reviewItem --collection testimonials)",
+      "Bash(pipenv --version)",
+      "Bash(rm -rf .venv)",
+      "Bash(pipenv install:*)",
+      "Bash(pipenv run:*)",
+      "mcp__claude_ai_Webflow__ask_webflow_ai",
+      "mcp__claude_ai_Webflow__data_cms_tool",
+      "Bash(gh repo:*)",
+      "Bash(pacman -Q github-cli)",
+      "Bash(gh auth:*)",
+      "Bash(pipenv run python3 -c \":*)"
     ]
   }
 }

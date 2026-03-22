@@ -5,4 +5,5 @@
 - [feedback_svg_workflow.md](feedback_svg_workflow.md) — Extract SVGs from Figma, save locally, user uploads to Webflow assets
 - [feedback_mcp_reconnect.md](feedback_mcp_reconnect.md) — Always re-check element state after MCP reconnection to avoid creating duplicates
 - [feedback_dotfiles_sync.md](feedback_dotfiles_sync.md) — Check dotfiles are up to date at session start; periodically commit changes
+- [feedback_ask_before_mutating.md](feedback_ask_before_mutating.md) — Always ask before adding fallbacks/defaults that change migrated data
 - [project_modal_status.md](project_modal_status.md) — Current status of the Legal Desk Webflow build (2026-03-22)

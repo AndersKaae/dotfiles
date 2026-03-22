@@ -33,7 +33,7 @@ type: project
 - Footer/Nav logo: swap to Jurio for SE and NO (locale visibility conditions in designer)
 - Footer payment icons: need SE and NO SVGs, then locale visibility
 - Floating label inputs (skipped — using placeholder)
-- Phase 3: Umbraco API integration (blocked — endpoints not built)
+- Phase 3: Selective Umbraco→Webflow CMS migration (separate project at ~/projects/umbraco-to-webflow-migration/) — not a wholesale migration, only importing and restructuring what's needed
 - CVR lookup, password reset link, social login OAuth (blocked on backend)
 - Password eye toggle JS (icons placed, toggle behavior removed during cleanup)
 - "Navbar old" component cleanup (legacy instances to delete)

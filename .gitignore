@@ -5,20 +5,3 @@
 .config/systemd/user/hyprland-ready.target.wants/
 DataGripProjects/legaldesk/queries/
 
-# Claude - only keep memory and settings
-.claude/backups/
-.claude/cache/
-.claude/image-cache/
-.claude/paste-cache/
-.claude/file-history/
-.claude/shell-snapshots/
-.claude/tasks/
-.claude/sessions/
-.claude/plugins/
-.claude/history.jsonl
-.claude/.credentials.json
-.claude/mcp-needs-auth-cache.json
-.claude/projects/*/*.jsonl
-.claude/projects/*/bridge-pointer.json
-.claude/projects/*/d0440ad1-*/tool-results/
-.claude/projects/*/d0440ad1-*/subagents/
