@@ -60,7 +60,8 @@
       "Bash(gh repo:*)",
       "Bash(pacman -Q github-cli)",
       "Bash(gh auth:*)",
-      "Bash(pipenv run python3 -c \":*)"
+      "Bash(pipenv run python3 -c \":*)",
+      "Bash(hyprctl monitors:*)"
     ]
   }
 }
