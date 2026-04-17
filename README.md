@@ -17,6 +17,10 @@
 
 # Install on Linux
 
+## Install all required apps
+
+Run `./arch-install-apps.sh` (requires `yay` for AUR packages).
+
 ## Non obvious packages to install
 sudo pacman -S rofi hyprpaper waybar swayidle syncthing grim slurp swappy pamixer swaylock brightnessctl playerctl mako 
 
