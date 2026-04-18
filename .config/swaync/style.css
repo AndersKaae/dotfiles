@@ -1,0 +1,237 @@
+/* Catppuccin Mocha — sleek dark with fade-in */
+
+@define-color base        #1e1e2e;
+@define-color mantle      #181825;
+@define-color crust       #11111b;
+@define-color surface0    #313244;
+@define-color surface1    #45475a;
+@define-color surface2    #585b70;
+@define-color text        #cdd6f4;
+@define-color subtext0    #a6adc8;
+@define-color subtext1    #bac2de;
+@define-color overlay0    #6c7086;
+@define-color mauve       #cba6f7;
+@define-color red         #f38ba8;
+@define-color green       #a6e3a1;
+@define-color yellow      #f9e2af;
+@define-color blue        #89b4fa;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 13px;
+}
+
+/* Outer row wrapper */
+.notification-row {
+  outline: none;
+  background: transparent;
+}
+
+.notification-row .notification-background {
+  padding: 10px 14px;
+  background: transparent;
+}
+
+/* Notification card */
+.notification-row .notification-background .notification {
+  border-radius: 14px;
+  border: 1px solid alpha(@mauve, 0.55);
+  background: alpha(@surface0, 0.95);
+  box-shadow: 0 6px 20px alpha(@mauve, 0.18), 0 6px 18px alpha(black, 0.4);
+  padding: 0;
+  margin: 0;
+  animation: fadeInSlide 250ms ease-out;
+}
+
+.notification-row .notification-background .notification.critical {
+  border: 1px solid @red;
+  box-shadow: 0 6px 20px alpha(@red, 0.25), 0 6px 18px alpha(black, 0.4);
+}
+
+.notification-row .notification-background .notification.low {
+  border: 1px solid alpha(@mauve, 0.35);
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* The clickable action region — this is where real padding lives */
+.notification-row .notification-background .notification .notification-default-action {
+  padding: 18px 20px;
+  margin: 0;
+  background: transparent;
+  border: none;
+  color: @text;
+  border-radius: 14px;
+}
+
+.notification-row .notification-background .notification .notification-default-action:hover {
+  background: alpha(@surface0, 0.4);
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content {
+  background: transparent;
+  padding: 0;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .image {
+  border-radius: 10px;
+  margin-right: 14px;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .app-icon {
+  margin: 6px 10px 6px 2px;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box {
+  margin-left: 2px;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .summary {
+  font-size: 14px;
+  font-weight: 600;
+  color: @mauve;
+  margin-bottom: 4px;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time {
+  font-size: 11px;
+  font-weight: normal;
+  color: @subtext0;
+  margin-right: 8px;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body {
+  font-size: 13px;
+  color: @subtext1;
+  margin-top: 4px;
+}
+
+/* Close button */
+.close-button {
+  background: alpha(@surface0, 0.6);
+  color: @subtext0;
+  border-radius: 100%;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 0;
+  min-width: 22px;
+  min-height: 22px;
+  border: none;
+}
+
+.close-button:hover {
+  background: alpha(@red, 0.3);
+  color: @red;
+}
+
+/* Action buttons (alt actions) */
+.notification-row .notification-background .notification > .notification-action,
+.notification-action {
+  background: alpha(@surface0, 0.7);
+  color: @text;
+  border: 1px solid alpha(@surface1, 0.5);
+  border-radius: 8px;
+  margin: 4px 2px;
+  padding: 6px 12px;
+}
+
+.notification-action:hover {
+  background: alpha(@mauve, 0.2);
+  color: @mauve;
+  border-color: @mauve;
+}
+
+/* Inline reply input */
+.notification-action.inline-reply,
+entry.inline-reply-input {
+  background: alpha(@mantle, 0.8);
+  color: @text;
+  border: 1px solid alpha(@surface1, 0.6);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* Control center panel */
+.control-center {
+  background: alpha(@base, 0.95);
+  border: 1px solid alpha(@surface1, 0.6);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px alpha(black, 0.45);
+  padding: 14px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center .notification-row .notification-background {
+  padding: 6px 4px;
+}
+
+.control-center .notification-row .notification-background .notification {
+  background: alpha(@mantle, 0.85);
+  border: 1px solid alpha(@surface0, 0.6);
+}
+
+.widget-title {
+  color: @text;
+  margin: 6px 4px 12px 4px;
+}
+
+.widget-title > label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.widget-title > button {
+  background: alpha(@surface0, 0.7);
+  color: @subtext1;
+  border: 1px solid alpha(@surface1, 0.5);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.widget-title > button:hover {
+  background: alpha(@red, 0.2);
+  color: @red;
+  border-color: @red;
+}
+
+.widget-dnd {
+  color: @text;
+  margin: 6px 4px 10px 4px;
+  font-size: 14px;
+}
+
+.widget-dnd > switch {
+  background: @surface0;
+  border-radius: 12px;
+  border: 1px solid alpha(@surface1, 0.6);
+}
+
+.widget-dnd > switch:checked {
+  background: @mauve;
+}
+
+.widget-dnd > switch slider {
+  background: @text;
+  border-radius: 10px;
+}
+
+/* Floating popup window background */
+.floating-notifications.background .notification-background {
+  background: transparent;
+}
+
+.floating-notifications.background .notification-background .notification {
+  box-shadow: 0 6px 18px alpha(black, 0.35);
+}
