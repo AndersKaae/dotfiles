@@ -7,31 +7,36 @@ PACMAN_PKGS=(
     hyprland hyprlock hyprpaper
 
     # Bars / launchers / notifications
-    waybar rofi-wayland fuzzel mako
+    waybar rofi-wayland swaync
 
     # Screenshot / idle / lock helpers
-    grim slurp swappy swayidle swaylock
+    grim slurp swappy swaylock hypridle
 
     # Audio / brightness / media
-    pipewire wireplumber pamixer alsa-utils brightnessctl playerctl mpc
+    pipewire wireplumber pamixer alsa-utils brightnessctl playerctl
 
     # Clipboard / notification utils
     cliphist wl-clipboard libnotify
 
     # Terminal / file managers / browsers / apps
-    ghostty nautilus nemo firefox flatpak
+    ghostty nautilus firefox flatpak
 
     # Networking / VPN
-    networkmanager-l2tp strongswan xl2tpd
+    networkmanager networkmanager-l2tp strongswan xl2tpd impala
+
+    # Bluetooth
+    bluez bluez-utils bluetui
+
+    # Fonts
+    ttf-jetbrains-mono-nerd
 
     # Sync / misc
-    syncthing jq
+    syncthing jq udiskie
 )
 
 # AUR packages (yay)
 AUR_PKGS=(
     hyprpanel
-    vesktop-bin
     brave-bin
     spotify
 )
