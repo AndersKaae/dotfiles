@@ -117,7 +117,8 @@
       "Bash(notify-send \"Longer timeout\" \"Normal notifications now stay for 12 seconds\")",
       "Bash(hyprctl reload *)",
       "Bash(pkill waybar *)",
-      "Bash(waybar)"
+      "Bash(waybar)",
+      "Bash(nvim --version)"
     ]
   }
 }
