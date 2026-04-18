@@ -4,7 +4,6 @@
     "spacing": 0,
     "height": 42,
     "modules-left": [
-        "custom/logo",
         "hyprland/workspaces"
     ],
     "modules-center": [
@@ -79,10 +78,6 @@
         "format": "{icon} {volume}%",
         "format-icons": { "headphone": "", "default": ["󰖀","󰕾",""] },
         "on-click": "pamixer -t"
-    },
-    "custom/logo": {
-        "format": "  ",
-        "on-click": "~/.config/rofi/launchers/misc/launcher.sh &"
     },
     "battery": {
         "format": "{capacity}% {icon}",

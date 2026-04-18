@@ -85,14 +85,6 @@ window#waybar.hidden {
   margin-right: 6px;
 }
 
-#custom-logo {
-  padding-right: 7px;
-  padding-left: 7px;
-  margin-left: 5px;
-  font-size: 15px;
-  border-radius: 8px 0px 0px 8px;
-  color: #1793d1;
-}
 
 #memory {
   background-color: #fab387;
