@@ -61,7 +61,17 @@
       "Bash(pacman -Q github-cli)",
       "Bash(gh auth:*)",
       "Bash(pipenv run python3 -c \":*)",
-      "Bash(hyprctl monitors:*)"
+      "Bash(hyprctl monitors:*)",
+      "Bash(sudo install *)",
+      "Bash(sudo tee *)",
+      "Bash(sudo systemctl *)",
+      "Read(//etc/systemd/system/getty@tty1.service.d/**)",
+      "Bash(pacman -Qs vesktop)",
+      "Bash(flatpak list *)",
+      "Bash(xdg-settings get *)",
+      "Bash(xdg-mime query *)",
+      "Bash(xdg-settings set *)",
+      "Bash(xdg-mime default *)"
     ]
   }
 }

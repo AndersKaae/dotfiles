@@ -1,4 +1,13 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(cat *)",
+      "Bash(python3 *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(cat * | python3 *)"
+    ]
+  },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {
@@ -6,8 +15,5 @@
         "repo": "anthropics/claude-plugins-official"
       }
     }
-  },
-  "permissions": {
-    "allow": ["Bash(cat *)", "Bash(python3 *)", "Bash(ls *)", "Bash(grep *)", "Bash(cat * | python3 *)"]
   }
 }
