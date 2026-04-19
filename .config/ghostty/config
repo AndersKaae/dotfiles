@@ -4,5 +4,5 @@ font-family = "JetBrainsMonoNL Nerd Font"
 mouse-hide-while-typing = true
 background-opacity = 0.90
 background-blur-radius = 40
-scrollback-limit = 10000
+scrollback-limit = 100000000
 confirm-close-surface = false
