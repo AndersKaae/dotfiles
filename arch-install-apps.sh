@@ -37,8 +37,6 @@ PACMAN_PKGS=(
 # AUR packages (yay)
 AUR_PKGS=(
     hyprpanel
-    brave-bin
-    spotify
 )
 
 sudo pacman -S --needed "${PACMAN_PKGS[@]}"

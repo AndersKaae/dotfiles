@@ -155,7 +155,9 @@
       "Bash(kill 223457)",
       "Bash(ln -s ../dotfiles/.config/gtk-4.0 /home/anders/.config/gtk-4.0)",
       "Bash(hyprctl hyprpaper *)",
-      "Bash(hyprpaper)"
+      "Bash(hyprpaper)",
+      "Bash(sed -i '/\"active\":/d; /\"urgent\":/d' /home/alk/dotfiles/.config/waybar/config)",
+      "Bash(sed -n '43,63p' /home/alk/dotfiles/.config/waybar/config)"
     ]
   }
 }
