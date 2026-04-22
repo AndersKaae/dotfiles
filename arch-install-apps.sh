@@ -22,7 +22,7 @@ PACMAN_PKGS=(
     ghostty nautilus firefox flatpak
 
     # Networking / VPN
-    networkmanager networkmanager-l2tp strongswan xl2tpd impala
+    networkmanager networkmanager-l2tp strongswan xl2tpd impala iwd
 
     # Bluetooth
     bluez bluez-utils bluetui
@@ -31,7 +31,7 @@ PACMAN_PKGS=(
     ttf-jetbrains-mono-nerd
 
     # Sync / misc
-    syncthing jq udiskie
+    syncthing jq udiskie bc
 )
 
 # AUR packages (yay)

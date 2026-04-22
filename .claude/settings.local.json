@@ -153,7 +153,9 @@
       "Bash(findmnt /boot)",
       "Bash(timedatectl status *)",
       "Bash(kill 223457)",
-      "Bash(ln -s ../dotfiles/.config/gtk-4.0 /home/anders/.config/gtk-4.0)"
+      "Bash(ln -s ../dotfiles/.config/gtk-4.0 /home/anders/.config/gtk-4.0)",
+      "Bash(hyprctl hyprpaper *)",
+      "Bash(hyprpaper)"
     ]
   }
 }
