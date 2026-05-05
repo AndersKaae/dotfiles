@@ -1,11 +1,11 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, create a feature branch, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a feature branch, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
 
-A nine-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
+A seven-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
 
 ## Phase 1: Get the task
 
@@ -20,7 +20,13 @@ Description is HTML in `fields["System.Description"]`. Parent id is in the top-l
 **GitHub**: `gh issue view <ID> --json number,title,body,state,labels,assignees`.
 **Jira**: `acli jira workitem view <ID>` or the official `jira` CLI.
 
-Summarize the task in plain language and confirm shared understanding. Translate, don't restate. End the summary with a one-sentence proposed approach so the user has something concrete to react to.
+Summarize the task in plain language and confirm shared understanding. **Translate, don't restate** — turn tracker prose into the concrete user-visible behavior.
+> Bad: *"fix the wizard bug."*
+> Good: *"When a member revisits step 3 of the SE incorporation wizard, the company-name field they entered earlier is blank."*
+
+End the summary with a one-sentence proposed approach so the user has something concrete to react to.
+
+**Sanity-check the shape of the task before continuing.** TDD doesn't fit every work item — pure refactors, doc-only changes, copy tweaks, dependency bumps, and hotfixes during incident response usually shouldn't be forced through this workflow. If the task isn't TDD-shaped, surface that now and ask the user how they want to proceed instead of ramming the loop onto it.
 
 ## Phase 2: Agree on scope
 
@@ -33,19 +39,11 @@ Before writing code, identify the forks where the user's intent matters and you'
 
 Use `AskUserQuestion` with 2-4 options per question. Label your recommendation `(Recommended)`. Don't ask trivial questions, but DO ask when getting it wrong forces a rewrite. Bundle related questions into a single `AskUserQuestion` call so the user answers them together.
 
+> `AskUserQuestion` is a deferred tool in some harnesses — load its schema via `ToolSearch` with `select:AskUserQuestion` if it isn't already available.
+
 For non-trivial work, draft a short plan in `~/.claude/plans/<auto-name>.md` covering: context, approach, critical files, verification, open questions, out-of-scope. The plan grounds later phases — refer back to it when context shifts.
 
-## Phase 3: Create a branch
-
-Naming convention: `task-<ID>-<kebab-case-summary>` to match repo history. Confirm the repo's host before creating — Azure DevOps repos use `az repos pr create` later, not `gh`. Check `~/.claude/projects/<project>/memory/reference_code_host.md` if it exists.
-
-```bash
-git checkout -b task-NNNN-short-description
-```
-
-Don't commit anything yet.
-
-## Phase 4: Scope the test
+## Phase 3: Scope the test
 
 Explore the relevant code (use the `Explore` agent for broad searches, multiple agents in parallel when scope is uncertain). The output should be:
 - Exact file paths, function names, line numbers of the buggy or feature-relevant code
@@ -58,28 +56,34 @@ For E2E specifically, also identify:
 - Auth state requirements — re-run the setup project if storage-state cookies might be stale
 - Cleanup hooks the test should fire (and which auth context can perform them)
 
-## Phase 5: Write the failing test
+Doing this **before** branching means you discover "this is already fixed" or "the scope is wildly different than the ticket implies" without leaving an orphan branch behind.
+
+## Phase 4: Create a branch
+
+Naming convention: `task-<ID>-<kebab-case-summary>` to match repo history. Confirm the repo's host before creating — Azure DevOps repos use `az repos pr create` later, not `gh`. Check `~/.claude/projects/<project>/memory/reference_code_host.md` if it exists.
+
+```bash
+git checkout -b task-NNNN-short-description
+```
+
+Don't commit anything yet.
+
+## Phase 5: Write the failing test and verify it fails for the right reason
 
 Implement the test, run it, and confirm:
 1. It **fails**, and
 2. The failure is on the assertion that captures the bug — not on setup, fixture creation, env prerequisites, or fragile selectors.
+3. Setup tests in the same spec (1, 2, 3...) all pass — only the bug-capturing assertion is red.
 
 When the failure is on the wrong line, fix the test infrastructure first. The bug-capturing failure must be unmistakable. Read the failure output carefully — if the test failed because a selector didn't match or an env var was missing, that's a different problem than the bug.
 
-If the repo has a tier for known-failing tests (`pending`, `wip`, `quarantine`, etc.), put the new test there until it goes green. Don't paint CI red with an intentionally-failing test.
+**Don't paint CI red with an intentionally-failing test.** If the repo has a tier for known-failing tests (`pending`, `wip`, `quarantine`), put the new test there until it goes green. If there's no such tier, use the test runner's skip mechanism (`test.skip`, `it.skip`, `[Ignore]`, etc.) and leave a `// TDD: unskip when fix lands` comment so the gate is easy to find when promoting in Phase 6.
 
-When uncertain whether the failure is "right", add temporary logging that surfaces the actual values being compared, so you can confirm before celebrating.
+**Don't add retries or polling to a failing assertion to mask a bounce.** Polling for readiness (the page has loaded, the network has settled) is fine; retrying an assertion that already saw the wrong value is just hiding the bug. Re-read the failure output: expected vs received values should mirror the bug description exactly, and the failure should happen inside the production code path the bug report points to — not in scaffolding.
 
-## Phase 6: Validate the test
+When uncertain whether the failure is "right", add temporary logging that surfaces the actual values being compared, so you can confirm before celebrating. This phase exists to prevent celebrating a wrong-reason red. If the failure isn't unmistakable, fix the test, don't fix the code.
 
-Re-read the failure output. Confirm:
-- Expected vs received values directly mirror the bug description
-- The failure happens inside the production code path the bug report points to, not in scaffolding
-- Setup tests (1, 2, 3...) all pass — only the bug-capturing assertion is red
-
-This phase exists to prevent celebrating a wrong-reason red. If the failure isn't unmistakable, fix the test, don't fix the code.
-
-## Phase 7: Implement the fix
+## Phase 6: Implement the fix and validate it turns green
 
 The smallest change that turns the test green. Resist:
 - Refactoring beyond what the bug demands
@@ -88,9 +92,9 @@ The smallest change that turns the test green. Resist:
 - Touching unrelated files
 - "While I'm here" cleanups
 
-If the fix is in a layer that compiles or bundles to a different artifact (Vue → JS bundle, TS → JS, SCSS → CSS), rebuild whatever the test actually consumes. Don't assume the test runs against your source.
+**Enforce smallness explicitly:** if you find yourself editing more than the one or two files the assertion points to, stop and justify it. Usually the larger change is a refactor that belongs in a separate commit (or a separate task).
 
-## Phase 8: Validate the fix
+If the fix is in a layer that compiles or bundles to a different artifact (Vue → JS bundle, TS → JS, SCSS → CSS), rebuild whatever the test actually consumes. Don't assume the test runs against your source.
 
 Run the test again. Expect:
 - The previously-red assertion is now green
@@ -100,9 +104,9 @@ Run the test again. Expect:
 
 If a test now passes that was passing *before* the test scaffolding existed, investigate — could be a regression introduced by the test setup itself.
 
-Once green, **promote** the test out of any "pending" tier into the default-running tier so future runs catch regressions. Update the test name if it still says "FAILING" or similar TDD-mid-flow language.
+Once green, **promote** the test out of any "pending" tier or `.skip` gate into the default-running tier so future runs catch regressions. Update the test name if it still says "FAILING" or similar TDD-mid-flow language.
 
-## Phase 9: Commit and push
+## Phase 7: Commit and push
 
 Two separate commits on the feature branch:
 
@@ -152,4 +156,4 @@ Web fallback:
 - Open the PR (the user opens it after reviewing the branch).
 - Merge, deploy, or affect shared/production state beyond the feature branch.
 - Replace human review of the fix's correctness — the test is necessary but not sufficient.
-- Force a TDD shape on tasks where it doesn't fit (pure refactors, doc-only changes, hotfixes during incident response). Surface that mismatch and ask the user before proceeding.
+- Force a TDD shape on tasks where it doesn't fit. Phase 1 catches this; if it slips through, surface it as soon as you notice and ask the user before continuing.

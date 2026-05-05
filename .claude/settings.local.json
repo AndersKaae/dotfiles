@@ -157,7 +157,10 @@
       "Bash(hyprctl hyprpaper *)",
       "Bash(hyprpaper)",
       "Bash(sed -i '/\"active\":/d; /\"urgent\":/d' /home/alk/dotfiles/.config/waybar/config)",
-      "Bash(sed -n '43,63p' /home/alk/dotfiles/.config/waybar/config)"
+      "Bash(sed -n '43,63p' /home/alk/dotfiles/.config/waybar/config)",
+      "mcp__claude_ai_Google_Drive__search_files",
+      "mcp__claude_ai_Google_Drive__get_file_metadata",
+      "mcp__claude_ai_Google_Drive__read_file_content"
     ]
   }
 }

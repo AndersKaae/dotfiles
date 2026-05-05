@@ -157,3 +157,4 @@ eval "$(pyenv init -)"
 eval "$(zoxide init bash)"
 export TERM=xterm-256color
 export PATH="$HOME/.npm-global/bin:$PATH"
+export MASTER_KEY='ClarenceT123!'
