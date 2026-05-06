@@ -251,6 +251,7 @@ require("lazy").setup({
 
 	{
 		"zbirenbaum/copilot.lua",
+		enabled = false,
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
