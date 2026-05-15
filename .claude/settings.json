@@ -6,7 +6,8 @@
       "Bash(ls *)",
       "Bash(grep *)",
       "Bash(cat * | python3 *)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -15,5 +16,6 @@
         "repo": "anthropics/claude-plugins-official"
       }
     }
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }
