@@ -10,7 +10,7 @@
         "hyprland/workspaces"
     ],
     "modules-right": [
-        "memory",
+        "custom/memory",
         "cpu",
         "custom/vpn", // Added here
         "idle_inhibitor",
@@ -60,7 +60,12 @@
         }
     },
     "cpu": { "format": " {usage}%", "interval": 5 },
-    "memory": { "format": " {used} GB", "interval": 5 },
+    "custom/memory": {
+        "exec": "~/.config/waybar/scripts/memory.sh",
+        "return-type": "json",
+        "interval": 5,
+        "tooltip": true
+    },
     "clock": {
         "tooltip-format": "{calendar}",
         "format-alt": "  {:%a, %d %b %Y}",
