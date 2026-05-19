@@ -14,7 +14,7 @@
         "cpu",
         "custom/vpn", // Added here
         "idle_inhibitor",
-        "network",
+        "custom/network",
         "bluetooth",
         "wireplumber",
         "battery",
@@ -71,12 +71,12 @@
         "format-alt": "  {:%a, %d %b %Y}",
         "format": " {:%H:%M}"
     },
-    "network": {
-        "format-wifi" : "{icon}",
-        "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-        "format-ethernet": "󰀂",
-        "format-disconnected" : "󰖪",
-	"on-click": "ghostty --class=impala -e impala"
+    "custom/network": {
+        "exec": "~/.config/waybar/scripts/network.sh",
+        "return-type": "json",
+        "interval": 5,
+        "tooltip": true,
+        "on-click": "ghostty --class=impala -e impala"
     },
     "wireplumber": {
         "format": "{icon} {volume}%",

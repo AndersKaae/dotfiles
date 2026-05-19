@@ -60,7 +60,7 @@ window#waybar.hidden {
 #battery,
 #backlight,
 #wireplumber,
-#network,
+#custom-network,
 #bluetooth,
 #clock,
 #tray {
@@ -96,7 +96,7 @@ window#waybar.hidden {
   color: #ec3a5e;
 }
 
-#network {
+#custom-network {
   padding-right: 17px;
 }
 
