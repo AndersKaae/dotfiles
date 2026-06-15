@@ -1,6 +1,6 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a feature branch, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
@@ -58,15 +58,28 @@ For E2E specifically, also identify:
 
 Doing this **before** branching means you discover "this is already fixed" or "the scope is wildly different than the ticket implies" without leaving an orphan branch behind.
 
-## Phase 4: Create a branch
+## Phase 4: Create a worktree off develop
 
-Naming convention: `task-<ID>-<kebab-case-summary>` to match repo history. Confirm the repo's host before creating — Azure DevOps repos use `az repos pr create` later, not `gh`. Check `~/.claude/projects/<project>/memory/reference_code_host.md` if it exists.
+**All work happens in a dedicated git worktree branched from `develop`** — never in the primary checkout, and never branched from whatever happens to be checked out. This keeps the main working tree untouched, isolates the task, and guarantees a clean base regardless of the current branch.
+
+Naming convention: branch `task-<ID>-<kebab-case-summary>` to match repo history; worktree directory as a sibling of the repo, e.g. `../<repo>-task-<ID>`. Confirm the repo's host before creating — Azure DevOps repos use `az repos pr create` later, not `gh`. Check `~/.claude/projects/<project>/memory/reference_code_host.md` if it exists.
 
 ```bash
-git checkout -b task-NNNN-short-description
+# run from inside the primary repo checkout
+git fetch origin develop
+git worktree add ../<repo>-task-NNNN-short-description -b task-NNNN-short-description origin/develop
+cd ../<repo>-task-NNNN-short-description
 ```
 
-Don't commit anything yet.
+Branch from `origin/develop` (freshly fetched), not local `develop`, so the base is up to date even if the local tip is stale.
+
+**Worktrees start cold** — git-ignored config and installed dependencies do not carry over. For LegalDesk-V2: copy `appsettings.Development.json` and `tests/e2e/.env.local` from the primary checkout, run `npm install` in `tests/e2e`, and expect a 2-3 min first build/cold start. See `~/.claude/projects/<project>/memory/reference_git_worktree_setup.md` if present for the project's exact setup steps.
+
+Don't commit anything yet. Run the rest of the workflow (Phases 5-7) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
+
+```bash
+git worktree remove ../<repo>-task-NNNN-short-description
+```
 
 ## Phase 5: Write the failing test and verify it fails for the right reason
 
