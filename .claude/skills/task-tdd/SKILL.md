@@ -153,6 +153,25 @@ az repos pr create \
 Web fallback:
 `https://dev.azure.com/<org>/<project>/_git/<repo>/pullrequestcreate?sourceRef=<branch>&targetRef=develop`
 
+## Common PR pushback (pre-empt it before pushing)
+
+These are recurring review comments on LegalDesk PRs. Scan the diff for them in Phase 6 before committing, so you don't burn a review round on a known nit.
+
+- **Magic-string Umbraco property access** (reviewer: Biraj — flagged on PR 6350 and PR 6352). In any Razor view/partial, controller, or service touching Umbraco content, use strongly-typed `ContentModels.*` accessors, not string aliases:
+  - `Model is ContentModels.ProductCategory pc` instead of `Model.ContentType.Alias == "productCategory"`
+  - `pc.PageManchet` instead of `Model.Value<string>("pageManchet")`
+  - `pc.OGimage?.Url()` instead of `Model.Value<IPublishedContent>("OGimage")?.Url()`
+
+  Generated models live under `src/LegalDesk.Infrastructure/Models/CmsModels/*.generated.cs`; the `ContentModels` alias is set up in `Views/_ViewImports.cshtml`. **Improve on the way out** — convert even pre-existing magic-string lines you *touch*, not just brand-new code. The only acceptable exception is when no generated accessor exists (a composition not surfaced on that doc type) — then leave `Value<>("alias")` with a one-line comment explaining why.
+
+- **Tests must exercise the public API only** (reviewer: Vladica — PR #6448: *"your tests are not good. You should rely on dependency injection and mocking of services."*). Don't bend production code's encapsulation to make a test writeable:
+  - No `static` / `[InternalsVisibleTo]` seams added just so a test can reach a method.
+  - No reflection on private entity setters (same anti-pattern, softer form).
+  - Instead: instantiate the concrete service with NSubstitute-mocked dependencies and call only its **public** methods; build domain entities via their public factory methods (e.g. `Product.CreateTimeline(template, requiredIds)`). For EF `.Include().ThenInclude()...ToListAsync(ct)` chains, mock the `IQueryable` with `MockQueryable.NSubstitute`'s `BuildMock()`.
+  - If you can't reach the behavior through the public surface, the test is at the wrong layer — move it, don't widen visibility.
+
+Both reviewers apply the same underlying principle: **don't weaken type-safety or encapsulation to make the change easier — leave the code better than you found it.**
+
 ## Common detours and how to handle them
 
 - **Auth/storage state expired**: re-run the auth setup project, then re-run the spec. Don't pretend it's an env config problem when it's a stale cookie.
