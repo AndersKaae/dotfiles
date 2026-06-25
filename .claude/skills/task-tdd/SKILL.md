@@ -75,6 +75,8 @@ Branch from `origin/develop` (freshly fetched), not local `develop`, so the base
 
 **Worktrees start cold** — git-ignored config and installed dependencies do not carry over. For LegalDesk-V2: copy `appsettings.Development.json` and `tests/e2e/.env.local` from the primary checkout, run `npm install` in `tests/e2e`, and expect a 2-3 min first build/cold start. See `~/.claude/projects/<project>/memory/reference_git_worktree_setup.md` if present for the project's exact setup steps.
 
+**Always ask before starting the local server.** Multiple LLMs often run in parallel against this repo and share the dev server / port 44333. Before any `dotnet run`, `dotnet watch`, server boot, or E2E run that would launch one, ask the user first — another agent may already have it running, and a second boot serves stale code or fights for the port. If you start a server, stop the one you started when done. (See `~/.claude/projects/<project>/memory/feedback_ask_before_starting_server.md`.)
+
 Don't commit anything yet. Run the rest of the workflow (Phases 5-7) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
 
 ```bash
