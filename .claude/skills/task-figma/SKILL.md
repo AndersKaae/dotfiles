@@ -76,9 +76,10 @@ Discipline that prevents the recurring misses:
 
 This is the core deliverable — it makes discrepancies visible at a glance so the user can catch what you missed.
 
+- **The artifact must always contain EVERY view from the Figma file — no exceptions.** It has one section per row of the Phase 1 inventory, period. A view you've audited shows its side-by-side + checklist; a view you haven't yet shows the Figma export with a **Pending** status and the reason (e.g. awaiting node URL, state not reachable). The document is a complete map of the design at all times, not just the slice you finished. If a Figma view is absent from the artifact, the artifact is wrong — the user must never have to wonder whether a screen was considered. Keep the artifact and the inventory in lockstep: every view appears, and the summary counts reconcile to the inventory total.
 - Use the `Artifact` tool (load the `artifact-design` skill first; treat this as a polished but utilitarian QA/info-design page, not a flashy landing page).
 - Per screen: two columns — **Figma export | live render** — above a per-element checklist table (Element · Figma spec · Status). Status pills color-coded: match / fixed / caveat / unverified / pending.
-- A **"Not yet audited"** section listing every inventory row without a verified section, plus the ask for the missing node URLs. Honesty about coverage is part of the deliverable.
+- A **"Not yet audited"** section collects every inventory row still at Pending, plus the ask for any missing node URLs. Honesty about coverage is part of the deliverable — but Pending views still appear with their Figma export, never as a bare list item with nothing to look at.
 - **Inline every image as a `data:` URI** (base64) — the artifact CSP blocks external hosts, so Figma asset URLs and local screenshots both must be embedded. A small Python step that replaces `{{TOKEN}}` placeholders with `data:image/png;base64,...` keeps the HTML readable.
 - Redeploy the same file (same artifact URL) as you add screens.
 
