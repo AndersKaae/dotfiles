@@ -18,14 +18,33 @@ This skill reuses `task-tdd`'s infrastructure (worktree off `develop`, `ld-dev-s
 
 ## Phase 1: Enumerate the whole design — don't trust the single node
 
-The URL names one node; the *file* is the scope unless the user says otherwise. Build a complete inventory of frames/screens/states before writing any code.
+**A Figma URL names one node; it is never the scope.** A `?node-id=` link points at a single frame, but the *file* — every page, every frame, every state — is what you audit unless the user narrows it. Equating the linked node with the job is failure mode #1. So before any code, **discover the full frame list and build an inventory.**
 
-- `mcp__claude_ai_Figma__get_metadata` with no `nodeId` lists top-level pages; with a page id lists its frames.
-- **Known limitation: the Figma MCP often truncates the file tree** — listing the file returns only a "Cover" page, and a page's metadata returns only the frame at the origin. A screenshot of the page node renders just the cover. So you frequently **cannot** auto-discover the other frames.
-- When that happens, **ask the user** to enumerate: in Figma, right-click each frame → **Copy link to selection** → paste the URLs (each carries `?node-id=`). Don't guess node IDs.
-- Cross-reference the codebase: list the components that plausibly back this design area (e.g. `grep` the nav/checkout components) so the inventory is "every design frame ↔ every component", with gaps visible.
+### Discovery — how to enumerate a Figma file (in priority order)
 
-Produce an explicit **screen inventory**: each row = a Figma frame (name + node id) × each state (logged-in/out, breakpoint, hover/expanded). Confirm scope with the user via `AskUserQuestion` (whole file vs one screen vs a subset). The audit is not "done" until every row has a verified section — never narrow scope silently.
+You must be able to list every frame, not just the one in the URL. Use the first method that works:
+
+**1. Figma REST API + a personal access token (preferred — real discovery).**
+The REST API returns the whole document tree with a depth control; the MCP cannot. **Ask the user for a read-only Figma personal access token once** (Figma → Settings → Security → Personal access tokens → scope *File content: read-only*). Have them store it so the value stays out of the chat transcript and out of git — a `chmod 600` file is simplest:
+```bash
+# user runs this (token text stays in their local transcript only):
+( umask 077; printf %s 'figd_…' > ~/.figma_token )
+```
+Then enumerate every page + top-level frame in one call:
+```bash
+TOK=$(cat ~/.figma_token)
+curl -s -H "X-Figma-Token: $TOK" "https://api.figma.com/v1/files/<fileKey>?depth=2" \
+  | jq '.document.children[] | {page:.name, frames:[.children[]? | {name, id:.id}]}'
+```
+`depth=1` = pages only; `depth=2` = pages + top-level frames; raise depth or use `/v1/files/<key>/nodes?ids=<id>&depth=N` to drill into a specific frame's children. The token is reusable across runs — check `~/.figma_token` first and only ask if it's missing or returns `403 Invalid token` (expired → ask the user to regenerate).
+
+**2. Figma MCP `get_metadata` (confirm, don't enumerate).** Given a node id it returns that subtree fine — use it to inspect a frame you already know. But for *discovery* it's unreliable: `get_metadata` with no/`page` id truncates (returns only the "Cover" page / the origin frame), it has no depth parameter, and a page screenshot renders only the cover. Never conclude "that's all the frames" from the MCP.
+
+**3. Ask the user for `Copy link to selection` URLs (fallback when there's no token).** In Figma, right-click each frame → **Copy link to selection** → paste the URLs (each carries `?node-id=`). Don't guess node IDs. This is the manual fallback — prefer method 1 so the user isn't hand-listing screens.
+
+**Then cross-reference the codebase:** list the components that plausibly back this design area (e.g. `grep` the nav/checkout components) so the inventory reads as "every design frame ↔ every component", with gaps visible on both sides.
+
+Produce an explicit **screen inventory**: each row = a Figma frame (name + node id) × each state (logged-in/out, breakpoint, hover/expanded). Confirm scope with the user via `AskUserQuestion` (whole file vs one screen vs a subset). The audit is not "done" until every row has a verified section — never narrow scope silently, and never let the linked node silently become the scope.
 
 ## Phase 2: Map each frame to a component, route, and state
 
