@@ -75,7 +75,7 @@ Branch from `origin/develop` (freshly fetched), not local `develop`, so the base
 
 **Worktrees start cold** — git-ignored config and installed dependencies do not carry over. For LegalDesk-V2: copy `appsettings.Development.json` and `tests/e2e/.env.local` from the primary checkout, run `npm install` in `tests/e2e`, and expect a 2-3 min first build/cold start. See `~/.claude/projects/<project>/memory/reference_git_worktree_setup.md` if present for the project's exact setup steps.
 
-**Use the `ld-dev-server` skill to start the local server — don't ask first, and never bare `dotnet run`.** Multiple LLMs often run in parallel against this repo, so a bare `dotnet run`/`dotnet watch` fights for port 44333 and serves stale code. The `ld-dev-server` skill leases an isolated port and its own clone of UmbracoDb, so it's safe to start a server whenever you need one without checking in. Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app; stop the lease you took when done.
+**Use the `ld-dev-server` skill to start the local server — don't ask first, and never a bare `dotnet run`.** Multiple LLMs often run in parallel against this repo. The `ld-dev-server` skill leases an isolated port + its own `UmbracoDb` clone so instances don't collide; a bare `dotnet run`/`dotnet watch` hardcodes port 44333 and the shared DB, which fights other agents, serves stale code, and corrupts EF migrations. Because it's isolated, it's safe to start a server whenever you need one without checking in. The box is RAM-tight (~2.6 GB per warmed instance), so don't lease more instances than you need, and stop + release the one you started when done (see the Phase 7 teardown). Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app. Full procedure: the `ld-dev-server` skill and `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md`.
 
 Don't commit anything yet. Run the rest of the workflow (Phases 5-7) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
 
@@ -121,6 +121,18 @@ If a test now passes that was passing *before* the test scaffolding existed, inv
 
 Once green, **promote** the test out of any "pending" tier or `.skip` gate into the default-running tier so future runs catch regressions. Update the test name if it still says "FAILING" or similar TDD-mid-flow language.
 
+### Full regression gate (before moving to Phase 7)
+
+The single-spec run in this phase proves the fix works and didn't break its own neighbours — it does **not** prove the fix is regression-free across the codebase. Before committing, run the full suites for every layer your change can reach:
+
+- **Unit (.NET)**: `dotnet test tests/LegalDesk.Tests/LegalDesk.Tests.csproj`
+- **Jest (Vue components)** — if the change touched anything under `src/LegalDesk.VueComponents/`: `cd src/LegalDesk.VueComponents && yarn test`
+- **E2E (Playwright)** — if the change touched runtime behaviour the browser exercises: `cd tests/e2e && npm run test` (ask before this — it boots a dev server; see the Phase 4 server note)
+
+All three must be green before you commit. This is the one place the workflow overrides the "minimal test runs" default — a per-spec run is right *during* the red→green loop, but the pre-commit gate is deliberately full-suite so a fix doesn't land a regression elsewhere.
+
+If a layer is genuinely untouched (e.g. a backend-only fix that can't affect Vue), you may skip that layer's suite — but **say so explicitly** and name the layers you ran. Don't silently narrow the gate. If any suite is red, the failures are part of this task: fix them or, if pre-existing and unrelated, confirm they were already red on `origin/develop` before proceeding.
+
 ## Phase 7: Commit and push
 
 Two separate commits on the feature branch:
@@ -154,6 +166,25 @@ az repos pr create \
 
 Web fallback:
 `https://dev.azure.com/<org>/<project>/_git/<repo>/pullrequestcreate?sourceRef=<branch>&targetRef=develop`
+
+### After the PR is created: prompt to tear down the worktree and server
+
+Once the PR exists, this worktree's job is done. **Ask the user to confirm teardown — don't do it unprompted** (they may still want to inspect the branch, re-run a spec, or push a fixup). When they confirm, do it in this order:
+
+1. **Stop any background tasks you spawned** — poll loops, `run_in_background` commands, file/log watchers, monitors. They may still be hitting the server or holding resources; kill them before tearing down what they point at.
+2. **Stop the leased dev server**, *before* removing the worktree — the running server holds the worktree's files open, and stopping it frees the port + ~2.6 GB RAM. If you used the pool allocator, release the slot so it returns to the pool:
+   ```bash
+   /home/alk/projects/Legaldesk-V2-Database/scripts/lease-db.sh --release "$INSTANCE"
+   ```
+   Then kill the server process if it's still listening (SIGTERM; escalate to SIGKILL only if it's swap-thrashing and ignores TERM). Confirm the port is free before continuing.
+3. **Decide what to do with the slot's database.** `--release` clears the lease marker but does **not** reset `UmbracoDb_N` — any data this task's tests wrote (members, drafts, orders) stays in the clone, and the pool *reuses* clones, so the next lease inherits the pollution. If the task mutated data, **ask** whether to re-clone the slot (`/home/alk/projects/Legaldesk-V2-Database/scripts/clone-db.sh N`, ~14 s) or leave it. Don't auto-re-clone — it's the expensive operation, and a task with clean per-test teardown may not need it.
+4. **Remove the worktree:**
+   ```bash
+   git worktree remove ../<repo>-task-NNNN-short-description
+   ```
+   This also discards the worktree's on-disk Umbraco indexes (`<worktree>/src/LegalDesk.Website/umbraco/Data/TEMP`, ~800 MB), so nothing is orphaned.
+
+Why prompt every time: a leftover leased server pins a port + RAM + index data, an orphaned worktree leaves ~800 MB of index files behind, and a dirtied clone silently poisons the next task — all accumulate across tasks. PR-creation is the natural checkpoint to clear them. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
 
 ## Common PR pushback (pre-empt it before pushing)
 
