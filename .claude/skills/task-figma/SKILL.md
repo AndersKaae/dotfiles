@@ -12,7 +12,9 @@ An eight-phase loop for making an implementation compliant with a Figma design. 
 
 Run the phases in order. The comparison artifact (Phase 6) is the deliverable that lets the user catch your misses in seconds instead of describing each one.
 
-This skill reuses `task-tdd`'s infrastructure (worktree off `develop`, `ld-dev-server`, full-suite gates, commit hygiene, teardown prompt). Where those steps recur, they're referenced, not repeated.
+This skill reuses `task-tdd`'s infrastructure (worktree off `develop`, `ld-dev-server`, full-suite gates, commit hygiene, teardown prompt); the load-bearing steps are spelled out below so the skill stands alone.
+
+**Subagents.** A design file's views are independent, so this workflow parallelizes well — fan out subagents to map, audit, and verify per screen (Phases 2, 4–5, 6). Scale to the file: for 1–3 views, do it inline; fan out only when the file is large enough that serial work is the bottleneck. Ad-hoc `Agent`-tool fan-out is always fine; heavy `Workflow` orchestration needs explicit user opt-in. Subagents share the one leased dev server (read-only against it, so safe) — pass each the `$URL` and its state recipe; cap concurrency so you don't overwhelm the single instance.
 
 ## Phase 1: Enumerate the whole design — don't trust the single node
 
@@ -34,14 +36,37 @@ For every inventory row, identify:
 
 If a frame has no corresponding component, that's a finding (unbuilt screen), not a skip.
 
+**(A) Parallel mapping.** When the design spans several areas (e.g. nav + checkout + dashboard), fan out one read-only `Explore` agent per area to build its slice of the "frame ↔ component/route/state" map concurrently, then merge. Each returns file:line references + the state recipe; you assemble the inventory.
+
 ## Phase 3: Worktree + dev server
 
-Per `task-tdd` Phase 4 and the `ld-dev-server` skill:
-- Worktree off `origin/develop`: `git worktree add ../<repo>-figma-<area> -b figma-<area>-compliance origin/develop`.
-- Cold worktree: symlink `node_modules` from the primary checkout for `src/LegalDesk.VueComponents` **and** `tests/e2e` (avoids the Yarn-berry lockfile rewrite and a slow install), copy `tests/e2e/.env.local`.
-- Lease an isolated instance with `ld-dev-server` (never bare `dotnet run`). Note the leased `$URL` / port.
+**All work happens in a dedicated worktree branched from a freshly-fetched `origin/develop`** — never the primary checkout, never off whatever's checked out. Confirm the repo host first (LegalDesk is Azure DevOps, so PRs later use `az repos pr create`, not `gh`).
+
+```bash
+# from inside the primary checkout
+git fetch origin develop
+git worktree add ../<repo>-figma-<area> -b figma-<area>-compliance origin/develop
+cd ../<repo>-figma-<area>
+```
+
+Branch from `origin/develop` (not local `develop`) so the base is current even if the local tip is stale.
+
+**Cold worktrees start without git-ignored config or installed deps.** Don't run a fresh `yarn install` (VueComponents commits a v1 lockfile but is Yarn-berry — install rewrites it). Instead **symlink `node_modules`** from the primary checkout for both `src/LegalDesk.VueComponents` **and** `tests/e2e`, and copy `tests/e2e/.env.local` (and `appsettings.Development.json` if the primary has one). Expect a 2–3 min first build / cold start.
+
+**Lease the dev server with `ld-dev-server` — never a bare `dotnet run`.** Multiple agents run against this repo in parallel; a bare run hardcodes port 44333 + the shared DB, fights other instances, serves stale code, and corrupts EF migrations. The lease gives you an isolated port + your own `UmbracoDb` clone:
+
+```bash
+cd <database-scripts-dir>            # e.g. ~/projects/Legaldesk-V2-Database
+eval "$(scripts/lease-db.sh)"; export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING
+LOG="$HOME/.cache/ld-dev-logs/instance-$INSTANCE.log"; mkdir -p "$(dirname "$LOG")"
+scripts/run-instance.sh "$INSTANCE" <worktree-path> > "$LOG" 2>&1 &   # log OFF the /tmp tmpfs
+```
+
+Then poll `"$URL"` until it returns 200 with a **bounded** loop (cold start ~45 s, up to 2–3 min building) — never an unbounded wait. One instance per worktree; the box is RAM-tight (~2.6 GB each), so don't over-lease. Record `$URL` — every Playwright capture (and every subagent) targets it via inline `BASE_URL="$URL"`, never a global export.
 
 ## Phase 4: Capture evidence for each screen — Figma side and live side
+
+**(B) Per-screen fan-out.** Once the inventory is locked, this is the parallelizable core: spawn **one subagent per Figma view**. Each agent independently (a) pulls its Figma export + tokens, (b) drives the shared leased app into its state at the native viewport via `BASE_URL="$URL"`, (c) captures the render screenshot, and (d) reads computed styles + asset status — then returns a **structured per-element checklist** (use the Agent `schema` option: `{element, figmaSpec, observed, status, evidence}[]`) rather than prose. The parent assembles these into the artifact. This is what makes "audit ALL views" tractable on a large file. Give each agent only its node id, state recipe, and `$URL`; cap concurrency so the single instance isn't overwhelmed.
 
 For each inventory row, gather **both**:
 
@@ -72,6 +97,8 @@ Discipline that prevents the recurring misses:
 - **A missing element is the easiest thing to miss.** Explicitly check presence of every Figma element in the DOM. The classic trap: a logged-in-only CTA that exists in the design but was never rendered.
 - **Treat "probably an environment artifact" as a bug until proven otherwise.** Broken images, absent data, "it works in prod" — verify with `naturalWidth`, `git log -S`, and a search for the asset. A never-shipped asset path looks identical to a missing-media env quirk.
 
+**(C) Adversarial verification — the guard against "matched from memory".** Before any **Match** or **Fixed** verdict lands in the artifact, hand it to an **independent verifier agent** prompted to *refute* it: given the Figma spec + the live screenshot + the computed-style readout, find any way they actually differ, and default to "not a match" when unsure. Only verdicts that survive refutation stay green; the rest drop back to Mismatch/❓. This is the compliance analogue of `task-tdd`'s "verify it fails for the right reason" — and it is exactly what catches a present-in-Figma, absent-in-DOM element being ticked ✓. Run verifiers concurrently (one per claim, or batched per screen).
+
 ## Phase 6: Build the side-by-side comparison artifact
 
 This is the core deliverable — it makes discrepancies visible at a glance so the user can catch what you missed.
@@ -82,6 +109,8 @@ This is the core deliverable — it makes discrepancies visible at a glance so t
 - A **"Not yet audited"** section collects every inventory row still at Pending, plus the ask for any missing node URLs. Honesty about coverage is part of the deliverable — but Pending views still appear with their Figma export, never as a bare list item with nothing to look at.
 - **Inline every image as a `data:` URI** (base64) — the artifact CSP blocks external hosts, so Figma asset URLs and local screenshots both must be embedded. A small Python step that replaces `{{TOKEN}}` placeholders with `data:image/png;base64,...` keeps the HTML readable.
 - Redeploy the same file (same artifact URL) as you add screens.
+
+**(D) Completeness critic.** Before calling the artifact done, run one agent that diffs it against the Phase 1 inventory and reports: which inventory views are missing a section, which elements in each frame were never checked, and which statuses are still ❓. Its findings are the next round of work — the artifact isn't finished while the critic still finds gaps. This is what enforces the "every Figma view appears" rule above.
 
 ## Phase 7: Fix each discrepancy — smallest change, then re-verify
 
@@ -95,7 +124,18 @@ This is the core deliverable — it makes discrepancies visible at a glance so t
 - **Full regression gates** (per `task-tdd`): `dotnet test` if backend touched, `yarn test` (jest) if VueComponents touched, the relevant e2e spec(s) if runtime behavior changed. Name which you ran; don't silently narrow.
 - **Commit hygiene:** focused commits with `Task`/area prefix; commit rebuilt artifacts and any new design assets; revert server-regenerated drift (e.g. `appsettings-schema.*`). The Vue bundle under `wwwroot/scripts/vue` is git-ignored — don't commit it. `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
 - **Don't open the PR unless asked** (Azure DevOps repo — `az repos pr create`, not `gh`). Provide the command + web fallback.
-- **Prompt to tear down** the leased server + worktree once the PR exists (stop background tasks → release lease → decide on the DB clone → `git worktree remove`).
+**Teardown — prompt the user, don't do it unprompted** (they may still want to inspect the branch or re-capture a screen). Once they confirm, in this order:
+
+1. **Stop background tasks you spawned** — poll loops, audit/verifier subagents, log watchers — so nothing keeps hitting the server.
+2. **Release the lease before removing the worktree** (the running server holds the worktree's files open and pins the port + ~2.6 GB RAM):
+   ```bash
+   scripts/lease-db.sh --release "$INSTANCE"
+   ```
+   Then kill the server process if it's still listening (SIGTERM; SIGKILL only if it ignores TERM), and confirm the port is free.
+3. **Decide on the DB clone.** `--release` clears the lease but does **not** reset `UmbracoDb_$INSTANCE`; the pool reuses clones, so data this audit wrote (a test member, drafts) carries into the next lease. If you mutated data, **ask** whether to re-clone (`scripts/clone-db.sh $INSTANCE`) or leave it — don't auto-re-clone.
+4. **Remove the worktree:** `git worktree remove ../<repo>-figma-<area>` (also discards its ~800 MB of on-disk Umbraco indexes). Delete any throwaway screenshot specs first if not already done.
+
+A leftover lease pins a port + RAM, an orphaned worktree leaves index files behind, and a dirtied clone silently poisons the next task — clear them at the PR checkpoint.
 
 ## Anti-patterns this skill exists to stop
 
