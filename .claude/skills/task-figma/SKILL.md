@@ -101,7 +101,7 @@ Discipline that prevents the recurring misses:
 
 ## Phase 6: Build the side-by-side comparison artifact
 
-This is the core deliverable — it makes discrepancies visible at a glance so the user can catch what you missed.
+This is the core deliverable — it makes discrepancies visible at a glance so the user can catch what you missed. **Always produce it, on every run, regardless of scope** — even a single-screen audit ships the artifact, not just chat findings. The "inline vs fan-out" choice (above) is only about how the evidence is *gathered*; it never changes whether the report is *built*.
 
 - **The artifact must always contain EVERY view from the Figma file — no exceptions.** It has one section per row of the Phase 1 inventory, period. A view you've audited shows its side-by-side + checklist; a view you haven't yet shows the Figma export with a **Pending** status and the reason (e.g. awaiting node URL, state not reachable). The document is a complete map of the design at all times, not just the slice you finished. If a Figma view is absent from the artifact, the artifact is wrong — the user must never have to wonder whether a screen was considered. Keep the artifact and the inventory in lockstep: every view appears, and the summary counts reconcile to the inventory total.
 - Use the `Artifact` tool (load the `artifact-design` skill first; treat this as a polished but utilitarian QA/info-design page, not a flashy landing page).
