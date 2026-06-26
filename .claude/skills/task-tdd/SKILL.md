@@ -121,6 +121,18 @@ If a test now passes that was passing *before* the test scaffolding existed, inv
 
 Once green, **promote** the test out of any "pending" tier or `.skip` gate into the default-running tier so future runs catch regressions. Update the test name if it still says "FAILING" or similar TDD-mid-flow language.
 
+### Full regression gate (before moving to Phase 7)
+
+The single-spec run in this phase proves the fix works and didn't break its own neighbours — it does **not** prove the fix is regression-free across the codebase. Before committing, run the full suites for every layer your change can reach:
+
+- **Unit (.NET)**: `dotnet test tests/LegalDesk.Tests/LegalDesk.Tests.csproj`
+- **Jest (Vue components)** — if the change touched anything under `src/LegalDesk.VueComponents/`: `cd src/LegalDesk.VueComponents && yarn test`
+- **E2E (Playwright)** — if the change touched runtime behaviour the browser exercises: `cd tests/e2e && npm run test` (ask before this — it boots a dev server; see the Phase 4 server note)
+
+All three must be green before you commit. This is the one place the workflow overrides the "minimal test runs" default — a per-spec run is right *during* the red→green loop, but the pre-commit gate is deliberately full-suite so a fix doesn't land a regression elsewhere.
+
+If a layer is genuinely untouched (e.g. a backend-only fix that can't affect Vue), you may skip that layer's suite — but **say so explicitly** and name the layers you ran. Don't silently narrow the gate. If any suite is red, the failures are part of this task: fix them or, if pre-existing and unrelated, confirm they were already red on `origin/develop` before proceeding.
+
 ## Phase 7: Commit and push
 
 Two separate commits on the feature branch:
