@@ -59,16 +59,18 @@ If a frame has no corresponding component, that's a finding (unbuilt screen), no
 
 ## Phase 3: Worktree + dev server
 
-**All work happens in a dedicated worktree branched from a freshly-fetched `origin/develop`** — never the primary checkout, never off whatever's checked out. Confirm the repo host first (LegalDesk is Azure DevOps, so PRs later use `az repos pr create`, not `gh`).
+**Always start from the latest `develop`. This is non-negotiable — do it first, every run, before any other work.** `develop` is the shared mainline; teammates merge into it constantly. If you audit or fix against a stale copy you'll chase discrepancies that were already fixed, branch off code that's missing recent changes, and hit needless merge conflicts at PR time. So the very first action of the task is to pull the newest `develop` from the server (`origin`), not trust whatever happens to be on your machine.
+
+**All work then happens in a dedicated worktree branched from that freshly-fetched `origin/develop`** — never the primary checkout, never off whatever's currently checked out. Confirm the repo host first (LegalDesk is Azure DevOps, so PRs later use `az repos pr create`, not `gh`).
 
 ```bash
 # from inside the primary checkout
-git fetch origin develop
+git fetch origin develop          # ALWAYS first — pull the newest mainline from the server
 git worktree add ../<repo>-figma-<area> -b figma-<area>-compliance origin/develop
 cd ../<repo>-figma-<area>
 ```
 
-Branch from `origin/develop` (not local `develop`) so the base is current even if the local tip is stale.
+Branch from `origin/develop` (the just-fetched server copy), **not** local `develop` — the local branch can be days stale even right after a fetch, because `fetch` updates `origin/develop` but not your local `develop` until you also pull/merge it. Branching directly off `origin/develop` sidesteps that entirely and guarantees a current base.
 
 **Cold worktrees start without git-ignored config or installed deps.** Don't run a fresh `yarn install` (VueComponents commits a v1 lockfile but is Yarn-berry — install rewrites it). Instead **symlink `node_modules`** from the primary checkout for both `src/LegalDesk.VueComponents` **and** `tests/e2e`, and copy `tests/e2e/.env.local` (and `appsettings.Development.json` if the primary has one). Expect a 2–3 min first build / cold start.
 
@@ -92,9 +94,11 @@ For each inventory row, gather **both**:
 **Figma side.**
 - `get_screenshot` of the frame node (download the returned URL with `curl`, then `Read` the PNG).
 - `get_design_context` and/or `get_variable_defs` for exact tokens (font family/size/weight, color hex, line-height, spacing, radii). These are the spec you compare against.
+- **Capture at the granularity you'll compare at, not just the whole frame.** A tall scrolling frame screenshotted whole comes back tiny (the long side is clamped to ~1024 px), so its elements end up far smaller than the live render and nothing lines up. For any region you want a close, scale-matched comparison of, screenshot the **sub-node** (`get_screenshot`/`download_assets` on the child node id — e.g. a single category group, a card, the header) and/or `download_assets` with `defaultScale: 2` for a crisp export. One Figma frame legitimately yields several exports (header, each category, a card close-up) — that's coverage, not waste.
 
 **Live side.**
 - Drive the app into the state with Playwright at the **design's native viewport** (e.g. 390 px for a mobile frame; use a mobile device profile + `deviceScaleFactor` on mobile). A throwaway spec under `tests/e2e/tests/...` run with `--no-deps --project=<mobile project>` and `E2E_SKIP_LOCAL_FIXTURES=1` is the fastest path; reuse helpers like `loginMember`. **Delete the throwaway spec before committing.**
+- **Crop with `locator.screenshot()` on the element, never by guessing pixel boxes on a full-page shot.** For every Figma sub-node export you took (header, a category, a card), capture the matching live element the same way, so the two sit at the same scale and frame the same content. This is what makes the side-by-side actually comparable.
 - Take a screenshot, **and** dump computed styles + asset status via `page.evaluate`:
   ```js
   const cs = getComputedStyle(el);              // fontFamily, fontSize, fontWeight, color, lineHeight
@@ -125,6 +129,9 @@ This is the core deliverable — it makes discrepancies visible at a glance so t
 - **The artifact must always contain EVERY view from the Figma file — no exceptions.** It has one section per row of the Phase 1 inventory, period. A view you've audited shows its side-by-side + checklist; a view you haven't yet shows the Figma export with a **Pending** status and the reason (e.g. awaiting node URL, state not reachable). The document is a complete map of the design at all times, not just the slice you finished. If a Figma view is absent from the artifact, the artifact is wrong — the user must never have to wonder whether a screen was considered. Keep the artifact and the inventory in lockstep: every view appears, and the summary counts reconcile to the inventory total.
 - Use the `Artifact` tool (load the `artifact-design` skill first; treat this as a polished but utilitarian QA/info-design page, not a flashy landing page).
 - Per screen: two columns — **Figma export | live render** — above a per-element checklist table (Element · Figma spec · Status). Status pills color-coded: match / fixed / caveat / unverified / pending.
+- **One comparison shows one thing. Don't pack multiple states or multiple renders into a single image pair.** If a Figma frame depicts two states side by side (e.g. "logged in vs logged out"), split it into *two* comparison rows — Figma-logged-out beside live-logged-out, Figma-logged-in beside live-logged-in — so each column shows exactly one state and the eye compares like with like. A row where the Figma side shows both states and the live side shows both is unreadable; the states won't even line up left-to-right.
+- **The two columns must be at comparable scale and frame the same content.** A zoomed-in live render beside a zoomed-out full-frame Figma export (or vice-versa) defeats the comparison — the reader can't judge size, spacing, or proportion. Pair the sub-node exports and element crops from Phase 4 so both sides are at the same zoom. When a frame is long, prefer several scale-matched section comparisons (header, each category, a card close-up) over one shrunk full-height pair.
+- **Favor coverage over compactness — multiple images of the same screen are good when each reveals something different.** A card close-up that exposes the badge pill, border, and chevron; a category crop that exposes headline size and icon box; a header crop for the back/title fonts. Don't ration images to save space; ration them to what each one proves. A close, well-framed crop is worth more than the whole screen shrunk to a thumbnail.
 - A **"Not yet audited"** section collects every inventory row still at Pending, plus the ask for any missing node URLs. Honesty about coverage is part of the deliverable — but Pending views still appear with their Figma export, never as a bare list item with nothing to look at.
 - **Inline every image as a `data:` URI** (base64) — the artifact CSP blocks external hosts, so Figma asset URLs and local screenshots both must be embedded. A small Python step that replaces `{{TOKEN}}` placeholders with `data:image/png;base64,...` keeps the HTML readable.
 - Redeploy the same file (same artifact URL) as you add screens.
@@ -134,15 +141,23 @@ This is the core deliverable — it makes discrepancies visible at a glance so t
 ## Phase 7: Fix each discrepancy — smallest change, then re-verify
 
 - The smallest change that makes the element match. Resist "while I'm here" refactors.
-- **Missing assets:** extract them from Figma with `download_assets` (`defaultFormat: svg`). The export wraps the asset in the surrounding frame backgrounds — **strip it down** to just the target group (e.g. the flag circle), wrap in a clean `0 0 W H` viewBox. If the design system lacks a needed variant (e.g. a DK flag the file omits), author it in the same style/palette as its siblings. Commit static assets under a **tracked** static path (`wwwroot/css/img_new/...`) — **not** `wwwroot/media` (Umbraco-managed and git-ignored) — and repoint the code.
+- **Missing assets — the workflow, in order:**
+  1. **Diagnose the reference before "fixing" it.** A broken image usually means a *dangling reference*, not just an absent file. The classic trap here: code pointing at `/media/...` (Umbraco/Azure-Blob-backed, git-ignored, **environment-specific**) for an asset that was never uploaded — so it 404s everywhere, not just locally. Confirm with `naturalWidth === 0` and check where the path actually resolves from.
+  2. **Grep the repo for an existing equivalent first.** "Missing" often means "exists under a different name/dir." Before authoring anything, search (`git ls-tree -r origin/develop -- <static-dir> | grep -i <thing>`, grep views/components for the asset kind). You may find the asset already shipped — *and* find sibling consumers (e.g. a country-selector partial) you should align with. Reuse it **only if it matches the design** (check the actual shape/style — an existing `se.svg` may be a rectangle when the design wants a circle, or a heavy raster-in-SVG when you want clean vector).
+  3. **If nothing fits, author it** in the siblings' style/palette (e.g. a DK flag the Figma omits, derived from the SE cross geometry). Export from Figma with `download_assets` (`defaultFormat: svg`); the export wraps the asset in the surrounding frame backgrounds, so **strip it down** to just the target group and wrap in a clean `0 0 W H` viewBox.
+  4. **Commit to a tracked static path** (`wwwroot/css/img_new/...`), **never `wwwroot/media`**. Tracked static files ship inside the publish output and serve at the same `/css/...` URL on dev/prod exactly as locally (verify the csproj doesn't `<Content Remove>` the dir); `/media` is blob-backed and env-specific — fine for editor-uploaded *content*, wrong for design chrome. Rule of thumb: **if a developer hardcodes the path, the asset belongs in the repo.** Then repoint the code.
+  5. **Consolidate, don't accumulate.** If you author a new set where partial/competing sets already exist, you've added sprawl. Note a follow-up to migrate the other consumers to the canonical set and delete the duplicates (keep it out of the compliance branch unless asked).
+  6. **Guard against silent recurrence.** A dangling asset only fails the eye, not a gate — promote the `naturalWidth > 0` check into a permanent e2e assertion on the touched area so the next dangling reference fails CI.
 - After Vue edits, **rebuild the bundle** (`vite build` / `yarn build`) — the live app and e2e consume the built artifact, not your source.
 - Re-capture the live screenshot and recompute styles to confirm the fix, and update the artifact row to ✅.
 
 ## Phase 8: Gates, commit, teardown
 
-- **Full regression gates** (per `task-tdd`): `dotnet test` if backend touched, `yarn test` (jest) if VueComponents touched, the relevant e2e spec(s) if runtime behavior changed. Name which you ran; don't silently narrow.
+- **Full regression gates** (per `task-tdd`): `dotnet test` if backend touched, `yarn test` (jest) if VueComponents touched. Name which you ran; don't silently narrow.
+- **Run the relevant e2e spec(s) — treat this as near-always, not conditional.** A design-compliance change almost always alters rendered markup/structure, which is exactly what e2e covers, so "did runtime behavior change?" is essentially always yes here. Identify the spec(s) that exercise the touched area (e.g. `grep` the spec dir for the component/route/selector — there is often a dedicated one like `mobile-navigation.spec.ts`) and run them with the right project (`--project=<mobile project>` for mobile frames). Restarting the dev server invalidates e2e auth, so re-run `--project=setup` before authenticated `--no-deps` specs. The capture/crop specs you wrote for evidence are *throwaway* and don't count as the gate — delete them and run the real specs. Only skip e2e if you can state a concrete reason it cannot apply, and say so explicitly.
 - **Commit hygiene:** focused commits with `Task`/area prefix; commit rebuilt artifacts and any new design assets; revert server-regenerated drift (e.g. `appsettings-schema.*`). The Vue bundle under `wwwroot/scripts/vue` is git-ignored — don't commit it. `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
 - **Don't open the PR unless asked** (Azure DevOps repo — `az repos pr create`, not `gh`). Provide the command + web fallback.
+- **Always ask about the PR before proposing teardown — and ask it first.** Teardown removes the worktree and releases the lease, which is exactly what you need *in place* to push the branch and open a PR. So the order is: (1) ask whether to open a PR (and open it if yes — push the branch, then `az repos pr create`), (2) only then ask about teardown. Never tear down and leave the user to discover the branch is gone when they decide they wanted a PR after all. A single prompt can cover both ("Open a PR? And shall I tear down the server/worktree?"), but the PR question must be present every time.
 **Teardown — prompt the user, don't do it unprompted** (they may still want to inspect the branch or re-capture a screen). Once they confirm, in this order:
 
 1. **Stop background tasks you spawned** — poll loops, audit/verifier subagents, log watchers — so nothing keeps hitting the server.
@@ -163,3 +178,6 @@ A leftover lease pins a port + RAM, an orphaned worktree leaves index files behi
 - "Ticked ✓" for something you didn't actually observe. — Unverified is ❓, not ✓.
 - "The flags are just broken in my env." — Prove it (`naturalWidth`, `git log -S`, asset search) before dismissing; it was a never-shipped asset.
 - "The color's wrong." — Resolve the class against `tailwind.config.js` first; it's often the right token.
+- "One image per screen." — Split multi-state frames into one comparison per state, and add close-ups for anything a full-frame shot renders too small to judge. One thing per comparison; coverage over compactness.
+- "Figma frame next to live render" at mismatched zoom. — Scale-match the two columns (sub-node exports + `locator.screenshot()` element crops); a tiny full-height Figma export beside a zoomed live shot is not a comparison.
+- "Tests pass" without e2e. — jest + `dotnet test` are not the whole gate; a compliance change alters markup, so run the relevant e2e spec(s) too unless you can name why they can't apply.
