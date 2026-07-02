@@ -9,7 +9,18 @@ A seven-phase loop for resolving a tracked work item using TDD with explicit sco
 
 ## Phase 1: Get the task
 
-Fetch the work item directly from its tracker. Don't use `WebFetch` against authenticated trackers — it'll just hit the login page.
+**First, assign the work item to the user** so the tracker reflects who's on it before any other work begins. The user is `anders@legaldesk.dk`.
+
+**Azure DevOps** (the LegalDesk default):
+```bash
+az boards work-item update --id <ID> --organization https://dev.azure.com/<org> --assigned-to anders@legaldesk.dk --output json
+```
+**GitHub**: `gh issue edit <ID> --add-assignee @me`.
+**Jira**: `acli jira workitem assign <ID> anders@legaldesk.dk` (or the official `jira` CLI).
+
+If assignment fails (permissions, unknown identity), surface it and continue — don't block the workflow on it.
+
+Then fetch the work item directly from its tracker. Don't use `WebFetch` against authenticated trackers — it'll just hit the login page.
 
 **Azure DevOps** (the LegalDesk default):
 ```bash
