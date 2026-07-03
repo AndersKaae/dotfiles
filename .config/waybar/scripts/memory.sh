@@ -25,8 +25,25 @@ swap_total_g=$(to_gib "$swap_total")
 swap_pct=$(pct "$swap_used" "$swap_total")
 
 top=$(
-  ps -eo comm,rss --sort=-rss --no-headers \
-    | awk 'NR<=5 {printf "  %-20s %6.1f GiB\n", $1, $2/1024/1024}'
+  ps -eo pid,rss,comm --no-headers \
+    | awk '{pid=$1; rss=$2; sub(/^ *[0-9]+ +[0-9]+ +/, "");
+            name=$0
+            # comm is kernel-truncated to 15 chars; recover the full name from the executable
+            if (length(name) == 15) {
+              cmd = "readlink /proc/" pid "/exe 2>/dev/null"
+              if ((cmd | getline exe) > 0) {
+                sub(/ \(deleted\)$/, "", exe)
+                sub(/.*\//, "", exe)
+                if (exe != "") name = exe
+              }
+              close(cmd)
+            }
+            # LegalDesk instances stay separate (parallel dev servers), everything else aggregates
+            key = (name ~ /^LegalDesk/) ? name SUBSEP pid : name
+            sum[key]+=rss; disp[key]=name}
+           END {for (key in sum) printf "%d\t%s\n", sum[key], disp[key]}' \
+    | sort -rn \
+    | awk -F'\t' 'NR<=5 {printf "  %-30s %6.1f GiB\n", $2, $1/1024/1024}'
 )
 
 tooltip=$(printf "RAM   %s / %s GiB  (%s%%)\nSwap  %s / %s GiB  (%s%%)\n\nTop processes\n%s" \
