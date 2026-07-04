@@ -17,6 +17,12 @@ The skill is **general** — it interprets the request each time. Do **not** har
 - **DB-enrich for gaps.** The API's fields differ per type (e.g. `emv` has no email or CVR). Fill those from the read-only v8 reporting DB.
 - **Full list, conditions as columns — never drop rows.** When a request says leads "must have a phone number and a CVR", do **not** filter them out. Return every lead in the range and put phone/CVR in their own columns so the end user filters in the spreadsheet. (Blank = not present/known.)
 
+> ### ⛔ Hard rule: CVR and CPR are never interchangeable
+> **CVR** = 8-digit *company* number (`dbld.CvrToMembers.Cvr`, e.g. `46547144`). **CPR** = *personal* number (API `founderCPR`, e.g. `050579-2955`).
+> - When asked for **CVR**, source it **only** from the CVR field — never fall back to `founderCPR`. When asked for **CPR**, never emit a CVR. If the true value is unknown, leave the cell **blank** — never substitute the other number.
+> - Never guess or reconstruct one from the other. A blank CVR is correct; a CPR in a CVR column is a serious error.
+> - **CPR is sensitive personal data** — only include it when the user explicitly asks for CPR, and flag that the file then contains personal data.
+
 Run the phases in order.
 
 ## Phase 1: Parse the request
@@ -126,10 +132,12 @@ SQLCMD=/home/anders/.local/bin/sqlcmd   # not on PATH by default — use the ful
   ```
   Substitute the type's real `NameJsonPath` for `navn.navn_navn`. `Status = 1` = completed.
 
-Merge the DB results back onto the API rows by company name. Leave a cell **blank** when there's no match — don't invent, don't drop the row.
+Merge the DB results back onto the API rows by company name. Leave a cell **blank** when there's no match — don't invent, don't drop the row. When a name is **ambiguous** (duplicated in the API result, or matching >1 distinct email/CVR in the DB), **do not broadcast one value across the rows** — resolve it via Phase 4c.
+
+> **CVR ≠ CPR — never conflate them.** **CVR** is the 8-digit *company* number (`dbld.CvrToMembers.Cvr`, e.g. `46547144`) — the report's CVR column. **CPR** is the *personal* number (API `founderCPR`, e.g. `050579-2955`) — never a report column, and not stored in emv `WizardData`, so it can't be a join key.
 
 **Name-match caveats (state these to the user):**
-- Generic names ("Webdesign", "Marlu") can collide → wrong enrichment. If a name maps to >1 distinct CVR/email, leave it blank (or flag) rather than guess.
+- Generic or coincidental names collide → wrong enrichment. Duplicate/ambiguous names are handled explicitly in **Phase 4c** (detect → explain → ask). Never staple one match onto several same-named rows.
 - The API (v2 system) and the reporting DB (v8) are **different populations** — counts differ (e.g. June `emv`: API 46 vs DB 58) and some API leads won't match any DB row. Report the match rate ("email filled for N of M leads").
 - **CVR lags registration** — freshly created companies often have no CVR yet, so recent windows will show many blank CVRs. Expected, not a bug.
 
@@ -145,6 +153,41 @@ When a request distinguishes **driftselskaber** (operating companies) from **hol
 **Validated (2026-07):** on 892 Jan-2026 ApS this matched an industry-code baseline on **891/892**; the lone diff was a real-estate/holding hybrid (purpose "investering i udlejningsejendomme og kapitalandele"). Such borderline text (property investment *plus* kapitalandele) is genuinely ambiguous — **default it to Drift** and move on; don't over-engineer. Naive name-matching alone is wrong — ~40% of holdings ("Invest", "Ventures", plain names) have no "holding" in the name, so use the industry code.
 
 **Output rule (follows the skill's no-drop principle):** by default **include all rows and add the `Drift/Holding` column** so the user filters in the spreadsheet. Only **hard-filter to Drift** (drop holdings) if the user explicitly says to exclude them entirely — if unsure which they want, include-and-flag and say so. Report the split ("534 Drift / 358 Holding").
+
+## Phase 4c: Duplicate / ambiguous company names — detect, explain, ask
+
+The enrichment key (`companyName`) is **not unique**, so before finalizing you must check for duplicates and resolve them *with the user* — never silently staple one DB match onto several same-named rows (that's how a real company ends up with the wrong email or CVR).
+
+**1. Detect.** Flag any company name that is either:
+- **duplicated in the API result set** (same name on ≥2 leads), or
+- **ambiguous against the DB** (its name matches >1 distinct `MemberEmail` or `Cvr`).
+
+If none, skip straight to Phase 5 — don't bother the user.
+
+**2. Explain why (per duplicate group).** Query the DB for every same-named registration in the window and read the cause off the result. The founder name (`stifter_navn`) is the key diagnostic:
+```sql
+SELECT JSON_VALUE(p.WizardData,'$.navn.navn_navn')   AS company,
+       JSON_VALUE(p.WizardData,'$.navn.stifter_navn') AS founder,
+       p.MemberEmail, p.MemberId, c.Cvr, p.CreatedOn
+FROM dbld.Products p
+LEFT JOIN dbld.CvrToMembers c ON c.ProductId = p.Id AND c.IsDeleted = 0 AND c.Cvr > 0
+WHERE p.Sku IN (<type SKU set>) AND p.Status = 1 AND p.IsDeleted = 0
+  AND p.CreatedOn >= @from AND p.CreatedOn < DATEADD(day,1,@to)
+  AND JSON_VALUE(p.WizardData,'$.navn.navn_navn') = '<name>'
+ORDER BY p.CreatedOn;
+```
+Read the cause:
+- **Same founder, registered twice** — identical `stifter_navn`, close in time, different email/`MemberId` (a redo or typo-fix). Often only one attempt completed (has a CVR). *This is the common case.* → usually collapse to the completed one.
+- **Different founders, same company name** — distinct `stifter_navn` → genuinely separate businesses that coincidentally chose the same name → both are real leads.
+- **Feed artifact** — identical everything (same `MemberId`) → a true duplicate row → collapse.
+
+State it concretely, e.g.: *"'LSTJ Biler' appears twice — same founder Lars Kornerup Jensen registering twice a day apart; only the first (`salg@lstjbiler.com`) completed and holds CVR 46547144, the second (`salg@lstj.com`) has none."*
+
+**3. Ask the user** (via `AskUserQuestion`; load its schema with `ToolSearch` `select:AskUserQuestion` if needed) whether to **keep both**, **collapse to one** (say which — e.g. the CVR-holding attempt), or **drop** the group. Offer a per-cause recommendation but let them decide. Present each duplicate group with its evidence.
+
+**4. Apply + enrich safely.** After the user's choice:
+- For kept rows that remain ambiguous (name can't tell them apart), **leave email/CVR blank** unless a *reliable* secondary key disambiguates them — e.g. distinct founder names let you pair each API `founderName` to its DB `stifter_navn`. Never broadcast, never guess. (Founder **CPR** is not available in `WizardData`, so it can't be that key.)
+- Note in the final summary how many duplicate groups were found and how each was resolved.
 
 ## Phase 5: Assemble and deliver the CSV
 
