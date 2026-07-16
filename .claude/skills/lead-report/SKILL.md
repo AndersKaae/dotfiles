@@ -183,11 +183,22 @@ Read the cause:
 
 State it concretely, e.g.: *"'LSTJ Biler' appears twice — same founder Lars Kornerup Jensen registering twice a day apart; only the first (`salg@lstjbiler.com`) completed and holds CVR 46547144, the second (`salg@lstj.com`) has none."*
 
-**3. Ask the user** (via `AskUserQuestion`; load its schema with `ToolSearch` `select:AskUserQuestion` if needed) whether to **keep both**, **collapse to one** (say which — e.g. the CVR-holding attempt), or **drop** the group. Offer a per-cause recommendation but let them decide. Present each duplicate group with its evidence.
+**3. Ask once per *category*, not per row or per group.** Bucket every flagged duplicate by its cause (from step 2), then ask the user for **one rule per non-empty category** — the answer applies to *all* duplicates in that bucket. Never walk the user through groups one at a time or make them type the same decision twice.
 
-**4. Apply + enrich safely.** After the user's choice:
-- For kept rows that remain ambiguous (name can't tell them apart), **leave email/CVR blank** unless a *reliable* secondary key disambiguates them — e.g. distinct founder names let you pair each API `founderName` to its DB `stifter_navn`. Never broadcast, never guess. (Founder **CPR** is not available in `WizardData`, so it can't be that key.)
-- Note in the final summary how many duplicate groups were found and how each was resolved.
+Use a single `AskUserQuestion` call with one question per category (load its schema via `ToolSearch` `select:AskUserQuestion` if needed). For each category, show its **count** and 1–2 example groups as evidence, then offer the rule options. Suggested categories, options, and default recommendations:
+
+| Category | Rule options | Default |
+|---|---|---|
+| Same founder, registered twice (redo/typo) | keep all / collapse to the CVR-holding attempt (else latest) / drop | collapse to CVR-holding |
+| Different founders, same company name | keep all (pair enrichment by founder name; blank if unpairable) / drop | keep all |
+| Feed artifact (identical rows) | collapse to one / keep all | collapse to one |
+
+Only surface categories that actually occur. If just one category is present, it's one question.
+
+**4. Apply the chosen rule to the whole category** and enrich safely:
+- Apply each category's rule uniformly to every group in it — no per-group prompts.
+- For kept rows that remain ambiguous (name can't tell them apart), **leave email/CVR blank** unless a *reliable* secondary key disambiguates — e.g. distinct founder names let you pair each API `founderName` to its DB `stifter_navn`. Never broadcast, never guess. (Founder **CPR** is not in `WizardData`, so it can't be that key.)
+- In the final summary, report per category: how many duplicate groups and the rule applied.
 
 ## Phase 5: Assemble and deliver the CSV
 

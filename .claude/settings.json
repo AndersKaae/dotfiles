@@ -17,6 +17,6 @@
       }
     }
   },
-  "skipAutoPermissionPrompt": true,
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "skipAutoPermissionPrompt": true
 }

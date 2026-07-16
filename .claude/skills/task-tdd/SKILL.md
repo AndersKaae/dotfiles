@@ -1,11 +1,11 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
 
-A seven-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
+An eight-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front, an adversarial review gate, and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
 
 ## Phase 1: Get the task
 
@@ -30,6 +30,23 @@ Description is HTML in `fields["System.Description"]`. Parent id is in the top-l
 
 **GitHub**: `gh issue view <ID> --json number,title,body,state,labels,assignees`.
 **Jira**: `acli jira workitem view <ID>` or the official `jira` CLI.
+
+**Read the WHOLE task, not a fragment.** It is not acceptable to skim the title and the first line of the description and move on. Read the entire description, every repro step, the acceptance criteria, and all comments — and **look at every screenshot/attachment**. Tracker descriptions are HTML with embedded `<img src="…/_apis/wit/attachments/…">` tags; those images frequently carry the actual bug (a red validation state, an "expected vs current" side-by-side, a stack trace in a console panel) and the prose alone is often incomplete or misleading without them. Download each attachment and view it before summarizing:
+```bash
+# extract every attachment URL from the description/repro HTML, then fetch and Read each
+az boards work-item show --id <ID> --organization https://dev.azure.com/<org> --output json \
+  | grep -oE 'https://[^"]*/_apis/wit/attachments/[^"]*'
+# az devops attachment URLs need auth; pipe your PAT: curl -sL -u :"$AZDO_PAT" "<url>" -o <file>.png
+```
+Then open each downloaded image with the Read tool. Only summarize once you have read the full task and seen **every** image.
+
+**A task you cannot fully read is a HARD STOP — not a disclaimer you proceed past.** If any attachment fails to fetch — missing/expired `AZDO_PAT`, a 401/403, a network error, an unreadable format — you do **not** have the whole task, and you must not continue. Do not rationalize your way forward ("the prose is probably enough", "I'll infer the bug from the title"): the images routinely carry the actual bug, so proceeding without them means fixing a task you have not read. Instead:
+
+1. **Stop the workflow.** Do not scope, branch, write a test, or touch code.
+2. **Report precisely** which attachment(s) you couldn't fetch and the exact failure (e.g. "`AZDO_PAT` unset → 401 on attachment `<url>`"), plus what you *were* able to read.
+3. **Ask the user for help** — the PAT, the images pasted directly, or an explicit instruction to proceed without them — and **wait**. Only the user may waive an unreadable attachment; you may never waive it yourself.
+
+The one thing that is never acceptable is silently concluding you can fix the task without the image.
 
 Summarize the task in plain language and confirm shared understanding. **Translate, don't restate** — turn tracker prose into the concrete user-visible behavior.
 > Bad: *"fix the wizard bug."*
@@ -86,9 +103,9 @@ Branch from `origin/develop` (freshly fetched), not local `develop`, so the base
 
 **Worktrees start cold** — git-ignored config and installed dependencies do not carry over. For LegalDesk-V2: copy `appsettings.Development.json` and `tests/e2e/.env.local` from the primary checkout, run `npm install` in `tests/e2e`, and expect a 2-3 min first build/cold start. See `~/.claude/projects/<project>/memory/reference_git_worktree_setup.md` if present for the project's exact setup steps.
 
-**Use the `ld-dev-server` skill to start the local server — don't ask first, and never a bare `dotnet run`.** Multiple LLMs often run in parallel against this repo. The `ld-dev-server` skill leases an isolated port + its own `UmbracoDb` clone so instances don't collide; a bare `dotnet run`/`dotnet watch` hardcodes port 44333 and the shared DB, which fights other agents, serves stale code, and corrupts EF migrations. Because it's isolated, it's safe to start a server whenever you need one without checking in. The box is RAM-tight (~2.6 GB per warmed instance), so don't lease more instances than you need, and stop + release the one you started when done (see the Phase 7 teardown). Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app. Full procedure: the `ld-dev-server` skill and `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md`.
+**Use the `ld-dev-server` skill to start the local server — don't ask first, and never a bare `dotnet run`.** Multiple LLMs often run in parallel against this repo. The `ld-dev-server` skill leases an isolated port + its own `UmbracoDb` clone so instances don't collide; a bare `dotnet run`/`dotnet watch` hardcodes port 44333 and the shared DB, which fights other agents, serves stale code, and corrupts EF migrations. Because it's isolated, it's safe to start a server whenever you need one without checking in. The box is RAM-tight (~2.6 GB per warmed instance), so don't lease more instances than you need, and stop + release the one you started when done (see the Phase 8 teardown). Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app. Full procedure: the `ld-dev-server` skill and `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md`.
 
-Don't commit anything yet. Run the rest of the workflow (Phases 5-7) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
+Don't commit anything yet. Run the rest of the workflow (Phases 5-8) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
 
 ```bash
 git worktree remove ../<repo>-task-NNNN-short-description
@@ -140,11 +157,29 @@ The single-spec run in this phase proves the fix works and didn't break its own 
 - **Jest (Vue components)** — if the change touched anything under `src/LegalDesk.VueComponents/`: `cd src/LegalDesk.VueComponents && yarn test`
 - **E2E (Playwright)** — if the change touched runtime behaviour the browser exercises: `cd tests/e2e && npm run test` (ask before this — it boots a dev server; see the Phase 4 server note)
 
+**Verify the E2E test count, not just the green.** The full suite is **330+ tests**. A run that reports fewer than ~330 did *not* run the whole suite — collection silently narrowed (a stray `--grep`/`testMatch` filter, a project that never started, or a failed setup project that voided its dependents). A short-but-green run reads as "everything passed" when most tests never executed. If the count is under ~330, find why the count dropped and re-run; do not treat it as a pass.
+
 All three must be green before you commit. This is the one place the workflow overrides the "minimal test runs" default — a per-spec run is right *during* the red→green loop, but the pre-commit gate is deliberately full-suite so a fix doesn't land a regression elsewhere.
 
 If a layer is genuinely untouched (e.g. a backend-only fix that can't affect Vue), you may skip that layer's suite — but **say so explicitly** and name the layers you ran. Don't silently narrow the gate. If any suite is red, the failures are part of this task: fix them or, if pre-existing and unrelated, confirm they were already red on `origin/develop` before proceeding.
 
-## Phase 7: Commit and push
+## Phase 7: Adversarial review of the diff
+
+Before committing, hand the change to a **fresh, skeptical agent whose job is to argue against merging it** — not to help ship it. You've just spent the whole loop convincing yourself the fix is right; you're the worst-placed to see where it isn't. A separate context with no stake in the implementation doesn't share that blind spot.
+
+**The reviewer recommends; it never edits.** It returns a verdict and findings only — it does not touch the diff, the commits, or any file. The implementer (this workflow) is what addresses or dismisses each finding and folds any resulting edits into the Phase 8 commits. Keeping the reviewer's hands off the code preserves the independence that makes the review adversarial and keeps the fix's authorship and the two clean commits intact. Enforce this **by tooling, not just instruction**: spawn it as a **read-only agent type** (`Explore` or `Plan`) so `Edit`/`Write`/`NotebookEdit` are physically unavailable — don't use `general-purpose`, which can edit. A read-only agent keeps `Bash`, so it can still build the solution, run the app, run the full test suite, and use `git` to inspect or temporarily `stash`/restore state — everything it needs to investigate, with none of the ability to change the fix.
+
+Spawn one read-only agent with **no implementation reasoning** — give it only the task (title, description, every repro step, acceptance criteria, and the screenshots), the plan file, and the diff (`git diff origin/develop...HEAD`, both commits). Open the prompt with the read-only contract: *"You are a read-only reviewer. Run whatever you need — build, run the app, run tests, `git stash`/restore — but do not modify, create, or delete any file, do not commit or push, and leave the working tree exactly as you found it (pop any stash you create). Return findings only; the implementer applies fixes."* Then prompt it to **refute, with the default verdict being reject**: "Find the strongest reason this change should be sent back. Only conclude it's mergeable if you can positively confirm it resolves the task." It owns three things `/code-review` and `/verify` don't:
+
+1. **Task fidelity.** Does the diff address *every* acceptance criterion and repro step — including behavior only visible in the screenshots — or just the headline? Name any criterion left unmet.
+2. **Test integrity.** Would the test still pass if the fix were reverted? Have it predict the test result against the un-fixed code (mentally, or literally `git stash` the fix and run) — a test that stays green without the fix pins nothing. Also: does it assert on the bug-capturing value, or on scaffolding?
+3. **Minimality.** Is this the smallest change that resolves the task (Phase 6 rule), or did unrelated edits, speculative error-handling, or "while I'm here" cleanups creep in?
+
+For pure code-correctness (bugs, edge cases, cleanups), it should invoke or defer to `/code-review` rather than re-deriving it — this phase composes with that skill, it doesn't repeat it. For a high-risk or large diff, escalate to a 3-lens panel (fidelity / test-integrity / correctness, majority-to-reject) instead of a single skeptic.
+
+The gate is **advisory-with-teeth**: the agent returns a verdict plus findings ranked most-severe first. Address each finding, or explicitly dismiss it with a stated reason — **never silently push past a reject.** If addressing a finding materially changes the fix, re-run this phase once; otherwise a single pass is enough. Fold the resulting edits into the Phase 8 test/fix commits so history stays clean — don't leave a "review fixup" commit.
+
+## Phase 8: Commit and push
 
 Two separate commits on the feature branch:
 
