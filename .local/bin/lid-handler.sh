@@ -1,9 +1,16 @@
 #!/bin/bash
 
 LAPTOP="eDP-1"
-EXTERNAL="DP-3"
 WORKSPACE="1"
 LAST_STATE=""
+
+# Machines without a lid (the desktop) have no lid to watch. Exit 0 rather than
+# spinning a 1-second poll loop forever over a path that will never exist.
+LID_STATE_FILE=$(echo /proc/acpi/button/lid/*/state)
+if [ ! -r "$LID_STATE_FILE" ]; then
+    echo "No lid on this machine - nothing to do."
+    exit 0
+fi
 
 # Wait for Hyprland socket
 while [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ] || [ ! -S "$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock" ]; do
@@ -24,15 +31,28 @@ fi
 
 echo "Original config for $LAPTOP: $ORIGINAL_CFG"
 
+# Resolved fresh on every lid close: connector names are not stable (this was
+# hardcoded to DP-3, which the Dell had already moved off of).
+external_monitor() {
+    hyprctl monitors -j | jq -r --arg laptop "$LAPTOP" \
+        'first(.[] | select(.name != $laptop) | .name) // empty'
+}
+
 # Main loop watching lid state
 while true; do
-    LID_STATE=$(awk '{print $2}' /proc/acpi/button/lid/*/state)
+    LID_STATE=$(awk '{print $2}' "$LID_STATE_FILE")
 
     if [ "$LID_STATE" != "$LAST_STATE" ]; then
         if [ "$LID_STATE" == "closed" ]; then
-            hyprctl dispatch moveworkspacetomonitor $WORKSPACE $EXTERNAL
-            hyprctl keyword monitor "$LAPTOP,disable"
-            echo "Moved workspace $WORKSPACE to $EXTERNAL and disabled $LAPTOP (lid closed)"
+            EXTERNAL=$(external_monitor)
+            if [ -z "$EXTERNAL" ]; then
+                # Disabling the only output leaves no screen at all.
+                echo "Lid closed but no external monitor - leaving $LAPTOP enabled"
+            else
+                hyprctl dispatch moveworkspacetomonitor $WORKSPACE $EXTERNAL
+                hyprctl keyword monitor "$LAPTOP,disable"
+                echo "Moved workspace $WORKSPACE to $EXTERNAL and disabled $LAPTOP (lid closed)"
+            fi
         else
             hyprctl keyword monitor "$ORIGINAL_CFG"
             hyprctl dispatch moveworkspacetomonitor $WORKSPACE $LAPTOP
