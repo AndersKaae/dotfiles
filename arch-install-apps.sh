@@ -46,3 +46,8 @@ if ! command -v yay >/dev/null 2>&1; then
     exit 1
 fi
 yay -S --needed "${AUR_PKGS[@]}"
+
+# Select this machine's Hyprland per-host config (see README "Per-machine config")
+if [ -x "$HOME/.local/bin/hypr-host-link.sh" ]; then
+    "$HOME/.local/bin/hypr-host-link.sh"
+fi

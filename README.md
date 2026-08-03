@@ -21,6 +21,41 @@
 
 Run `./arch-install-apps.sh` (requires `yay` for AUR packages).
 
+## Per-machine config
+
+This repo is shared by more than one machine (the `framework` laptop + external
+Dell, and the desktop). Almost everything is machine-agnostic; the exceptions:
+
+- **Monitors** are all declared in the shared `hyprland.conf`. A rule for a
+  monitor that isn't attached is ignored, so every machine's monitors can live in
+  one file. Match external monitors by **description**, not connector name —
+  `monitor = desc:Dell Inc. DELL U2723QE 69M6L04, ...`. Connector names change on
+  their own (the Dell moved DP-3 → DP-4 and silently broke every rule naming the
+  port). Get descriptions with:
+  `hyprctl monitors all -j | jq -r '.[].description'`
+
+- **Persistent workspaces** cannot be shared. A persistent workspace bound to an
+  absent monitor gets parked on whatever monitor *is* present, leaving an empty
+  workspace that can never be closed. So they live per host in
+  `.config/hypr/hosts/<hostname>.conf`, which `hyprland.conf` pulls in via
+  `source = ~/.config/hypr/host.conf`.
+
+  `host.conf` is a gitignored symlink; the files it points at are tracked. Run
+  once per machine (also called from `arch-install-apps.sh`):
+
+  ```
+  ~/.local/bin/hypr-host-link.sh
+  ```
+
+  A machine with no `hosts/<hostname>.conf` falls back to `hosts/default.conf`,
+  which declares no persistent workspaces — correct anywhere. To specialise a new
+  machine, copy `default.conf` to `hosts/$(cat /etc/hostname).conf` and re-run the
+  script.
+
+- **systemd user units** are tracked, but the `*.target.wants/` symlinks that
+  enable them are gitignored — so laptop-only services (`lid-handler.service`)
+  stay off on the desktop simply by not being enabled there.
+
 ## Non obvious packages to install
 sudo pacman -S rofi hyprpaper waybar swayidle syncthing grim slurp swappy pamixer swaylock brightnessctl playerctl mako 
 
