@@ -1,11 +1,11 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
 
-A seven-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
+An eight-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front, an adversarial review gate, and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
 
 ## Phase 1: Get the task
 
@@ -30,6 +30,23 @@ Description is HTML in `fields["System.Description"]`. Parent id is in the top-l
 
 **GitHub**: `gh issue view <ID> --json number,title,body,state,labels,assignees`.
 **Jira**: `acli jira workitem view <ID>` or the official `jira` CLI.
+
+**Read the WHOLE task, not a fragment.** It is not acceptable to skim the title and the first line of the description and move on. Read the entire description, every repro step, the acceptance criteria, and all comments — and **look at every screenshot/attachment**. Tracker descriptions are HTML with embedded `<img src="…/_apis/wit/attachments/…">` tags; those images frequently carry the actual bug (a red validation state, an "expected vs current" side-by-side, a stack trace in a console panel) and the prose alone is often incomplete or misleading without them. Download each attachment and view it before summarizing:
+```bash
+# extract every attachment URL from the description/repro HTML, then fetch and Read each
+az boards work-item show --id <ID> --organization https://dev.azure.com/<org> --output json \
+  | grep -oE 'https://[^"]*/_apis/wit/attachments/[^"]*'
+# az devops attachment URLs need auth; pipe your PAT: curl -sL -u :"$AZDO_PAT" "<url>" -o <file>.png
+```
+Then open each downloaded image with the Read tool. Only summarize once you have read the full task and seen **every** image.
+
+**A task you cannot fully read is a HARD STOP — not a disclaimer you proceed past.** If any attachment fails to fetch — missing/expired `AZDO_PAT`, a 401/403, a network error, an unreadable format — you do **not** have the whole task, and you must not continue. Do not rationalize your way forward ("the prose is probably enough", "I'll infer the bug from the title"): the images routinely carry the actual bug, so proceeding without them means fixing a task you have not read. Instead:
+
+1. **Stop the workflow.** Do not scope, branch, write a test, or touch code.
+2. **Report precisely** which attachment(s) you couldn't fetch and the exact failure (e.g. "`AZDO_PAT` unset → 401 on attachment `<url>`"), plus what you *were* able to read.
+3. **Ask the user for help** — the PAT, the images pasted directly, or an explicit instruction to proceed without them — and **wait**. Only the user may waive an unreadable attachment; you may never waive it yourself.
+
+The one thing that is never acceptable is silently concluding you can fix the task without the image.
 
 Summarize the task in plain language and confirm shared understanding. **Translate, don't restate** — turn tracker prose into the concrete user-visible behavior.
 > Bad: *"fix the wizard bug."*
@@ -69,6 +86,16 @@ For E2E specifically, also identify:
 
 Doing this **before** branching means you discover "this is already fixed" or "the scope is wildly different than the ticket implies" without leaving an orphan branch behind.
 
+### Reproduce the bug first (bug fixes only)
+
+**For any bug fix, you must reproduce the bug and observe the failure with your own eyes before writing a line of test or fix code.** A ticket description is a claim, not evidence — reproduce it against the *real* current code/data so the test you write next mirrors what actually happens, not what the ticket says happens.
+
+- Drive the actual failure: run the app (`ld-dev-server`), hit the endpoint, run the wizard step, query the real authored config/data (e.g. unauth `/api/wizard/config` + `/module-elements` on dev) — whatever exhibits the reported behavior. Capture the concrete wrong value / error / stack trace you observe; that observed value is what the Phase 5 assertion asserts against.
+- If you **can't** reproduce it, stop and resolve *why* before proceeding — the repro steps are incomplete, the environment differs, it's already fixed, or the premise is wrong. Do **not** write a speculative test against a bug you've never seen; that's how a green test ships alongside a still-live bug (see `~/.claude/projects/<project>/memory/feedback_verify_root_cause_before_fix.md`). Report the failure-to-reproduce back to the user rather than guessing.
+- Confirm the reproduction is on the code path the ticket points to. A symptom you can trigger through a *different* cause is not the same bug — you'd fix the wrong thing and the test would pin nothing.
+
+The Phase 5 failing test is the *automated* form of this reproduction. Reproducing manually first is what lets you tell a right-reason red from a wrong-reason one.
+
 ## Phase 4: Create a worktree off develop
 
 **All work happens in a dedicated git worktree branched from `develop`** — never in the primary checkout, and never branched from whatever happens to be checked out. This keeps the main working tree untouched, isolates the task, and guarantees a clean base regardless of the current branch.
@@ -82,13 +109,20 @@ git worktree add ../<repo>-task-NNNN-short-description -b task-NNNN-short-descri
 cd ../<repo>-task-NNNN-short-description
 ```
 
-Branch from `origin/develop` (freshly fetched), not local `develop`, so the base is up to date even if the local tip is stale.
+Branch from `origin/develop` (freshly fetched), not local `develop`, so the base is up to date even if the local tip is stale. **Verify the base is actually the remote tip before writing any code** — a stale base is the single most common source of a merge conflict discovered later, at PR-open time, when it's most expensive to fix:
+
+```bash
+git rev-parse origin/develop            # must equal...
+git rev-parse HEAD                       # ...this, right after the worktree is created
+```
+
+If they differ, you branched off something stale — `git fetch origin develop` and re-create the branch before continuing. Note the base SHA in the plan file; Phase 8 compares against it to detect upstream movement.
 
 **Worktrees start cold** — git-ignored config and installed dependencies do not carry over. For LegalDesk-V2: copy `appsettings.Development.json` and `tests/e2e/.env.local` from the primary checkout, run `npm install` in `tests/e2e`, and expect a 2-3 min first build/cold start. See `~/.claude/projects/<project>/memory/reference_git_worktree_setup.md` if present for the project's exact setup steps.
 
-**Use the `ld-dev-server` skill to start the local server — don't ask first, and never a bare `dotnet run`.** Multiple LLMs often run in parallel against this repo. The `ld-dev-server` skill leases an isolated port + its own `UmbracoDb` clone so instances don't collide; a bare `dotnet run`/`dotnet watch` hardcodes port 44333 and the shared DB, which fights other agents, serves stale code, and corrupts EF migrations. Because it's isolated, it's safe to start a server whenever you need one without checking in. The box is RAM-tight (~2.6 GB per warmed instance), so don't lease more instances than you need, and stop + release the one you started when done (see the Phase 7 teardown). Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app. Full procedure: the `ld-dev-server` skill and `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md`.
+**Use the `ld-dev-server` skill to start the local server — don't ask first, and never a bare `dotnet run`.** Multiple LLMs often run in parallel against this repo. The `ld-dev-server` skill leases an isolated port + its own `UmbracoDb` clone so instances don't collide; a bare `dotnet run`/`dotnet watch` hardcodes port 44333 and the shared DB, which fights other agents, serves stale code, and corrupts EF migrations. Because it's isolated, it's safe to start a server whenever you need one without checking in. The box is RAM-tight (~2.6 GB per warmed instance), so don't lease more instances than you need, and stop + release the one you started when done (see the Phase 8 teardown). Invoke `/ld-dev-server` for any server boot or E2E run that needs a running app. Full procedure: the `ld-dev-server` skill and `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md`.
 
-Don't commit anything yet. Run the rest of the workflow (Phases 5-7) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
+Don't commit anything yet. Run the rest of the workflow (Phases 5-8) from inside this worktree. When the task is fully done — PR opened, merged, or abandoned — remove the worktree so it doesn't linger:
 
 ```bash
 git worktree remove ../<repo>-task-NNNN-short-description
@@ -138,13 +172,42 @@ The single-spec run in this phase proves the fix works and didn't break its own 
 
 - **Unit (.NET)**: `dotnet test tests/LegalDesk.Tests/LegalDesk.Tests.csproj`
 - **Jest (Vue components)** — if the change touched anything under `src/LegalDesk.VueComponents/`: `cd src/LegalDesk.VueComponents && yarn test`
-- **E2E (Playwright)** — if the change touched runtime behaviour the browser exercises: `cd tests/e2e && npm run test` (ask before this — it boots a dev server; see the Phase 4 server note)
+- **E2E (Playwright)** — **always. There is no condition under which this is skipped.** Not "if the change looks risky", not "if it could plausibly reach the browser" — every task runs the full suite before commit, including backend-only, config, tooling, and docs-adjacent changes. Regressions hide in interactions no unit or Jest test covers, and the judgement call about whether a diff "can reach a browser" has been wrong often enough that the call is no longer yours to make. `cd tests/e2e && npm run test -- --workers=2`. Don't ask first — boot the server via `/ld-dev-server` (it's isolated; see the Phase 4 server note) and run it.
+
+**Verify the E2E test count, not just the green.** As of 2026-07-31 `npm run test` (setup + smoke + core + deep + mobile-chrome + jurio) collects **~457 tests in 89 files**. A run that reports meaningfully fewer (say under ~445) did *not* run the whole suite — collection silently narrowed (a stray `--grep`/`testMatch` filter, a project that never started, or a failed setup project that voided its dependents). A short-but-green run reads as "everything passed" when most tests never executed. If the count is well under the expected ~457, find why it dropped and re-run; do not treat it as a pass. (Re-check the baseline by appending `--list` to the exact project set in `tests/e2e/package.json`'s `test` script — the suite grows and the project list changes over time.)
 
 All three must be green before you commit. This is the one place the workflow overrides the "minimal test runs" default — a per-spec run is right *during* the red→green loop, but the pre-commit gate is deliberately full-suite so a fix doesn't land a regression elsewhere.
 
-If a layer is genuinely untouched (e.g. a backend-only fix that can't affect Vue), you may skip that layer's suite — but **say so explicitly** and name the layers you ran. Don't silently narrow the gate. If any suite is red, the failures are part of this task: fix them or, if pre-existing and unrelated, confirm they were already red on `origin/develop` before proceeding.
+**E2E is never skipped, for any reason.** Unit and Jest have a genuine escape hatch: if a layer is truly untouched (e.g. a backend-only fix that can't affect Vue), you may skip that layer's suite — but **say so explicitly** and name the layers you ran. E2E has no such hatch. "The diff can't reach the browser", "it's backend-only", "the suite takes 14 minutes", "the server isn't up", "I already ran the affected spec", and "I ran smoke instead" are all **not** grounds to skip. If the suite is expensive, it still runs; if the server isn't up, start one. The only acceptable reason the full E2E run is absent from a task is that it was **attempted and is blocked by something outside the diff** (e.g. the environment genuinely cannot boot) — and then you report it as a blocked gate, loudly, in the Phase 8 summary and the PR description. You never report a task as complete with E2E silently omitted.
 
-## Phase 7: Commit and push
+If any suite is red, the failures are part of this task: fix them or, if pre-existing and unrelated, confirm they were already red on `origin/develop` before proceeding.
+
+## Phase 7: Adversarial review of the diff
+
+Before committing, hand the change to a **fresh, skeptical agent whose job is to argue against merging it** — not to help ship it. You've just spent the whole loop convincing yourself the fix is right; you're the worst-placed to see where it isn't. A separate context with no stake in the implementation doesn't share that blind spot.
+
+**The reviewer recommends; it never edits.** It returns a verdict and findings only — it does not touch the diff, the commits, or any file. The implementer (this workflow) is what addresses or dismisses each finding and folds any resulting edits into the Phase 8 commits. Keeping the reviewer's hands off the code preserves the independence that makes the review adversarial and keeps the fix's authorship and the two clean commits intact. Enforce this **by tooling, not just instruction**: spawn it as the **read-only `Plan` agent type** so `Edit`/`Write`/`NotebookEdit` are physically unavailable — don't use `general-purpose`, which can edit, and don't use `Explore`, which is a locate-the-code searcher that reads excerpts rather than auditing a diff. A read-only agent keeps `Bash`, so it can still build the solution, run the app, run the full test suite, and use `git` to inspect or temporarily `stash`/restore state — everything it needs to investigate, with none of the ability to change the fix.
+
+Spawn one read-only agent with **no implementation reasoning** — give it only the task (title, description, every repro step, acceptance criteria, and the screenshots), the plan file, and the diff (`git diff origin/develop...HEAD`, both commits). Open the prompt with the read-only contract: *"You are a read-only reviewer. Run whatever you need — build, run the app, run tests, `git stash`/restore — but do not modify, create, or delete any file, do not commit or push, and leave the working tree exactly as you found it (pop any stash you create). Return findings only; the implementer applies fixes."* Then prompt it to **refute, with the default verdict being reject**: "Find the strongest reason this change should be sent back. Only conclude it's mergeable if you can positively confirm it resolves the task." It owns four things `/code-review` and `/verify` don't:
+
+1. **Task fidelity.** Does the diff address *every* acceptance criterion and repro step — including behavior only visible in the screenshots — or just the headline? Name any criterion left unmet.
+2. **Test integrity — empirically, never by prediction.** The reviewer must *actually* revert the fix and run the test: `git stash push -- <fix files>` (or `git checkout origin/develop -- <fix files>`), run the spec, observe the result, restore. It reports the **observed failure output**, quoted. "The test would fail without the fix" with no run behind it is not an answer and does not satisfy this item — a mental prediction is precisely how a test that pins nothing survives review. Also: does it assert on the bug-capturing value, or on scaffolding?
+3. **Minimality.** Is this the smallest change that resolves the task (Phase 6 rule), or did unrelated edits, speculative error-handling, or "while I'm here" cleanups creep in?
+4. **Justified workarounds — reject them.** *"If you need a paragraph-long comment to justify why the workaround is OK, the code is wrong — fix the code."* A long explanatory comment defending a hack is not documentation, it's the tell that the fix is wrong and the author knew it. Treat any comment that argues for its own code — why this is safe, why this edge case can't happen, why the obvious approach didn't work — as a rejection trigger: send the code back, don't accept a shorter comment. Same for stubs, no-op branches, and swallowed errors that exist to make something pass rather than work. (Rule lifted from Bun's Zig→Rust rewrite, where it was handed to the adversarial reviewers as a rejection criterion after Claude began papering over stubbed functions with suspiciously long comments — [bun.com/blog/bun-in-rust](https://bun.com/blog/bun-in-rust).)
+
+For pure code-correctness (bugs, edge cases, cleanups), it should invoke or defer to `/code-review` rather than re-deriving it — this phase composes with that skill, it doesn't repeat it. For a high-risk or large diff, escalate to a 4-lens panel (fidelity / test-integrity / minimality-and-workarounds / correctness, majority-to-reject) instead of a single skeptic.
+
+**Every finding carries evidence or is labelled unverified.** Require each one to cite `file:line` plus either a command and its actual output, or a concrete failure scenario (specific inputs/state → wrong result). Findings the reviewer could not substantiate must be marked `UNVERIFIED` and are advisory only — they never block. This cuts both ways: it stops a confident-sounding but wrong finding from forcing a pointless edit, and stops a real one from being waved off. Reviewer agents do return plausible-but-false findings; don't take them at face value, check the cited evidence yourself before acting on it.
+
+**A "mergeable" verdict must be earned.** The reviewer states what it actually did — commands run, files read, the reverted-test result from item 2. A pass with no evidence of investigation is **void, not a pass**: re-run the phase. Rubber-stamping is the default failure mode of adversarial review, and an unearned green here is worse than no review at all, because it launders the fix as vetted.
+
+**Two finding classes are hard blocks, not advisory:** an unmet acceptance criterion or repro step (item 1), and a failed test-integrity check (item 2). You may not self-dismiss either — you're the implementer, so you have a stake, and these are exactly the two the rest of the workflow cannot catch downstream. Fix them, or stop and take it to the user. Correctness, minimality, and workaround findings (items 3–4) remain arguable: address each, or dismiss it with a stated reason. **Never silently push past a reject.**
+
+**Verify the reviewer left the tree alone.** It has `Bash`, so `git stash`, `git checkout`, and builds are all reachable even though `Edit` isn't. After it returns, confirm the state yourself: `git status --porcelain`, `git stash list`, and `git rev-parse HEAD` should match what you had going in. An abandoned stash or a half-restored `git checkout` from the item-2 revert silently un-does part of your fix, and the commits in Phase 8 would then ship the wrong content.
+
+If addressing findings materially changes the fix, re-run this phase — repeat until a round returns no material findings, up to 3 rounds. If you hit the cap with material findings still open, stop and surface it to the user rather than committing. Fold the resulting edits into the Phase 8 test/fix commits so history stays clean — don't leave a "review fixup" commit.
+
+## Phase 8: Commit and push
 
 Two separate commits on the feature branch:
 
@@ -153,16 +216,48 @@ Two separate commits on the feature branch:
 2. **The fix commit.** Stage production code changes plus any rebuilt artifacts. Message:
    `Task NNNN: <imperative description of the change>`
 
-Use HEREDOC for commit messages with line breaks (per CLAUDE.md commit guidelines). Include `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` if the codebase uses Claude co-authorship.
+Use HEREDOC for commit messages with line breaks (per CLAUDE.md commit guidelines). **No `Co-Authored-By: Claude ...` trailer — ever, on any model.** This repo does not want Claude co-authorship on commits. This overrides the harness default that says to append one, so drop it even when the surrounding tooling suggests it. No `🤖 Generated with Claude Code` line either, on commits or PR descriptions.
 
 If the build emitted unrelated artifacts (rebuild picked up upstream source drift), commit those as a separate "Rebuild artifacts to match current source" commit so the fix commit stays focused.
 
-Push:
+### Re-sync with develop before pushing (mandatory)
+
+**`develop` moves while you work.** Branching off a fresh base in Phase 4 does not mean you're still current at Phase 8 — this repo merges PRs several times a day, so a task that took an afternoon is very likely sitting on a stale base by the time you push. Catching that here costs a rebase; discovering it when the user opens the PR costs a conflicted PR and a round-trip. **Always re-sync immediately before pushing, never skip it:**
+
+```bash
+git fetch origin develop
+git log --oneline HEAD..origin/develop     # empty = still current, nothing to do
+```
+
+If that shows commits, rebase onto the new tip — **rebase, not merge**, so the two clean test/fix commits survive and no merge commit pollutes the branch:
+
+```bash
+git rebase origin/develop
+```
+
+Then handle the outcome:
+
+- **Clean rebase, no conflicts** → continue, but see the re-verify rule below.
+- **Conflicts** → resolve them yourself if the resolution is unambiguous (your change and theirs touch different concerns in the same file). If the upstream change overlaps *semantically* with your fix — same function, same VisibleExpression, same test — **stop and surface it to the user**. A conflict resolution that guesses at intent silently reverts someone else's work, and you have no way to verify which behavior was wanted.
+- **Upstream already fixed the same thing** → stop. Don't ship a duplicate or a fix-on-top; tell the user what landed and let them decide whether the task is now moot.
+
+**If the rebase pulled in ANY new commits, re-run the Phase 6 regression gate in full** — including the complete e2e suite. A clean rebase means the *text* merged, not that the behavior still works: your fix was verified against the old base, and the code around it has changed since. Green-before-rebase is not evidence of green-after-rebase. This is also the case a plain "it compiled" check will miss entirely.
+
+Only once you're rebased onto the current tip and the gate is green:
+
 ```bash
 git push -u origin task-NNNN-short-description
 ```
 
-**Don't open the PR unless the user asks.** Provide the CLI command and a web-UI fallback URL so they can decide:
+If you had already pushed before the rebase, the push needs `--force-with-lease` (never bare `--force`, which discards a teammate's push to your branch without telling you):
+
+```bash
+git push --force-with-lease origin task-NNNN-short-description
+```
+
+**Don't open the PR unless the user asks.** Provide the CLI command and a web-UI fallback URL so they can decide.
+
+If they do ask you to open it — especially if any time has passed since the push — **re-check the base one last time first** (`git fetch origin develop && git log --oneline HEAD..origin/develop`). If it's moved again, re-sync per the section above before creating the PR. Opening a PR that's already behind is exactly the failure this gate exists to prevent, and the check costs one command.
 
 Azure DevOps:
 ```bash
@@ -178,6 +273,27 @@ az repos pr create \
 Web fallback:
 `https://dev.azure.com/<org>/<project>/_git/<repo>/pullrequestcreate?sourceRef=<branch>&targetRef=develop`
 
+**Azure DevOps caps the PR description at 4000 characters** and rejects the whole `pr create` call when you exceed it — you get `Invalid argument value. Parameter name: A description for a pull request must not be longer than 4000 characters` and no PR. Count before calling (`${#DESC}`), and if it's over, *trim* — drop whole sections, tighten prose, move detail into the commit bodies — rather than truncating mid-sentence. Anything the user explicitly approved (accepted caveats, known side effects) stays; it is the reason they said yes.
+
+### Announcing the PR in Slack
+
+When the user asks to "post"/"announce"/"share" the PR in Slack, follow the house protocol exactly — it is terse, and a rich write-up is *wrong* here, not merely verbose.
+
+- **Channel: `#pull-requests`** (`C06FK0APYVC`). Not `#dev-chat`, not wherever the discussion happened. `#dev-chat` is for questions, IP-whitelisting and debugging chatter.
+- **Format: exactly two lines** — a title line, then the bare PR URL on its own line:
+
+  ```
+  V2: Task 10839: Build product page wizard URLs from TrackingName, not SKU
+  https://dev.azure.com/legaldesk/Legal%20Desk/_git/LegalDesk-V2/pullrequest/7031
+  ```
+
+- **The `V2: ` prefix** marks the LegalDesk-V2 repo. Other repos name themselves instead (`AutomationApp: …`).
+- **The title says what the change *does*** — imperative, like the fix commit — not the raw ticket title. Include `Task NNNN:` when there is a work item; e2e/chore PRs use a conventional-commit style instead (`V2: test(e2e): full company-incorporation timeline traversal coverage`).
+- **No body.** No problem statement, no root cause, no test counts, no caveats, no reviewer notes, no @-mentions. All of that belongs in the PR description, which is where reviewers read it. The Slack post is a pointer, nothing more.
+- **Draft only, never send** — use `slack_send_message_draft`. "Post it" means prepare the draft for the user to send. (See `~/.claude/projects/<project>/memory/feedback_slack_draft_never_send.md`.)
+
+Only one attached draft is allowed per channel, so if a draft already exists there, say so rather than silently failing.
+
 ### After the PR is created: prompt to tear down the worktree and server
 
 Once the PR exists, this worktree's job is done. **Ask the user to confirm teardown — don't do it unprompted** (they may still want to inspect the branch, re-run a spec, or push a fixup). When they confirm, do it in this order:
@@ -188,14 +304,42 @@ Once the PR exists, this worktree's job is done. **Ask the user to confirm teard
    /home/alk/projects/Legaldesk-V2-Database/scripts/lease-db.sh --release "$INSTANCE"
    ```
    Then kill the server process if it's still listening (SIGTERM; escalate to SIGKILL only if it's swap-thrashing and ignores TERM). Confirm the port is free before continuing.
-3. **Decide what to do with the slot's database.** `--release` clears the lease marker but does **not** reset `UmbracoDb_N` — any data this task's tests wrote (members, drafts, orders) stays in the clone, and the pool *reuses* clones, so the next lease inherits the pollution. If the task mutated data, **ask** whether to re-clone the slot (`/home/alk/projects/Legaldesk-V2-Database/scripts/clone-db.sh N`, ~14 s) or leave it. Don't auto-re-clone — it's the expensive operation, and a task with clean per-test teardown may not need it.
+3. **Don't re-clone the slot's database.** `lease-db.sh` re-clones the slot it hands out, so cleanliness is guaranteed on the way *in*, not on the way out — whatever this task's tests wrote (members, drafts, orders) is wiped when the slot is next leased. Nothing to decide and nothing to ask. (This is deliberate: teardown-side cleanup depended on the previous holder exiting politely, which often didn't happen — a crash, SIGKILL, or forgotten `--release` silently handed its pollution to the next task.) The one thing to remember is the inverse: if you need a slot's data to *survive* a mid-task re-lease, lease with `--reuse` (or `LD_LEASE_CLONE=0`).
 4. **Remove the worktree:**
    ```bash
    git worktree remove ../<repo>-task-NNNN-short-description
    ```
    This also discards the worktree's on-disk Umbraco indexes (`<worktree>/src/LegalDesk.Website/umbraco/Data/TEMP`, ~800 MB), so nothing is orphaned.
 
-Why prompt every time: a leftover leased server pins a port + RAM + index data, an orphaned worktree leaves ~800 MB of index files behind, and a dirtied clone silently poisons the next task — all accumulate across tasks. PR-creation is the natural checkpoint to clear them. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
+Why prompt every time: a leftover leased server pins a port + RAM + index data, and an orphaned worktree leaves several hundred MB to a few GB behind (indexes plus `bin`/`obj`/`node_modules`) — these accumulate across tasks. PR-creation is the natural checkpoint to clear them. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
+
+### Last step: announce the PR in Slack — only once the user confirms
+
+Every PR is announced in **`#pull-requests`** (`C06FK0APYVC`) by its author. A PR that was never posted there is effectively invisible: nobody watches Azure DevOps for new PRs, so skipping this leaves the work unreviewed.
+
+**As soon as the PR is created, ask: "Shall I post it to `#pull-requests`?"** Then wait. Posting is the final action of the whole workflow — nothing follows it — so the sequence is: create the PR, ask, prompt for teardown, and post once they say yes.
+
+**The question is asked every single time, and only an explicit yes authorises it.** It is not implied by the PR being ready, by the user having asked you to open the PR, or by them confirming teardown — none of those carry over. Posting is outward-facing and lands in front of the whole team, so the user decides when the team sees it. There is no standing approval for it.
+
+Once they confirm, **create a draft — never send.** Use `slack_send_message_draft` so the message lands in their Drafts for them to post; `slack_send_message` is not used in this workspace (see `~/.claude/projects/<project>/memory/feedback_slack_draft_never_send.md`). So there are two gates, not one: confirmation to draft, and the user's own hand to post.
+
+One message per PR, no thread, no commentary, exactly this shape:
+
+```
+<repo>: <PR title>
+<PR URL>
+```
+
+`<repo>` is the **repository** shorthand — `V2` for LegalDesk-V2, `V1` for the legacy repo. It is *not* a version of the change and never varies by task; it tells readers which codebase the PR lands in. `<PR title>` is the PR's title verbatim, so the channel and the PR agree.
+
+```
+V2: Task 10834: Checkout: correct discount calculation for add-on bundles
+https://dev.azure.com/legaldesk/Legal%20Desk/_git/LegalDesk-V2/pullrequest/7029
+```
+
+**Never add attribution.** No "posted by Claude", no "generated with", no bot signature, no emoji flourish — nothing beyond the two lines above. The message must be indistinguishable from one the user typed, exactly as with commit trailers and PR descriptions.
+
+Two channel-name traps: `#pr` is a *public relations* channel with nothing to do with pull requests, and searching Slack for "pull request" finds nothing because these messages contain only a title and a URL. Search `pullrequest` (the URL fragment), or go straight to `#pull-requests`.
 
 ## Common PR pushback (pre-empt it before pushing)
 
