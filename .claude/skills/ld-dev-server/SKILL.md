@@ -100,10 +100,14 @@ Convenience wrapper (reads the current shell's lease, run from your worktree roo
 ## 3. Release when finished
 
 ```bash
-scripts/lease-db.sh --release "$INSTANCE"
+scripts/lease-db.sh --teardown "$INSTANCE"   # kills the site, offlines its clone, clears the marker
 ```
 
-(If you forget, the lease self-expires in 10 min — but release explicitly when you can.)
+Use `--teardown` when you started a site (the usual case) — it stops the process on the slot's port,
+offlines `UmbracoDb_N` so its buffer-pool pages free up, and drops the lease marker, all in one call.
+
+If you only held a lease without launching a site, `--release "$INSTANCE"` just clears the marker.
+(If you forget either, the lease self-expires in 10 min — but tear down explicitly when you can.)
 
 Use `--teardown "$INSTANCE"` instead when you actually launched a site: `--release` only clears the
 marker, so it neither stops the process nor triggers the idle auto-stop. Either way, **do not
@@ -115,6 +119,14 @@ re-clone the database on the way out** — the next lease does that for you.
   `App_Data`/NuCache/Examine. If you don't have your own worktree, create one first
   (see the `task-tdd` skill / git worktree setup).
 - `scripts/lease-db.sh --status` shows the current pool and how many requests are queued.
+- **The SQL container is auto-managed.** A lease starts it if stopped (so the very first lease after an
+  idle period is a few seconds slower — a one-time container start + SQL warmup). `--teardown` stops it
+  again once the pool is fully idle, so SQL isn't holding RAM when nothing's running. Set
+  `LD_STOP_SQL_WHEN_IDLE=0` to keep it running. `--status` reports "pool idle — container stopped"
+  rather than erroring when it's down.
+- **Re-check `--status` immediately before tearing down a specific slot** — the pool is shared and
+  another agent may have leased the slot you think is idle. Tear down by *your* `$INSTANCE`, not a
+  slot you assume is free.
 - `scripts/ensure-db.sh --connections N` checks whether a slot is actually in use before any
   destructive DB op (re-clone/offline force-kills connections).
 - Each warmed site uses ~2.6 GB RAM; the box is RAM-tight until a hardware upgrade — don't run
