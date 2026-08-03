@@ -9,8 +9,14 @@ description: Spin up (or reuse) a local LegalDesk-V2 dev site without port/datab
 hardcodes port `44333` and the shared `UmbracoDb`, so it collides with any server already
 running, and two branches sharing one database corrupt each other's EF migrations on startup.
 
-Instead, lease an isolated slot. The allocator picks a free port, gives you your own database
-clone, reuses idle clones, parks unused ones to save RAM, and never hands out a taken port.
+Instead, lease an isolated slot. The allocator picks a free port, gives you your own **pristine**
+database clone, parks unused ones to save RAM, and never hands out a taken port.
+
+The clone is reset from base `UmbracoDb` at lease time, so you never inherit the previous task's
+members/drafts/orders and you never need to clean the DB up at teardown. Budget ~50 s for it on top
+of the site's cold start. If you are re-leasing a slot mid-task and need its data (expensive seeded
+fixtures) to survive, lease with `--reuse`. Note that *restarting* a site does not re-lease —
+`run-instance.sh` takes the instance number — so rebuild/restart loops never reset anything.
 
 ## 1. Lease a slot
 
@@ -21,8 +27,31 @@ export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING   # so child processes (e
 ```
 
 This sets `INSTANCE`, `PORT`, `HTTP_PORT`, `URL`, `DATABASE`, `CONNSTRING` in your shell and
-guarantees the database exists and is online. If it prints **`POOL EXHAUSTED`**, all slots are
-in use — stop and report; do not force a port.
+guarantees the database exists and is online.
+
+### If every slot is taken, you get queued — you do not get rejected
+
+The allocator parks your request in a FIFO queue and re-checks **every 5 minutes** until a slot
+frees up, so a full pool is a wait, not a failure. Never force a port and never edit
+`launchSettings.json` to get around it. Two consequences for you:
+
+- **A queued lease can outlive a single Bash tool call** (they cap at 10 min, the queue waits up to
+  1 h). So don't block a foreground call on it — background the lease and collect it when it lands:
+
+  ```bash
+  LEASEFILE="$HOME/.cache/legaldesk-v2-db/lease-$$.env"
+  scripts/lease-db.sh > "$LEASEFILE" 2> "$LEASEFILE.log" &
+  # poll (with an explicit upper bound) until INSTANCE= appears; tail the .log for queue position
+  eval "$(cat "$LEASEFILE")"; export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING
+  ```
+
+- **`POOL EXHAUSTED` now only appears after the wait expires** (or with `--no-wait`). When it does,
+  read the per-slot report it prints: a slot flagged `orphaned?` is busy *only* because of leftover
+  SQL sessions — no site, no live lease — and is safe to reclaim with `--teardown N`. Otherwise stop
+  and report, or raise `LD_MAX_INSTANCES`.
+
+Tune with `--wait-interval SECONDS` / `--wait-timeout SECONDS`; use `--no-wait` when you'd rather
+fail fast than sit in a queue. `scripts/lease-db.sh --status` shows the pool *and* the queue length.
 
 ## 2. Launch the site (background it, then poll)
 
@@ -76,12 +105,16 @@ scripts/lease-db.sh --release "$INSTANCE"
 
 (If you forget, the lease self-expires in 10 min — but release explicitly when you can.)
 
+Use `--teardown "$INSTANCE"` instead when you actually launched a site: `--release` only clears the
+marker, so it neither stops the process nor triggers the idle auto-stop. Either way, **do not
+re-clone the database on the way out** — the next lease does that for you.
+
 ## Rules & gotchas
 
 - **One instance per worktree.** Two sites from the same checkout collide on
   `App_Data`/NuCache/Examine. If you don't have your own worktree, create one first
   (see the `task-tdd` skill / git worktree setup).
-- `scripts/lease-db.sh --status` shows the current pool.
+- `scripts/lease-db.sh --status` shows the current pool and how many requests are queued.
 - `scripts/ensure-db.sh --connections N` checks whether a slot is actually in use before any
   destructive DB op (re-clone/offline force-kills connections).
 - Each warmed site uses ~2.6 GB RAM; the box is RAM-tight until a hardware upgrade — don't run
