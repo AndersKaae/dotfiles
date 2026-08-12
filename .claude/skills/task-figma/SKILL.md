@@ -77,11 +77,19 @@ Branch from `origin/develop` (the just-fetched server copy), **not** local `deve
 **Lease the dev server with `ld-dev-server` — never a bare `dotnet run`.** Multiple agents run against this repo in parallel; a bare run hardcodes port 44333 + the shared DB, fights other instances, serves stale code, and corrupts EF migrations. The lease gives you an isolated port + your own `UmbracoDb` clone:
 
 ```bash
-cd <database-scripts-dir>            # e.g. ~/projects/Legaldesk-V2-Database
-eval "$(scripts/lease-db.sh)"; export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING
+make -C ~/projects/Legaldesk-V2-Database lddev        # idempotent, ~1s
+LDDEV=~/projects/Legaldesk-V2-Database/bin/lddev
+eval "$($LDDEV lease --purpose 'figma audit <area>' --worktree <worktree-path>)"
+export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING
 LOG="$HOME/.cache/ld-dev-logs/instance-$INSTANCE.log"; mkdir -p "$(dirname "$LOG")"
-scripts/run-instance.sh "$INSTANCE" <worktree-path> > "$LOG" 2>&1 &   # log OFF the /tmp tmpfs
+$LDDEV run "$INSTANCE" <worktree-path> > "$LOG" 2>&1 &   # log OFF the /tmp tmpfs
 ```
+
+A full pool queues rather than failing (5 s re-checks, 1 h bound), and a queued lease can outlive a
+single tool call — background it and poll for `INSTANCE=`. The allocator frees dead and idle slots
+for you while you wait, so don't reclaim by hand. If your site later stops responding mid-audit it
+may have been evicted rather than crashed — any `lddev` command says so; re-lease and re-capture.
+See the `ld-dev-server` skill.
 
 Then poll `"$URL"` until it returns 200 with a **bounded** loop (cold start ~45 s, up to 2–3 min building) — never an unbounded wait. One instance per worktree; the box is RAM-tight (~2.6 GB each), so don't over-lease. Record `$URL` — every Playwright capture (and every subagent) targets it via inline `BASE_URL="$URL"`, never a global export.
 
@@ -161,12 +169,12 @@ This is the core deliverable — it makes discrepancies visible at a glance so t
 **Teardown — prompt the user, don't do it unprompted** (they may still want to inspect the branch or re-capture a screen). Once they confirm, in this order:
 
 1. **Stop background tasks you spawned** — poll loops, audit/verifier subagents, log watchers — so nothing keeps hitting the server.
-2. **Release the lease before removing the worktree** (the running server holds the worktree's files open and pins the port + ~2.6 GB RAM):
+2. **Tear the slot down before removing the worktree** (the running server holds the worktree's files open and pins the port + ~2.6 GB RAM). One command stops the site, offlines the clone, and returns the slot to the pool:
    ```bash
-   scripts/lease-db.sh --release "$INSTANCE"
+   ~/projects/Legaldesk-V2-Database/bin/lddev teardown "$INSTANCE"
    ```
-   Then kill the server process if it's still listening (SIGTERM; SIGKILL only if it ignores TERM), and confirm the port is free.
-3. **Decide on the DB clone.** `--release` clears the lease but does **not** reset `UmbracoDb_$INSTANCE`; the pool reuses clones, so data this audit wrote (a test member, drafts) carries into the next lease. If you mutated data, **ask** whether to re-clone (`scripts/clone-db.sh $INSTANCE`) or leave it — don't auto-re-clone.
+   Confirm the port is free afterwards.
+3. **Don't re-clone the slot's database, and don't ask about it.** A lease hands out a *pristine* clone — the reset happens on the way *in*, not on the way out — so whatever this audit wrote (test members, drafts) is wiped when the slot is next leased. The inverse is the thing to remember: if a slot's data must *survive* a mid-task re-lease, lease with `--reuse`.
 4. **Remove the worktree:** `git worktree remove ../<repo>-figma-<area>` (also discards its ~800 MB of on-disk Umbraco indexes). Delete any throwaway screenshot specs first if not already done.
 
 A leftover lease pins a port + RAM, an orphaned worktree leaves index files behind, and a dirtied clone silently poisons the next task — clear them at the PR checkpoint.

@@ -43,7 +43,7 @@ top=$(
             sum[key]+=rss; disp[key]=name}
            END {for (key in sum) printf "%d\t%s\n", sum[key], disp[key]}' \
     | sort -rn \
-    | awk -F'\t' 'NR<=5 {printf "  %-30s %6.1f GiB\n", $2, $1/1024/1024}'
+    | awk -F'\t' 'NR<=10 {printf "  %-30s %6.1f GiB\n", $2, $1/1024/1024}'
 )
 
 tooltip=$(printf "RAM   %s / %s GiB  (%s%%)\nSwap  %s / %s GiB  (%s%%)\n\nTop processes\n%s" \

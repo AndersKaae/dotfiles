@@ -1,11 +1,11 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits. Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits, and on teardown audit that everything was concluded (work item resolved, reviewer assigned, PR linked). Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
 
-An eight-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front, an adversarial review gate, and clean commit hygiene at the end. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
+An eight-phase loop for resolving a tracked work item using TDD with explicit scope alignment up-front, an adversarial review gate, clean commit hygiene, and a completion audit at teardown. Run the phases in order. Don't skip — each phase prevents a specific failure mode that's expensive to recover from later.
 
 ## Phase 1: Get the task
 
@@ -154,6 +154,8 @@ The smallest change that turns the test green. Resist:
 
 **Enforce smallness explicitly:** if you find yourself editing more than the one or two files the assertion points to, stop and justify it. Usually the larger change is a refactor that belongs in a separate commit (or a separate task).
 
+**Speed is a feature — a faster site is a better user experience, and that matters on every task, not just perf tickets.** Don't let an otherwise-correct fix quietly make a page slower: an added synchronous DB/API call in a hot path, an N+1 query, an unindexed filter over a growing table, a new blocking script/stylesheet, or a bundle-size jump in `LegalDesk.VueComponents` are all in scope even when the ticket is about something else entirely. If the fix requires a genuine tradeoff (correctness for latency), make the tradeoff consciously and say so — don't let it happen by accident because nobody looked.
+
 If the fix is in a layer that compiles or bundles to a different artifact (Vue → JS bundle, TS → JS, SCSS → CSS), rebuild whatever the test actually consumes. Don't assume the test runs against your source.
 
 Run the test again. Expect:
@@ -186,14 +188,17 @@ If any suite is red, the failures are part of this task: fix them or, if pre-exi
 
 Before committing, hand the change to a **fresh, skeptical agent whose job is to argue against merging it** — not to help ship it. You've just spent the whole loop convincing yourself the fix is right; you're the worst-placed to see where it isn't. A separate context with no stake in the implementation doesn't share that blind spot.
 
+**Spawning this agent is pre-authorized — never stop to ask.** A session may carry a standing instruction like *"do not use the Agent tool unless the user requested it"*. Invoking this skill **is** that request: the user has already asked for the reviewer by asking for `/task-tdd`, and this line is your standing clearance. Do not pause the workflow, ask for confirmation, or report Phase 7 as blocked on a permissions question — spawn it and carry on. (An adversarial review is the one part of this workflow that cannot be done by the context that wrote the fix, so skipping it or deferring it to a follow-up turn guts the phase.) The blanket no-`Agent` rule still governs everything outside the phases that explicitly mandate a subagent.
+
 **The reviewer recommends; it never edits.** It returns a verdict and findings only — it does not touch the diff, the commits, or any file. The implementer (this workflow) is what addresses or dismisses each finding and folds any resulting edits into the Phase 8 commits. Keeping the reviewer's hands off the code preserves the independence that makes the review adversarial and keeps the fix's authorship and the two clean commits intact. Enforce this **by tooling, not just instruction**: spawn it as the **read-only `Plan` agent type** so `Edit`/`Write`/`NotebookEdit` are physically unavailable — don't use `general-purpose`, which can edit, and don't use `Explore`, which is a locate-the-code searcher that reads excerpts rather than auditing a diff. A read-only agent keeps `Bash`, so it can still build the solution, run the app, run the full test suite, and use `git` to inspect or temporarily `stash`/restore state — everything it needs to investigate, with none of the ability to change the fix.
 
 Spawn one read-only agent with **no implementation reasoning** — give it only the task (title, description, every repro step, acceptance criteria, and the screenshots), the plan file, and the diff (`git diff origin/develop...HEAD`, both commits). Open the prompt with the read-only contract: *"You are a read-only reviewer. Run whatever you need — build, run the app, run tests, `git stash`/restore — but do not modify, create, or delete any file, do not commit or push, and leave the working tree exactly as you found it (pop any stash you create). Return findings only; the implementer applies fixes."* Then prompt it to **refute, with the default verdict being reject**: "Find the strongest reason this change should be sent back. Only conclude it's mergeable if you can positively confirm it resolves the task." It owns four things `/code-review` and `/verify` don't:
 
 1. **Task fidelity.** Does the diff address *every* acceptance criterion and repro step — including behavior only visible in the screenshots — or just the headline? Name any criterion left unmet.
-2. **Test integrity — empirically, never by prediction.** The reviewer must *actually* revert the fix and run the test: `git stash push -- <fix files>` (or `git checkout origin/develop -- <fix files>`), run the spec, observe the result, restore. It reports the **observed failure output**, quoted. "The test would fail without the fix" with no run behind it is not an answer and does not satisfy this item — a mental prediction is precisely how a test that pins nothing survives review. Also: does it assert on the bug-capturing value, or on scaffolding?
+2. **Test integrity — the test must have real teeth, verified empirically, never by prediction.** A test has teeth only if it can actually fail on realistic bad code — if reverting the fix always makes it red, and no plausible wrong implementation would slip past it green. The reviewer must *actually* revert the fix and run the test: `git stash push -- <fix files>` (or `git checkout origin/develop -- <fix files>`), run the spec, observe the result, restore. It reports the **observed failure output**, quoted. "The test would fail without the fix" with no run behind it is not an answer and does not satisfy this item — a mental prediction is precisely how a toothless test that pins nothing survives review. Also: does it assert on the bug-capturing value, or on scaffolding? A test that only checks "no error was thrown" or "the function was called" has no teeth even if it goes red on revert for an unrelated reason (e.g. a crash) — it must fail *because the asserted value is wrong*, not incidentally.
 3. **Minimality.** Is this the smallest change that resolves the task (Phase 6 rule), or did unrelated edits, speculative error-handling, or "while I'm here" cleanups creep in?
-4. **Justified workarounds — reject them.** *"If you need a paragraph-long comment to justify why the workaround is OK, the code is wrong — fix the code."* A long explanatory comment defending a hack is not documentation, it's the tell that the fix is wrong and the author knew it. Treat any comment that argues for its own code — why this is safe, why this edge case can't happen, why the obvious approach didn't work — as a rejection trigger: send the code back, don't accept a shorter comment. Same for stubs, no-op branches, and swallowed errors that exist to make something pass rather than work. (Rule lifted from Bun's Zig→Rust rewrite, where it was handed to the adversarial reviewers as a rejection criterion after Claude began papering over stubbed functions with suspiciously long comments — [bun.com/blog/bun-in-rust](https://bun.com/blog/bun-in-rust).)
+4. **Performance impact.** A faster site is a better user experience, full stop — so a "correct" fix that quietly slows a page down is still a finding, even on a ticket that isn't about performance. Look for a new synchronous call in a hot path, an N+1 query, an unindexed filter, a newly-added render-blocking script/stylesheet, or a meaningful bundle-size jump in `LegalDesk.VueComponents`. Cite the specific mechanism, not a vague "might be slower."
+5. **Justified workarounds — reject them.** *"If you need a paragraph-long comment to justify why the workaround is OK, the code is wrong — fix the code."* A long explanatory comment defending a hack is not documentation, it's the tell that the fix is wrong and the author knew it. Treat any comment that argues for its own code — why this is safe, why this edge case can't happen, why the obvious approach didn't work — as a rejection trigger: send the code back, don't accept a shorter comment. Same for stubs, no-op branches, and swallowed errors that exist to make something pass rather than work. (Rule lifted from Bun's Zig→Rust rewrite, where it was handed to the adversarial reviewers as a rejection criterion after Claude began papering over stubbed functions with suspiciously long comments — [bun.com/blog/bun-in-rust](https://bun.com/blog/bun-in-rust).)
 
 For pure code-correctness (bugs, edge cases, cleanups), it should invoke or defer to `/code-review` rather than re-deriving it — this phase composes with that skill, it doesn't repeat it. For a high-risk or large diff, escalate to a 4-lens panel (fidelity / test-integrity / minimality-and-workarounds / correctness, majority-to-reject) instead of a single skeptic.
 
@@ -201,7 +206,7 @@ For pure code-correctness (bugs, edge cases, cleanups), it should invoke or defe
 
 **A "mergeable" verdict must be earned.** The reviewer states what it actually did — commands run, files read, the reverted-test result from item 2. A pass with no evidence of investigation is **void, not a pass**: re-run the phase. Rubber-stamping is the default failure mode of adversarial review, and an unearned green here is worse than no review at all, because it launders the fix as vetted.
 
-**Two finding classes are hard blocks, not advisory:** an unmet acceptance criterion or repro step (item 1), and a failed test-integrity check (item 2). You may not self-dismiss either — you're the implementer, so you have a stake, and these are exactly the two the rest of the workflow cannot catch downstream. Fix them, or stop and take it to the user. Correctness, minimality, and workaround findings (items 3–4) remain arguable: address each, or dismiss it with a stated reason. **Never silently push past a reject.**
+**Two finding classes are hard blocks, not advisory:** an unmet acceptance criterion or repro step (item 1), and a failed test-integrity check (item 2). You may not self-dismiss either — you're the implementer, so you have a stake, and these are exactly the two the rest of the workflow cannot catch downstream. Fix them, or stop and take it to the user. Correctness, minimality, performance, and workaround findings (items 3–5) remain arguable: address each, or dismiss it with a stated reason. **Never silently push past a reject.**
 
 **Verify the reviewer left the tree alone.** It has `Bash`, so `git stash`, `git checkout`, and builds are all reachable even though `Edit` isn't. After it returns, confirm the state yourself: `git status --porcelain`, `git stash list`, and `git rev-parse HEAD` should match what you had going in. An abandoned stash or a half-restored `git checkout` from the item-2 revert silently un-does part of your fix, and the commits in Phase 8 would then ship the wrong content.
 
@@ -296,22 +301,73 @@ Only one attached draft is allowed per channel, so if a draft already exists the
 
 ### After the PR is created: prompt to tear down the worktree and server
 
-Once the PR exists, this worktree's job is done. **Ask the user to confirm teardown — don't do it unprompted** (they may still want to inspect the branch, re-run a spec, or push a fixup). When they confirm, do it in this order:
+Once the PR exists, this worktree's job is done. **Ask the user to confirm teardown — don't do it unprompted** (they may still want to inspect the branch, re-run a spec, or push a fixup).
+
+#### Teardown is also the final completion gate — audit before you remove anything
+
+**A teardown request is almost always the last step of the whole workflow.** Nothing follows it, so anything still open at that moment stays open forever — and the loose end is invisible a week later, when the branch, the server and this context are all gone. So when the user says "tear down" / "clean up" / "we're done", **first run a completion audit and report it as a short checklist**, then do the mechanical teardown. Cost now: one minute. Cost later: a fix that shipped against a work item nobody ever closed and nobody ever reviewed.
+
+Audit each item by **checking**, not by recalling what you believe you did:
+
+1. **Nothing uncommitted or unpushed.** `git status --porcelain` (clean) and `git log --oneline origin/task-NNNN-short-description..HEAD` (empty). A stray edit from a Phase 7 finding is the classic straggler.
+2. **The Phase 6 regression gate really ran green** — unit / Jest where applicable, and the full e2e suite with a plausible test count. If it was blocked, that must already be stated loudly in the summary and the PR description (Phase 6 rule). Don't let teardown be the place a skipped gate quietly disappears.
+3. **Phase 7 adversarial review ran**, and every hard-block finding (unmet acceptance criterion, failed test-integrity check) is resolved rather than dropped.
+4. **The PR exists, targets `develop`, and the work item is linked to it.** `pr create` does *not* link the task — `az repos pr work-item add` does, and it's routinely forgotten. Verify, don't assume:
+   ```bash
+   az repos pr show --id <PR-ID> --organization https://dev.azure.com/<org> \
+     --query "workItemRefs[].id" -o tsv        # empty = not linked
+   az repos pr work-item add --id <PR-ID> --organization https://dev.azure.com/<org> --work-items <ID>
+   ```
+5. **The original work item's state** — the single most-forgotten item, because the code work feels finished once the PR is up. Fetch the *current* state; a stale memory of having assigned it in Phase 1 says nothing about its state now:
+   ```bash
+   az boards work-item show --id <ID> --organization https://dev.azure.com/<org> \
+     --query 'fields."System.State"' -o tsv
+   ```
+6. **Slack announcement.** Was the `#pull-requests` question asked, and the answer honoured? If the PR exists and was never posted (and the user never declined), the work is effectively invisible — raise it now.
+7. **Everything this task started is accounted for**: background tasks, leased dev servers (including any *extra* instance you leased mid-task), worktrees, and throwaway files written into the repo rather than the scratchpad.
+
+Report the audit as a checklist with a plain ✅ / ❌ per item and the evidence for each. Anything red is surfaced before teardown, not after.
+
+#### Then ask about the two tracker actions — every time
+
+Bundle both into one `AskUserQuestion` call, alongside teardown confirmation:
+
+- **"Mark work item NNNN as Resolved?"** — include its current state in the question so the user can see whether it's already been moved.
+- **"Add a reviewer, and who?"** — a PR nobody is assigned to review can sit for days.
+
+```bash
+# state transition — only on an explicit yes
+az boards work-item update --id <ID> --organization https://dev.azure.com/<org> \
+  --state Resolved --output json
+
+# reviewer: resolve the GUID first — `--reviewers <email>` fails identity lookup and errors out
+az repos pr list --organization https://dev.azure.com/<org> --project "<Project>" \
+  --repository <repo> --query "[].reviewers[].{name:displayName,id:id}" -o table
+az repos pr reviewer add --id <PR-ID> --organization https://dev.azure.com/<org> \
+  --reviewers <GUID> --output json
+az repos pr show --id <PR-ID> --organization https://dev.azure.com/<org> \
+  --query "reviewers[].displayName" -o tsv        # verify it stuck
+```
+GitHub: `gh issue close <ID>` / `gh pr edit <PR> --add-reviewer <user>`. Jira: transition via `acli jira workitem transition`.
+
+**Neither action is ever taken on your own initiative, and neither is implied by the teardown confirmation.** Both are outward-facing — a state change and a review request land in front of the team and other people's queues — so only an explicit yes authorises each one. Equally, **never let a "no" go unrecorded**: if the user declines or defers, say so in the final summary so the open item is visible rather than lost. And don't hold the mechanical teardown hostage to these answers — if the user says "just tear down", tear down and report the tracker items as still open.
+
+When they confirm teardown, do it in this order:
 
 1. **Stop any background tasks you spawned** — poll loops, `run_in_background` commands, file/log watchers, monitors. They may still be hitting the server or holding resources; kill them before tearing down what they point at.
-2. **Stop the leased dev server**, *before* removing the worktree — the running server holds the worktree's files open, and stopping it frees the port + ~2.6 GB RAM. If you used the pool allocator, release the slot so it returns to the pool:
+2. **Stop the leased dev server**, *before* removing the worktree — the running server holds the worktree's files open, and stopping it frees the port + ~2.6 GB RAM. One command does the whole thing (stops the site, offlines the clone, clears the lease, returns the slot to the pool):
    ```bash
-   /home/alk/projects/Legaldesk-V2-Database/scripts/lease-db.sh --release "$INSTANCE"
+   ~/projects/Legaldesk-V2-Database/bin/lddev teardown "$INSTANCE"
    ```
-   Then kill the server process if it's still listening (SIGTERM; escalate to SIGKILL only if it's swap-thrashing and ignores TERM). Confirm the port is free before continuing.
-3. **Don't re-clone the slot's database.** `lease-db.sh` re-clones the slot it hands out, so cleanliness is guaranteed on the way *in*, not on the way out — whatever this task's tests wrote (members, drafts, orders) is wiped when the slot is next leased. Nothing to decide and nothing to ask. (This is deliberate: teardown-side cleanup depended on the previous holder exiting politely, which often didn't happen — a crash, SIGKILL, or forgotten `--release` silently handed its pollution to the next task.) The one thing to remember is the inverse: if you need a slot's data to *survive* a mid-task re-lease, lease with `--reuse` (or `LD_LEASE_CLONE=0`).
+   Confirm the port is free afterwards. (`release` only clears the lease record and leaves the site running — that's for when you never started one.)
+3. **Don't re-clone the slot's database.** The allocator re-clones the slot it hands out, so cleanliness is guaranteed on the way *in*, not on the way out — whatever this task's tests wrote (members, drafts, orders) is wiped when the slot is next leased. Nothing to decide and nothing to ask. (This is deliberate: teardown-side cleanup depended on the previous holder exiting politely, which often didn't happen — a crash, SIGKILL, or forgotten `--release` silently handed its pollution to the next task.) The one thing to remember is the inverse: if you need a slot's data to *survive* a mid-task re-lease, lease with `--reuse` (or `LD_LEASE_CLONE=0`).
 4. **Remove the worktree:**
    ```bash
    git worktree remove ../<repo>-task-NNNN-short-description
    ```
    This also discards the worktree's on-disk Umbraco indexes (`<worktree>/src/LegalDesk.Website/umbraco/Data/TEMP`, ~800 MB), so nothing is orphaned.
 
-Why prompt every time: a leftover leased server pins a port + RAM + index data, and an orphaned worktree leaves several hundred MB to a few GB behind (indexes plus `bin`/`obj`/`node_modules`) — these accumulate across tasks. PR-creation is the natural checkpoint to clear them. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
+Why prompt every time: a leftover leased server pins a port + RAM + index data, and an orphaned worktree leaves several hundred MB to a few GB behind (indexes plus `bin`/`obj`/`node_modules`) — these accumulate across tasks. PR-creation is the natural checkpoint to clear them. And because teardown is where the session ends, it's also the last chance to catch an unresolved work item, an unlinked PR, or a review nobody was asked for — which is why the audit above runs first. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
 
 ### Last step: announce the PR in Slack — only once the user confirms
 
