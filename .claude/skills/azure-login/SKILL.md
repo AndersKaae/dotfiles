@@ -24,6 +24,9 @@ which is the root cause of almost every confusing Azure sign-in symptom:
 
 ## The known-good login recipe
 
+The current password for the Default Directory account is saved in Bitwarden under the
+**"Azure Portal"** entry.
+
 Multiple cached MSAL accounts sharing one username makes `az login` fail even with
 `--tenant` specified, straight into an ambiguous-account error
 (see https://github.com/Azure/azure-cli/issues/20168). `az account clear` alone doesn't
