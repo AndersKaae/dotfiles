@@ -4,4 +4,39 @@
 .config/systemd/user/hyprland-ready.target
 .config/systemd/user/hyprland-ready.target.wants/
 DataGripProjects/legaldesk/queries/
+__pycache__/
+
+# ~/.claude is symlinked into this repo (.claude -> dotfiles/.claude).
+# Only settings.json, settings.local.json, skills/, and select memory files
+# under .claude/projects/-home-anders/memory/ are tracked; everything else
+# below is Claude Code's live runtime state, not a dotfile.
+.claude/.credentials.json
+.claude/.last-cleanup
+.claude/backups/
+.claude/cache/
+.claude/daemon/
+.claude/file-history/
+.claude/history.jsonl
+.claude/jobs/
+.claude/paste-cache/
+.claude/plans/
+.claude/plugins/
+.claude/policy-limits.json
+.claude/remote-settings.json
+.claude/sessions/
+.claude/shell-snapshots/
+.claude/tasks/
+.claude/uploads/
+.claude/projects/*
+!.claude/projects/-home-anders/
+.claude/projects/-home-anders/*
+!.claude/projects/-home-anders/memory/
+
+# ~/.local is symlinked into this repo (.local -> dotfiles/.local).
+# This is app runtime data/caches, not dotfiles.
+.local/share/
+.local/state/
+.local/bin/lddev
+.local/bin/pipx
+.local/bin/sqlcmd
 
