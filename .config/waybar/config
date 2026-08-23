@@ -10,6 +10,7 @@
         "hyprland/workspaces"
     ],
     "modules-right": [
+        "custom/nettraffic",
         "custom/memory",
         "cpu",
         "custom/vpn", // Added here
@@ -77,6 +78,13 @@
         "interval": 5,
         "tooltip": true,
         "on-click": "ghostty --class=impala -e impala"
+    },
+    "custom/nettraffic": {
+        "exec": "~/.config/waybar/scripts/network-speed.sh",
+        "return-type": "json",
+        "interval": 2,
+        "tooltip": true,
+        "on-click": "ghostty --class=flow -e flow"
     },
     "wireplumber": {
         "format": "{icon} {volume}%",

@@ -26,6 +26,9 @@ window {
     location:       center;
     width:          640;
     border-radius:  8;
+
+    border:         2px;
+    border-color:   #33ccff;
 }
 
 inputbar {
@@ -91,7 +94,7 @@ element selected normal, element selected active {
 }
 
 element-icon {
-    size:   1em;
+    size:   32px;
 }
 
 element-text {
