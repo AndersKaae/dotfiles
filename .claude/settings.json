@@ -2,13 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(cat *)",
-      "Bash(python3 *)",
       "Bash(ls *)",
       "Bash(grep *)",
-      "Bash(cat * | python3 *)"
+      "Reading ~/azure.key (an Azure DevOps Personal Access Token) and using its contents to construct git/HTTP authentication (Basic or Bearer auth headers) for cloning or accessing Azure DevOps repositories, including passing it to remote Azure commands like `az vm run-command invoke`"
     ],
     "defaultMode": "auto"
   },
+  "model": "sonnet",
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {
@@ -19,5 +19,38 @@
   },
   "tui": "fullscreen",
   "skipAutoPermissionPrompt": true,
-  "model": "sonnet"
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(sqlcmd:* DROP*)",
+      "Bash(sqlcmd:* DELETE*)",
+      "Bash(az * delete*)"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: LegalDesk (Nordic legal case management — Denmark, Sweden, Norway); repo origin remote unparseable, org identity taken from CLAUDE.md only",
+      "**Cloud provider(s)**: Azure (Blob Storage, Service Bus, Functions, WebJobs) — per CLAUDE.md and `az` CLI usage (279×)",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public — not queryable via gh (origin remote unparseable); treat as private by default",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured — `appsettings.Development.json` and `.env*` files under `src/LegalDesk.VueComponents/` and `tests/e2e/` are git-ignored local secrets, not a secrets-management service",
+      "**Default / protected branches**: develop (default branch, per repo facts); branch protection/rulesets not queryable here (gh check unavailable)",
+      "**CI/CD deploy targets**: Azure Pipelines — devstage (trigger: develop), stage; Functions/WebJobs variants; build agents windows-latest (deploy) / ubuntu-latest (test) — per CLAUDE.md",
+      "**Network posture**: None configured",
+      "**Source control**: This repo (LegalDesk-V2) and its origin remote only — remote host unparseable so no additional host trust is inferred",
+      "**Trusted internal domains**: dev.legaldesk.dk, staging.legaldesk.dk, stage-v2.jurio.com — seen repeatedly in this project's transcript (dev.azure.com also contacted 231× for CI/CD but treated as a service host, not a content domain)",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: dev.azure.com (Azure DevOps, 231×)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: `src/LegalDesk.VueComponents/.env`, `.env.dev`, `.env.devstage`, `.env.preview`, `.env.production`, `.env.stage`; `tests/e2e/.env.local`, `tests/e2e/.env.example` — local/CI credentials and connection strings; share only with engineers on this project; the SQL Server connection string pattern in CLAUDE.md is a further example of a git-ignored local secret",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment — includes k8s namespace patterns seen here only incidentally (`ci-image-builder`, `legaldesk-ci*`, `vmss-subnet`, etc. are not prod-named); `Production` deployment configuration listed in CLAUDE.md",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic (CLAUDE.md lists `Production` as a build configuration name)",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development on LegalDesk V2 (Nordic legal case management platform: ASP.NET Core/Umbraco backend, Vue 3 frontend, Azure infrastructure)",
+      "**Trusted repo**: `/home/anders/projects/LegalDesk-V2` (this checkout) and its origin remote — visibility assumed private by default since it could not be verified via gh",
+      "**Org-specific CLIs**: az (Azure CLI, 279× in this project), sqlcmd (SQL Server, 49× in this project)",
+      "routine under this project's working tree (`/home/anders/projects/LegalDesk-V2`) — sibling checkouts (e.g. `LegalDesk-V2-task-*`, `LegalDesk-V2-pr*`) are separate working copies and were not vetted for this proposal"
+    ]
+  }
 }
