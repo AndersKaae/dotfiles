@@ -8,7 +8,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {

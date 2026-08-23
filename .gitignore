@@ -40,3 +40,7 @@ __pycache__/
 .local/bin/pipx
 .local/bin/sqlcmd
 
+# Per-machine state. The symlink is local; the files it points at (hosts/*.conf)
+# are tracked. Created by .local/bin/hypr-host-link.sh
+.config/hypr/host.conf
+

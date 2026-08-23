@@ -163,10 +163,20 @@ the next lease does that for you. Nothing to decide and nothing to ask.
   `App_Data`/NuCache/Examine. If you don't have your own worktree, create one first
   (see the `task-tdd` skill / git worktree setup).
 - `$LDDEV list` / `$LDDEV status` show the pool and the queue; `$LDDEV list --json` for scripting.
+- **The SQL container is auto-managed.** A lease starts it if stopped (so the very first lease after
+  an idle period is a few seconds slower — a one-time container start + SQL warmup). `teardown`
+  stops it again once the pool is fully idle, so SQL isn't holding RAM when nothing's running. Set
+  `LD_STOP_SQL_WHEN_IDLE=0` to keep it running. `$LDDEV status` reports "pool idle — container
+  stopped" rather than erroring when it's down.
+- **Re-check `$LDDEV list`/`status` immediately before tearing down a specific slot** — the pool is
+  shared and another agent may have leased the slot you think is idle. Tear down by *your*
+  `$INSTANCE`, not a slot you assume is free.
 - `~/projects/Legaldesk-V2-Database/scripts/ensure-db.sh --connections N` checks whether a slot is
   really in use before any destructive DB op (re-clone/offline force-kills connections).
 - Never broad-`pkill` a dev server (`pkill -f LegalDesk.Website` kills other agents' servers *and*
   your own shell). Kill by pid from `ss -ltnp`, or use `teardown`.
+- Each warmed site uses ~2.6 GB RAM; the box is RAM-tight until a hardware upgrade — don't run
+  more instances than you need.
 - The bash allocator (`scripts/lease-db.sh`, `scripts/run-instance.sh`, `scripts/lease-test.sh`) is
   still supported and shares the same state, so a lease taken either way is respected by both. Use
   `lddev` unless you have a specific reason not to: slots leased by the scripts record no owner,
