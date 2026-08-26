@@ -52,7 +52,7 @@ else
 fi
 
 if [[ "$class" == "wifi" ]]; then
-  text="$icon  ${pct}%"
+  text=$(printf "%s  %3d%%" "$icon" "$pct")
 else
   text="$icon"
 fi
