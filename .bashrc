@@ -1,3 +1,7 @@
+# Personal binaries (lddev, sqlcmd, helper scripts) — set before the
+# interactive-only guard below so scripts and login shells see them too.
+export PATH="$HOME/.local/bin:$PATH"
+
 # Enable the subsequent settings only in interactive sessions
 case $- in
   *i*) ;;

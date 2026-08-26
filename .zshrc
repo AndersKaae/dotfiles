@@ -107,3 +107,6 @@ export PATH="/usr/local/share/dotnet:$PATH"
 eval "$(zoxide init zsh)"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export MASTER_KEY='ClarenceT123!'
+
+# lddev and other personal binaries
+export PATH="$HOME/.local/bin:$PATH"
