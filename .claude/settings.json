@@ -52,5 +52,10 @@
       "**Org-specific CLIs**: az (Azure CLI, 279× in this project), sqlcmd (SQL Server, 49× in this project)",
       "routine under this project's working tree (`/home/anders/projects/LegalDesk-V2`) — sibling checkouts (e.g. `LegalDesk-V2-task-*`, `LegalDesk-V2-pr*`) are separate working copies and were not vetted for this proposal"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
   }
 }

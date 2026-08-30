@@ -7,7 +7,7 @@ DataGripProjects/legaldesk/queries/
 __pycache__/
 
 # ~/.claude is symlinked into this repo (.claude -> dotfiles/.claude).
-# Only settings.json, settings.local.json, skills/, and select memory files
+# Only settings.json, settings.local.json, statusline.sh, skills/, and select memory files
 # under .claude/projects/-home-anders/memory/ are tracked; everything else
 # below is Claude Code's live runtime state, not a dotfile.
 .claude/.credentials.json
