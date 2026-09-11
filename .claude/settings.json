@@ -3,8 +3,7 @@
     "allow": [
       "Bash(cat *)",
       "Bash(ls *)",
-      "Bash(grep *)",
-      "Reading ~/azure.key (an Azure DevOps Personal Access Token) and using its contents to construct git/HTTP authentication (Basic or Bearer auth headers) for cloning or accessing Azure DevOps repositories, including passing it to remote Azure commands like `az vm run-command invoke`"
+      "Bash(grep *)"
     ],
     "defaultMode": "auto"
   },
