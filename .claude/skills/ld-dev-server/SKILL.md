@@ -37,10 +37,11 @@ Add `--why` when you need the reasoning behind a verdict rather than the verdict
 
 ```bash
 eval "$($LDDEV lease --purpose 'task 10880 repro' --worktree <path-to-your-worktree>)"
-export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING   # so child processes inherit the lease
+export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING TAILNET_URL   # so child processes inherit the lease
 ```
 
-This sets `INSTANCE`, `PORT`, `HTTP_PORT`, `URL`, `DATABASE`, `CONNSTRING` and guarantees the
+This sets `INSTANCE`, `PORT`, `HTTP_PORT`, `URL`, `DATABASE`, `CONNSTRING` (and `TAILNET_URL`
+where tailscale is usable — see "Two URLs" below) and guarantees the
 database exists and is online. `--purpose` is what makes your slot legible to everyone else in
 `$LDDEV list` — always pass it. Ownership (your session id + pid) is recorded automatically.
 
@@ -62,7 +63,7 @@ background it and collect it when it lands:
 LEASEFILE="$HOME/.cache/lddev-lease-$$.env"
 $LDDEV lease --purpose '<why>' > "$LEASEFILE" 2> "$LEASEFILE.log" &
 # poll (with an explicit upper bound) until INSTANCE= appears; tail the .log for queue position
-eval "$(cat "$LEASEFILE")"; export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING
+eval "$(cat "$LEASEFILE")"; export INSTANCE PORT HTTP_PORT URL DATABASE CONNSTRING TAILNET_URL
 ```
 
 ### Reclaiming happens for you — don't do it by hand
@@ -115,6 +116,34 @@ The `>` truncates the log each launch, so it stays bounded to one run. Then poll
 it returns 200 — cold start is ~45 s, up to 2–3 min if the worktree still needs building (watch
 with `tail -f "$LOG"`). Your site is at `$URL` (e.g. `https://localhost:44334`).
 
+### Two URLs: one for you, one for the human
+
+`lddev run` prints both, and they are not interchangeable:
+
+```
+instance 1 -> https://localhost:44334  DB=UmbracoDb_1  worktree=...
+instance 1 also on https://archlinux.tail1498fb.ts.net:44334  (tailnet only)
+```
+
+- **`$URL` (`https://localhost:<port>`) — use this for everything you do.** curl, Playwright,
+  screenshots, health polling. It is a direct connection to Kestrel.
+- **`$TAILNET_URL` (`https://<magicdns-name>:<same port>`) — hand this to the user** when they
+  want to look at the site on their phone or another machine. It is the same site, proxied by
+  `tailscale serve`, reachable from every device on their tailnet and nowhere else. It carries a
+  real certificate, so no `-k` and no browser warning — which is the whole point on a phone.
+
+Don't route your own traffic through `$TAILNET_URL`: it adds a proxy hop for no benefit, and a
+Playwright run against it is slower and can mask a real failure as a proxy error (a `502` from
+the tailnet name usually just means the site is still starting — poll `$URL` instead).
+
+Publishing is automatic, withdrawn again when the site stops, and never fatal: on a box without
+tailscale — or without `sudo tailscale set --operator=$USER` having been run once — the run says
+why in one line and carries on with localhost only. `LD_TAILNET=0` opts out entirely.
+
+A site killed with `kill -9` (rather than stopped) leaves its tailnet mapping behind; `lddev gc`
+reports those and `lddev gc --prune` withdraws them. Mappings the user published themselves are
+never touched.
+
 `lddev run` stays the parent of `dotnet run` and heartbeats your lease every 60 s, so a slot whose
 site is merely rebuilding is no longer mistaken for an abandoned one. Keep it running for the life
 of the site; if you must restart, run it again with the same `$INSTANCE`.
@@ -125,6 +154,9 @@ The Playwright harness targets `BASE_URL`, which defaults to `https://localhost:
 `tests/e2e/.env.local`). Your leased site is on a **different** port, so you must point the run at
 `$URL` — otherwise the suite silently tests whatever sits on 44333 (often a *different* leased
 instance) and a confusing **subset** of specs fails.
+
+Point it at `$URL`, not `$TAILNET_URL` — the tailnet name resolves and would "work", just
+slower and through a proxy that turns a slow start into a confusing 502.
 
 **Pass the port inline — never `export BASE_URL`.** It is a single process-global; a global export
 (or editing `.env.local`) makes parallel instances clobber each other.
