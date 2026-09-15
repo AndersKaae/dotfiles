@@ -1,14 +1,22 @@
 ---
 name: ado-cleanup
-description: Sweep Azure DevOps for cleanup work — a table of every open pull request classified by what is actually blocking it (merge conflicts, unresolved review comments, failed tests, green-and-approved-but-unmerged), plus the work items assigned to you judged as genuinely open or merely forgotten. Offers a checklist and dispatches agents to fix conflicts, answer review comments, and close shipped tasks back to their creator. Use when the user asks to "clean up devops", "what's blocking our PRs", "which PRs are ready to merge", "PR status", "are my tasks still open", "did we forget to close anything", or wants a sweep of outstanding PRs and tickets.
+description: Sweep Azure DevOps for cleanup work — a table of your own open pull requests classified by what is actually blocking each one (merge conflicts, unresolved review comments, failed tests, green-and-approved-but-unmerged), plus the work items assigned to you judged as genuinely open or merely forgotten. Offers a checklist and dispatches agents to fix conflicts, answer review comments, and close shipped tasks back to their creator. Use when the user asks to "clean up devops", "what's blocking our PRs", "which PRs are ready to merge", "PR status", "are my tasks still open", "did we forget to close anything", or wants a sweep of outstanding PRs and tickets.
 ---
 
 # PR board
 
-One read-only sweep of every open PR in the repo, bucketed by the single thing
-standing between it and `develop`. The point is to turn "we have a pile of open
-PRs" into "these three need a rebase, these two need you to answer Biraj, and
-this one has been green and approved for eleven days."
+One read-only sweep of **the user's own** open PRs, bucketed by the single thing
+standing between each one and `develop`. The point is to turn "we have a pile of
+open PRs" into "these three need a rebase, these two need you to answer Biraj,
+and this one has been green and approved for eleven days."
+
+**Scope is the user's PRs, always.** The board filters to `AZDO_USER`
+(`anders@legaldesk.dk`) by default. A colleague's PR is not the user's cleanup
+work — we cannot rebase it, cannot answer its threads, and must not merge it, so
+listing it only adds an "MERGE IT" the user will act on for someone else's
+branch. `--all-authors` exists for the rare "what is the whole team sitting on"
+question; never reach for it on an ordinary sweep, and when it is used, say
+explicitly that the colleagues' rows are report-only.
 
 ## Run it
 
@@ -23,12 +31,15 @@ per-bucket breakdown. Show the user the table; don't paraphrase it into prose.
 |---|---|
 | `--json` | raw rows, for filtering or follow-up analysis |
 | `--drafts` | include draft PRs (excluded by default — a draft is not waiting on anyone) |
-| `--author anders` | substring match on display name or email |
+| `--author thamis` | override whose PRs — substring on display name or email |
+| `--all-authors` | drop the owner filter entirely (report-only; see above) |
 | `--bucket ready` | one bucket only |
 
 Defaults come from env vars, so the script works on any ADO repo:
 `AZDO_ORG` (`legaldesk`), `AZDO_PROJECT` (`Legal Desk`), `AZDO_REPO`
-(`LegalDesk-V2`), `AZDO_PAT` (falls back to `~/azure.key`).
+(`LegalDesk-V2`), `AZDO_USER` (`anders@legaldesk.dk`), `AZDO_PAT` (falls back to
+`~/azure.key`). The table header names the scope it ran under — read it before
+quoting a count.
 
 ## The buckets, in priority order
 
@@ -46,6 +57,24 @@ A PR is listed under its most urgent blocker, but the **Blocked by** column show
 | `needs-review` | green but zero approvals | chase a reviewer |
 | `stuck-queue` | build queued/running >12h | the agent pool is backed up, not the PR |
 | `running` | build in flight <12h | wait |
+
+### `ready` is reported, never merged for you
+
+The skill never completes a PR. `MERGE IT` is an instruction to the user, not an
+action on the checklist — say so when the bucket is non-empty, so the imperative
+does not read as something that was silently skipped.
+
+Watch for a `ready` row that also says **auto-complete on**. That PR should have
+merged itself; if it is still sitting there days later, a blocking policy is
+parked at `pending` (a canceled or never-queued build posts `pending` and then
+403s the completion) and nobody is coming to fix it. Treat an aged
+auto-complete-on row as a thing to diagnose, not a thing to merge — read its
+policy evaluations before telling the user it is ready:
+
+```bash
+PAT=$(tr -d '\n' < ~/azure.key); ORG=https://dev.azure.com/legaldesk
+curl -s -u :"$PAT" "$ORG/Legal%20Desk/_apis/policy/evaluations?artifactId=vstfs:///CodeReview/CodeReviewId/<PROJECT_ID>/<PR_ID>&api-version=7.1-preview.1"
+```
 
 ### `e2e-only` is the bucket that matters here
 
@@ -301,9 +330,10 @@ dispatched in parallel. All three "succeeded", but the two tips ended up holding
 Before dispatching:
 
 - **Only the user's own PRs.** `anders@legaldesk.dk` — rebasing or pushing to a
-  colleague's branch is an outward-facing change on someone else's work. List a
-  colleague's PR in the report and leave it; only dispatch on it if the user
-  names that PR explicitly.
+  colleague's branch is an outward-facing change on someone else's work. The
+  board already filters to the user, so this should be automatic; if a
+  colleague's PR reached the dispatch list, the filter was overridden and that is
+  a bug — stop and ask rather than dispatching.
 - **More than six PRs selected?** Confirm the scale before spawning.
 - Feed each agent the row from `--json`: `id`, `source`, `title`, `url`, and for
   comments the full `unresolved` array (it carries `file`, `line`, and the whole

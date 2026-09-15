@@ -1,6 +1,6 @@
 ---
 name: task-tdd
-description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits, and on teardown audit that everything was concluded (work item resolved, reviewer assigned, PR linked). Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
+description: Resolve a tracked work item (Azure DevOps, GitHub Issue, Jira, etc.) using a strict test-driven workflow — fetch the task, agree on scope, scope the test, create a git worktree branched off develop, write a failing test that captures the bug or feature, verify it fails for the right reason, implement the fix, verify it turns green, run an adversarial review of the diff against the task, then commit and push as separate test/fix commits, and on teardown audit that everything was concluded (work item resolved and handed back to its creator, PR linked). Use when the user references a work-item URL or task number and wants to address it via TDD ("let's fix task X using TDD", "do this with a failing test first", "TDD this", "address ticket Y test-first").
 ---
 
 # Task TDD workflow
@@ -321,29 +321,41 @@ Audit each item by **checking**, not by recalling what you believe you did:
      --query "workItemRefs[].id" -o tsv        # empty = not linked
    az repos pr work-item add --id <PR-ID> --organization https://dev.azure.com/<org> --work-items <ID>
    ```
-5. **The original work item's state** — the single most-forgotten item, because the code work feels finished once the PR is up. Fetch the *current* state; a stale memory of having assigned it in Phase 1 says nothing about its state now:
+5. **The original work item's state and assignee** — the single most-forgotten item, because the code work feels finished once the PR is up. A finished task ends up **Resolved and assigned back to its creator**. Fetch the *current* values; a stale memory of having assigned it in Phase 1 says nothing about where it stands now:
    ```bash
    az boards work-item show --id <ID> --organization https://dev.azure.com/<org> \
-     --query 'fields."System.State"' -o tsv
+     --query 'fields.{state:"System.State",creator:"System.CreatedBy".uniqueName,assignee:"System.AssignedTo".uniqueName}' -o json
    ```
 6. **Slack announcement.** Was the `#pull-requests` question asked, and the answer honoured? If the PR exists and was never posted (and the user never declined), the work is effectively invisible — raise it now.
 7. **Everything this task started is accounted for**: background tasks, leased dev servers (including any *extra* instance you leased mid-task), worktrees, and throwaway files written into the repo rather than the scratchpad.
 
 Report the audit as a checklist with a plain ✅ / ❌ per item and the evidence for each. Anything red is surfaced before teardown, not after.
 
-#### Then ask about the two tracker actions — every time
+#### Then ask about the work item — and, only in the colleague-bug case, a reviewer
 
-Bundle both into one `AskUserQuestion` call, alongside teardown confirmation:
+Put the one standing question into an `AskUserQuestion` call alongside teardown confirmation:
 
-- **"Mark work item NNNN as Resolved?"** — include its current state in the question so the user can see whether it's already been moved.
-- **"Add a reviewer, and who?"** — a PR nobody is assigned to review can sit for days.
+- **"Mark work item NNNN as Resolved and assign it back to \<creator\>?"** — include its current state in the question so the user can see whether it's already been moved, and name the creator you resolved.
+
+Resolving and reassigning are **one action, not two**: a task that's done goes back to whoever raised it, so they can verify it and close it. Read the creator off the work item rather than guessing — it is often *not* the current assignee:
 
 ```bash
-# state transition — only on an explicit yes
-az boards work-item update --id <ID> --organization https://dev.azure.com/<org> \
-  --state Resolved --output json
+az boards work-item show --id <ID> --organization https://dev.azure.com/<org> \
+  --query 'fields.{state:"System.State",creator:"System.CreatedBy".uniqueName,assignee:"System.AssignedTo".uniqueName}' -o json
+```
 
-# reviewer: resolve the GUID first — `--reviewers <email>` fails identity lookup and errors out
+**Do not ask about a reviewer.** The team's rule is that PRs go up unassigned; whoever picks it up from `#pull-requests` reviews it. Asking every time is noise, and assigning someone unprompted puts work in a colleague's queue they didn't agree to.
+
+**The one exception: the fix corrects a bug a colleague introduced.** Then that colleague is the natural reviewer — they have the context, and they should see the correction to their own change. Establish it from evidence, not a hunch: `git log`/`git blame` on the lines your fix touches, or the PR that shipped the regression. When that's the case (and only then), add a second question to the same call — **"Assign <name> as reviewer? (their PR <NNNN> introduced this)"** — and add them only on an explicit yes.
+
+```bash
+# state transition + hand-back — one update, only on an explicit yes
+az boards work-item update --id <ID> --organization https://dev.azure.com/<org> \
+  --state Resolved --assigned-to "<creator-email>" --output json
+az boards work-item show --id <ID> --organization https://dev.azure.com/<org> \
+  --query 'fields.{state:"System.State",assignee:"System.AssignedTo".uniqueName}' -o json   # verify both stuck
+
+# reviewer (colleague-bug case only): resolve the GUID first — `--reviewers <email>` fails identity lookup and errors out
 az repos pr list --organization https://dev.azure.com/<org> --project "<Project>" \
   --repository <repo> --query "[].reviewers[].{name:displayName,id:id}" -o table
 az repos pr reviewer add --id <PR-ID> --organization https://dev.azure.com/<org> \
@@ -351,9 +363,11 @@ az repos pr reviewer add --id <PR-ID> --organization https://dev.azure.com/<org>
 az repos pr show --id <PR-ID> --organization https://dev.azure.com/<org> \
   --query "reviewers[].displayName" -o tsv        # verify it stuck
 ```
-GitHub: `gh issue close <ID>` / `gh pr edit <PR> --add-reviewer <user>`. Jira: transition via `acli jira workitem transition`.
+If `az boards` returns TF400813 ("not authorized"), don't conclude the hand-back is impossible — the PAT in `~/azure.key` still reads *and writes* work items over the REST API (`PATCH .../_apis/wit/workitems/<ID>?api-version=7.0`, `Content-Type: application/json-patch+json`). See `~/.claude/projects/<project>/memory/reference_az_boards_cli_tf400813.md`.
 
-**Neither action is ever taken on your own initiative, and neither is implied by the teardown confirmation.** Both are outward-facing — a state change and a review request land in front of the team and other people's queues — so only an explicit yes authorises each one. Equally, **never let a "no" go unrecorded**: if the user declines or defers, say so in the final summary so the open item is visible rather than lost. And don't hold the mechanical teardown hostage to these answers — if the user says "just tear down", tear down and report the tracker items as still open.
+GitHub: `gh issue close <ID> && gh issue edit <ID> --add-assignee <creator>` / `gh pr edit <PR> --add-reviewer <user>`. Jira: transition via `acli jira workitem transition`, then reassign to the reporter.
+
+**Neither action is ever taken on your own initiative, and neither is implied by the teardown confirmation.** Both are outward-facing — a resolve-and-hand-back lands the task in someone else's queue, and a review request lands in front of the team — so only an explicit yes authorises each one. Equally, **never let a "no" go unrecorded**: if the user declines or defers, say so in the final summary so the open item is visible rather than lost. And don't hold the mechanical teardown hostage to these answers — if the user says "just tear down", tear down and report the tracker items as still open.
 
 When they confirm teardown, do it in this order:
 
@@ -370,7 +384,7 @@ When they confirm teardown, do it in this order:
    ```
    This also discards the worktree's on-disk Umbraco indexes (`<worktree>/src/LegalDesk.Website/umbraco/Data/TEMP`, ~800 MB), so nothing is orphaned.
 
-Why prompt every time: a leftover leased server pins a port + RAM + index data, and an orphaned worktree leaves several hundred MB to a few GB behind (indexes plus `bin`/`obj`/`node_modules`) — these accumulate across tasks. PR-creation is the natural checkpoint to clear them. And because teardown is where the session ends, it's also the last chance to catch an unresolved work item, an unlinked PR, or a review nobody was asked for — which is why the audit above runs first. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
+Why prompt every time: a leftover leased server pins a port + RAM + index data, and an orphaned worktree leaves several hundred MB to a few GB behind (indexes plus `bin`/`obj`/`node_modules`) — these accumulate across tasks. PR-creation is the natural checkpoint to clear them. And because teardown is where the session ends, it's also the last chance to catch an unresolved work item or an unlinked PR — which is why the audit above runs first. (See `~/.claude/projects/<project>/memory/reference_multi_instance_dev_servers.md` and the `ld-dev-server` skill.)
 
 ### Last step: announce the PR in Slack — only once the user confirms
 

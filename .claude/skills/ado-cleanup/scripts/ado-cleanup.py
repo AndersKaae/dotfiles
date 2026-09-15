@@ -20,6 +20,7 @@ from datetime import datetime, timezone
 ORG = os.environ.get("AZDO_ORG", "legaldesk")
 PROJECT = os.environ.get("AZDO_PROJECT", "Legal Desk")
 REPO = os.environ.get("AZDO_REPO", "LegalDesk-V2")
+USER = os.environ.get("AZDO_USER", "anders@legaldesk.dk")
 BASE = f"https://dev.azure.com/{ORG}/{urllib.parse.quote(PROJECT)}/_apis"
 WEB = f"https://dev.azure.com/{ORG}/{urllib.parse.quote(PROJECT)}/_git/{REPO}"
 
@@ -306,10 +307,11 @@ def state_cell(r):
     return "; ".join(parts)
 
 
-def markdown(rows):
+def markdown(rows, scope=None):
     order = {b: i for i, (b, _, _) in enumerate(BUCKETS)}
     rows = sorted(rows, key=lambda r: (order[r["bucket"]], -(r["age"] or 0)))
-    out = [f"## Open PRs — {ORG}/{PROJECT}/{REPO} ({len(rows)})", ""]
+    whose = f" — {scope}'s PRs only" if scope else " — ALL authors"
+    out = [f"## Open PRs — {ORG}/{PROJECT}/{REPO}{whose} ({len(rows)})", ""]
     out.append("| PR | Title | Author | Age | Blocked by | Approvals | Action |")
     out.append("|---|---|---|---|---|---|---|")
     for r in rows:
@@ -347,7 +349,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true", help="emit raw JSON")
     ap.add_argument("--drafts", action="store_true", help="include draft PRs")
-    ap.add_argument("--author", help="filter by author substring (case-insensitive)")
+    ap.add_argument("--author", help="filter by author substring (case-insensitive); "
+                                     f"defaults to {USER}")
+    ap.add_argument("--all-authors", action="store_true",
+                    help="include colleagues' PRs too (report-only — we never "
+                         "act on someone else's branch)")
     ap.add_argument("--bucket", help="only PRs whose TOP blocker is this bucket")
     ap.add_argument("--blocker", help="only PRs carrying this blocker ANYWHERE "
                                       "(what dispatch should select on)")
@@ -357,10 +363,11 @@ def main():
     args = ap.parse_args()
 
     prs = list_prs(args.drafts)
-    if args.author:
+    who = args.author or (None if args.all_authors else USER)
+    if who:
         prs = [p for p in prs
-               if args.author.lower() in p["createdBy"]["displayName"].lower()
-               or args.author.lower() in p["createdBy"].get("uniqueName", "").lower()]
+               if who.lower() in p["createdBy"]["displayName"].lower()
+               or who.lower() in p["createdBy"].get("uniqueName", "").lower()]
     with ThreadPoolExecutor(max_workers=8) as pool:
         rows = list(pool.map(classify, prs))
     if args.bucket:
@@ -377,7 +384,7 @@ def main():
                     print(f"  {depth + 1}. {r['id']} ({r['source']})"
                           + ("  <- base" if depth == 0 else "  <- rebase after the one above"))
         return
-    print(json.dumps(rows, indent=2) if args.json else markdown(rows))
+    print(json.dumps(rows, indent=2) if args.json else markdown(rows, who))
 
 
 if __name__ == "__main__":
